@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" width="780" role="img" aria-label="Catalog by category donut chart">
+  <rect width="780" height="340" rx="18" fill="#1d150c"/>
+  <text x="32" y="44" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="19" font-weight="700" fill="#f4ead8">The catalog by category</text>
+  <text x="32" y="66" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#c9b99a">1,528 live GitHub repos indexed on cyrus.ai - snapshot 03 Oct 2026</text>
+
+  <g transform="translate(180,200) rotate(-90)">
+    <circle r="88" fill="none" stroke="#2a1c0e" stroke-width="46"/>
+    <circle r="88" fill="none" stroke="#d9a441" stroke-width="46" stroke-dasharray="348.0 204.3" stroke-dashoffset="0"/>
+    <circle r="88" fill="none" stroke="#c9683f" stroke-width="46" stroke-dasharray="87.9 464.4" stroke-dashoffset="-348.0"/>
+    <circle r="88" fill="none" stroke="#7f9a4e" stroke-width="46" stroke-dasharray="84.0 468.3" stroke-dashoffset="-435.9"/>
+    <circle r="88" fill="none" stroke="#4e8f6b" stroke-width="46" stroke-dasharray="18.1 534.2" stroke-dashoffset="-519.9"/>
+    <circle r="88" fill="none" stroke="#a1739b" stroke-width="46" stroke-dasharray="15.2 537.1" stroke-dashoffset="-538.0"/>
+  </g>
+  <text x="180" y="196" text-anchor="middle" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="30" font-weight="800" fill="#f4ead8">1,528</text>
+  <text x="180" y="216" text-anchor="middle" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#c9b99a">repos</text>
+
+  <g font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="14">
+    <rect x="400" y="98" width="14" height="14" rx="4" fill="#d9a441"/>
+    <text x="424" y="110" fill="#f4ead8">Dev agents &amp; programs</text>
+    <text x="742" y="110" text-anchor="end" fill="#d9a441" font-weight="700">961 - 62.9%</text>
+
+    <rect x="400" y="142" width="14" height="14" rx="4" fill="#c9683f"/>
+    <text x="424" y="154" fill="#f4ead8">Agent skills</text>
+    <text x="742" y="154" text-anchor="end" fill="#c9683f" font-weight="700">243 - 15.9%</text>
+
+    <rect x="400" y="186" width="14" height="14" rx="4" fill="#7f9a4e"/>
+    <text x="424" y="198" fill="#f4ead8">MCP servers</text>
+    <text x="742" y="198" text-anchor="end" fill="#7f9a4e" font-weight="700">232 - 15.2%</text>
+
+    <rect x="400" y="230" width="14" height="14" rx="4" fill="#4e8f6b"/>
+    <text x="424" y="242" fill="#f4ead8">AGENTS.md &amp; design.md</text>
+    <text x="742" y="242" text-anchor="end" fill="#4e8f6b" font-weight="700">50 - 3.3%</text>
+
+    <rect x="400" y="274" width="14" height="14" rx="4" fill="#a1739b"/>
+    <text x="424" y="286" fill="#f4ead8">Cursor rules</text>
+    <text x="742" y="286" text-anchor="end" fill="#a1739b" font-weight="700">42 - 2.7%</text>
+  </g>
+</svg>

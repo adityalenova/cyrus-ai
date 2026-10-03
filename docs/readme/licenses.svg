@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" width="780" role="img" aria-label="License mix donut chart">
+  <rect width="780" height="340" rx="18" fill="#1d150c"/>
+  <text x="32" y="44" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="19" font-weight="700" fill="#f4ead8">How the catalog is licensed</text>
+  <text x="32" y="66" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#c9b99a">Nearly 7 in 10 indexed repos ship permissive licenses - safe to study, fork and build on</text>
+
+  <g transform="translate(180,200) rotate(-90)">
+    <circle r="80" fill="none" stroke="#2a1c0e" stroke-width="44"/>
+    <circle r="80" fill="none" stroke="#d9a441" stroke-width="44" stroke-dasharray="226.3 276.3" stroke-dashoffset="0"/>
+    <circle r="80" fill="none" stroke="#c9683f" stroke-width="44" stroke-dasharray="122.7 379.9" stroke-dashoffset="-226.3"/>
+    <circle r="80" fill="none" stroke="#7f9a4e" stroke-width="44" stroke-dasharray="79.6 423.0" stroke-dashoffset="-349.0"/>
+    <circle r="80" fill="none" stroke="#4e8f6b" stroke-width="44" stroke-dasharray="21.1 481.6" stroke-dashoffset="-428.6"/>
+    <circle r="80" fill="none" stroke="#a1739b" stroke-width="44" stroke-dasharray="14.5 488.2" stroke-dashoffset="-449.7"/>
+    <circle r="80" fill="none" stroke="#8b7a63" stroke-width="44" stroke-dasharray="38.5 464.2" stroke-dashoffset="-464.2"/>
+  </g>
+  <text x="180" y="196" text-anchor="middle" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="800" fill="#f4ead8">69%</text>
+  <text x="180" y="216" text-anchor="middle" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="11" fill="#c9b99a">permissive</text>
+
+  <g font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="14">
+    <rect x="400" y="82" width="14" height="14" rx="4" fill="#d9a441"/>
+    <text x="424" y="94" fill="#f4ead8">MIT</text>
+    <text x="742" y="94" text-anchor="end" fill="#d9a441" font-weight="700">688 - 45.0%</text>
+
+    <rect x="400" y="122" width="14" height="14" rx="4" fill="#c9683f"/>
+    <text x="424" y="134" fill="#f4ead8">Apache-2.0</text>
+    <text x="742" y="134" text-anchor="end" fill="#c9683f" font-weight="700">373 - 24.4%</text>
+
+    <rect x="400" y="162" width="14" height="14" rx="4" fill="#7f9a4e"/>
+    <text x="424" y="174" fill="#f4ead8">Custom / fair-code</text>
+    <text x="742" y="174" text-anchor="end" fill="#7f9a4e" font-weight="700">242 - 15.8%</text>
+
+    <rect x="400" y="202" width="14" height="14" rx="4" fill="#4e8f6b"/>
+    <text x="424" y="214" fill="#f4ead8">AGPL-3.0</text>
+    <text x="742" y="214" text-anchor="end" fill="#4e8f6b" font-weight="700">64 - 4.2%</text>
+
+    <rect x="400" y="242" width="14" height="14" rx="4" fill="#a1739b"/>
+    <text x="424" y="254" fill="#f4ead8">GPL-3.0</text>
+    <text x="742" y="254" text-anchor="end" fill="#a1739b" font-weight="700">44 - 2.9%</text>
+
+    <rect x="400" y="282" width="14" height="14" rx="4" fill="#8b7a63"/>
+    <text x="424" y="294" fill="#f4ead8">Other licenses</text>
+    <text x="742" y="294" text-anchor="end" fill="#8b7a63" font-weight="700">117 - 7.7%</text>
+  </g>
+</svg>

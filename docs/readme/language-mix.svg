@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 430" width="740" role="img" aria-label="Language mix bar chart">
+  <rect width="740" height="430" rx="18" fill="#1d150c"/>
+  <text x="32" y="44" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="19" font-weight="700" fill="#f4ead8">What the catalog is written in</text>
+  <text x="32" y="66" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#c9b99a">Primary language of each of the 1,528 indexed repos - top 8 shown</text>
+
+  <g font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="14">
+    <text x="168" y="110" text-anchor="end" fill="#f4ead8">Python</text>
+    <rect x="180" y="96" width="400" height="20" rx="6" fill="#d9a441"/>
+    <text x="590" y="111" fill="#d9a441" font-weight="700">533</text>
+
+    <text x="168" y="146" text-anchor="end" fill="#f4ead8">TypeScript</text>
+    <rect x="180" y="132" width="230" height="20" rx="6" fill="#c9683f"/>
+    <text x="420" y="147" fill="#c9683f" font-weight="700">307</text>
+
+    <text x="168" y="182" text-anchor="end" fill="#f4ead8">Go</text>
+    <rect x="180" y="168" width="95" height="20" rx="6" fill="#7f9a4e"/>
+    <text x="285" y="183" fill="#7f9a4e" font-weight="700">126</text>
+
+    <text x="168" y="218" text-anchor="end" fill="#f4ead8">JavaScript</text>
+    <rect x="180" y="204" width="83" height="20" rx="6" fill="#4e8f6b"/>
+    <text x="273" y="219" fill="#4e8f6b" font-weight="700">111</text>
+
+    <text x="168" y="254" text-anchor="end" fill="#f4ead8">Rust</text>
+    <rect x="180" y="240" width="56" height="20" rx="6" fill="#a1739b"/>
+    <text x="246" y="255" fill="#a1739b" font-weight="700">75</text>
+
+    <text x="168" y="290" text-anchor="end" fill="#f4ead8">Jupyter Notebook</text>
+    <rect x="180" y="276" width="40" height="20" rx="6" fill="#d9a441"/>
+    <text x="230" y="291" fill="#d9a441" font-weight="700">53</text>
+
+    <text x="168" y="326" text-anchor="end" fill="#f4ead8">Shell</text>
+    <rect x="180" y="312" width="29" height="20" rx="6" fill="#c9683f"/>
+    <text x="219" y="327" fill="#c9683f" font-weight="700">39</text>
+
+    <text x="168" y="362" text-anchor="end" fill="#f4ead8">C++</text>
+    <rect x="180" y="348" width="26" height="20" rx="6" fill="#7f9a4e"/>
+    <text x="216" y="363" fill="#7f9a4e" font-weight="700">34</text>
+  </g>
+
+  <text x="32" y="406" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8b7a63">The other 250 repos span 40+ languages (C, Java, MDX, HTML, Kotlin...), 42 of them untagged on GitHub</text>
+</svg>

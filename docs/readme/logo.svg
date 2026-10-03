@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 76" width="300" role="img" aria-label="cyrus.ai">
+  <rect x="6" y="8" width="60" height="60" rx="16" fill="#2a1c0e"/>
+  <g transform="translate(36,38)">
+    <circle r="17" fill="none" stroke="#d9a441" stroke-width="7" stroke-dasharray="80 27" stroke-linecap="round" transform="rotate(-140)"/>
+    <circle r="4.5" fill="#f4ead8"/>
+  </g>
+  <text x="80" y="51" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="34" font-weight="700" letter-spacing="-0.5">
+    <tspan fill="#2a1c0e">cyrus</tspan><tspan fill="#c07f1f">.ai</tspan>
+  </text>
+</svg>
