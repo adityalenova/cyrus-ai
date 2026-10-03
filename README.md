@@ -1,41 +1,67 @@
 <p align="center">
-  <img src="docs/readme/logo.svg" alt="cyrus.ai" width="300"/>
+  <img src="docs/readme/hero.svg" alt="cyrus.ai - agent skills, open-source programs and hackathons in one self-refreshing catalog" width="100%"/>
 </p>
 
 <h1 align="center">cyrus.ai</h1>
 
 <p align="center">
-  <a href="https://cyrus-agent.vercel.app"><img src="https://img.shields.io/badge/live_site-cyrus--agent.vercel.app-d9a441?style=flat-square" alt="Live site"/></a>
-  <a href="https://github.com/adityalenova/cyrus-ai"><img src="https://img.shields.io/badge/repos_indexed-1%2C528-c9683f?style=flat-square" alt="Repos indexed"/></a>
-  <a href="https://github.com/adityalenova/cyrus-ai"><img src="https://img.shields.io/badge/stars_tracked-33.8M-7f9a4e?style=flat-square" alt="Stars tracked"/></a>
-  <a href="https://github.com/adityalenova/cyrus-ai"><img src="https://img.shields.io/badge/hackathons_listed-161-4e8f6b?style=flat-square" alt="Hackathons listed"/></a>
-  <img src="https://img.shields.io/badge/data_snapshot-03_Oct_2026-a1739b?style=flat-square" alt="Data snapshot"/>
+  <b>The developer-program platform.</b> 1,528 AI-agent repos, 5,238 open-source program projects and 161 live hackathons - one warm, fast, self-refreshing catalog with <b>real OAuth sign-in</b> and <b>zero backend to host</b>.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React_19-149eca?style=flat-square&logo=react&logoColor=white" alt="React 19"/>
-  <img src="https://img.shields.io/badge/TypeScript_strict-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/Tailwind_v4-06b6d4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/>
-  <img src="https://img.shields.io/badge/Vite_6-646cff?style=flat-square&logo=vite&logoColor=white" alt="Vite"/>
-  <img src="https://img.shields.io/badge/deployed-Vercel-000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel"/>
+  <a href="https://cyrus-agent.vercel.app"><img src="https://img.shields.io/badge/%E2%96%B6_LIVE_SITE-cyrus--agent.vercel.app-d9a441?style=for-the-badge" alt="Live site"/></a>
+  <a href="https://github.com/adityalenova/cyrus-ai"><img src="https://img.shields.io/badge/repos_indexed-1%2C528-c9683f?style=for-the-badge" alt="Repos indexed"/></a>
+  <a href="https://github.com/adityalenova/cyrus-ai"><img src="https://img.shields.io/badge/stars_tracked-33.8M-7f9a4e?style=for-the-badge" alt="Stars tracked"/></a>
+  <a href="https://github.com/adityalenova/cyrus-ai"><img src="https://img.shields.io/badge/hackathons-161-4e8f6b?style=for-the-badge" alt="Hackathons"/></a>
+  <img src="https://img.shields.io/badge/snapshot-03_Oct_2026-a1739b?style=for-the-badge" alt="Data snapshot"/>
 </p>
 
-A developer-program platform: it turns the scattered world of **AI-agent tooling, open-source programs and hackathons** into one browsable, self-refreshing catalog with real sign-in. Built as a fully static Vite + React 19 SPA - no backend to host, yet it tracks over half a million data points pulled straight from GitHub, Devpost and Google Summer of Code archives.
+<p align="center">
+  <img src="https://img.shields.io/badge/React%2019-149eca?style=flat-square&logo=react&logoColor=white" alt="React 19"/>
+  <img src="https://img.shields.io/badge/TypeScript%20strict-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript"/>
+  <img src="https://img.shields.io/badge/Tailwind%20v4-06b6d4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind CSS"/>
+  <img src="https://img.shields.io/badge/Vite%206-646cff?style=flat-square&logo=vite&logoColor=white" alt="Vite"/>
+  <img src="https://img.shields.io/badge/Router%20v7-f59e0b?style=flat-square&logo=reactrouter&logoColor=black" alt="React Router"/>
+  <img src="https://img.shields.io/badge/hosted%20on-Vercel-000?style=flat-square&logo=vercel&logoColor=white" alt="Vercel"/>
+  <img src="https://img.shields.io/badge/auth-GitHub%20PKCE-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub PKCE"/>
+  <img src="https://img.shields.io/badge/auth-Google%20OIDC-4285F4?style=flat-square&logo=google&logoColor=white" alt="Google OIDC"/>
+</p>
+
+<p align="center">
+  <table>
+    <tr>
+      <td align="center"><b>🚀 Start</b><br/><a href="https://cyrus-agent.vercel.app">Open the site</a><br/><a href="#-quick-start">Run locally</a><br/><a href="#-deploy-on-vercel">Deploy</a></td>
+      <td align="center"><b>🧭 Explore</b><br/><a href="https://cyrus-agent.vercel.app/projects">Skills catalog</a><br/><a href="https://cyrus-agent.vercel.app/hackathons">Hackathon board</a><br/><a href="https://cyrus-agent.vercel.app/opensource">Programs explorer</a></td>
+      <td align="center"><b>🔌 Data &amp; auth</b><br/><a href="#%EF%B8%8F-architecture">Refresh pipeline</a><br/><a href="#-sign-in-actually-real">OAuth design</a><br/><a href="#-quick-start">Run locally</a></td>
+    </tr>
+  </table>
+</p>
 
 ---
 
-## By the numbers
+## 💥 The promise
 
-| Section | What the site holds | Where the data comes from |
-|---|---|---|
-| Agent-skills catalog | **1,528 repos** · 33.79M stars · 4.61M forks | GitHub REST via `gh api`, re-fetched by `npm run refresh` |
-| Open-source programs | **5,238 GSoC projects** (2021-2025) · 305 mentoring orgs · 3,075 tech tags | Google Summer of Code archive JSON |
-| Program deep dives | **8 programs** with stats and charts (GSoC, GSSoC, LFX, Outreachy, Eclipse SoC, MLH, KDE, Hacktoberfest) | curated in `src/data/programDetails.ts` |
-| Hackathon board | **161 events** - 18 curated + 143 live Devpost listings with deadlines and prize pools | `devpost.com/api/hackathons` |
-| Organizations | **43 org pages** with live follower, repo and star intel | `scripts/fetch-orgs.mjs` |
-| Learning resources | **58 first-party resources** from the companies shipping the tools | curated |
+> **Works like a product, ships like a static site.**
 
-## The catalog at a glance
+- **One catalog for the whole agent boom** - skills, Cursor rules, AGENTS.md files, MCP servers and dev agents: all 1,528 of them, filterable, with their real GitHub stats.
+- **Programs, not guesswork** - 5,238 Google Summer of Code projects (2021-2025) across 305 mentoring orgs with 3,075 tech tags, plus deep-dives on 8 programs (GSoC, GSSoC, LFX, Outreachy, Eclipse SoC, MLH, KDE, Hacktoberfest).
+- **Never miss a build window** - 161 hackathons (18 curated + 143 live Devpost listings) with deadlines, prize pools and prep playbooks.
+- **Real sign-in** - Google OIDC and GitHub OAuth with PKCE, verified end to end. No fake "demo mode".
+- **No database, no server** - typed JSON snapshots checked into the repo, regenerated by scripts. The site boots instantly and deploys as pure static files.
+
+## 📊 By the numbers
+
+| Section | Size | Source of truth |
+|---|---:|---|
+| Agent-skills catalog | **1,528 repos** · 33.79M stars · 4.61M forks | GitHub REST via `gh api` |
+| Open-source programs | **5,238 projects** · 305 orgs · 3,075 tags | GSoC archive (2021-2025) |
+| Program deep dives | **8** full stat pages | `src/data/programDetails.ts` |
+| Hackathon board | **161 events** (18 curated + 143 live) | `devpost.com/api/hackathons` |
+| Organization intel | **43** live org profiles | `scripts/fetch-orgs.mjs` |
+| Learning resources | **58** first-party picks | curated |
+| Routes | **15** pages | `src/App.tsx` |
+
+## 📈 The catalog at a glance
 
 <p align="center">
   <img src="docs/readme/catalog-by-category.svg" alt="Catalog by category" width="720"/>
@@ -49,7 +75,77 @@ A developer-program platform: it turns the scattered world of **AI-agent tooling
   <img src="docs/readme/licenses.svg" alt="License mix of the catalog" width="720"/>
 </p>
 
-## The shape of the app
+## 🗺 Pages
+
+| Route | What it is |
+|---|---|
+| `/` | Warm editorial home: programs, hackathon shelves, org marquee, FAQ |
+| `/organizations` · `/organizations/:login` | 43 real GitHub orgs with live stats and program participation |
+| `/opensource` · `/programs/:id` | Contribo listing of 5,238 GSoC projects, filter by year / org / tech |
+| `/hackathons` · `/hackathons/:id` | Deadlines, prize pools, prep playbooks and "The brief" panel |
+| `/projects` | The 1,528-repo agent-skills catalog, downloadable |
+| `/resources` · `/resources/:id` | 58 first-party learning resources with why/use notes |
+| `/dashboard` · `/nova` | Signed-in home + the nova.ai recommender |
+| `/repo/:id` | Repo detail with stats, tags and related projects |
+
+## ⚡ Quick start
+
+```bash
+git clone https://github.com/adityalenova/cyrus-ai && cd cyrus-ai
+npm install
+cp .env.example .env      # optional - fills in public client ids
+npm run dev               # → http://localhost:5330
+```
+
+```bash
+npm run build             # tsc --noEmit (strict) + vite build → dist/
+npm run refresh           # re-pull Devpost hackathons + catalog data
+npm run orgs              # regenerate realOrgs.ts from live GitHub
+npm run gh-relay          # local GitHub token-exchange relay on :8787
+```
+
+Only three env vars exist, all public-safe:
+
+```
+VITE_GOOGLE_CLIENT_ID=...     # Google OAuth web client id
+VITE_GITHUB_CLIENT_ID=...     # GitHub OAuth app client id
+VITE_GITHUB_EXCHANGE_URL=...  # token-exchange relay (local :8787 or Worker)
+```
+
+## 🔐 Sign-in, actually real
+
+<details open>
+<summary><b>Both providers run real OAuth against a fully static bundle</b></summary>
+
+- **Google** - raw OIDC implicit flow (full-page redirect, no GIS script dependency). The `id_token` returns in the URL fragment; the nonce is verified against `sessionStorage`.
+- **GitHub** - OAuth **PKCE (S256)** in a popup. The code lands on same-origin `github-callback.html` and is post-Messaged back. Browsers can't call GitHub's token endpoint (no CORS), so a tiny relay holds the client secret: `npm run gh-relay` in dev, a Cloudflare Worker in production.
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant S as cyrus.ai SPA
+    participant G as github.com
+    participant R as Exchange relay
+    U->>S: Click "Sign in with GitHub"
+    S->>G: authorize popup (client_id + PKCE challenge)
+    G-->>S: code → /github-callback.html → postMessage
+    S->>R: POST { code, code_verifier }
+    R->>G: token exchange (client secret stays here)
+    G-->>R: access_token
+    R-->>S: access_token
+    S->>G: GET /user with Bearer token
+    G-->>S: login, name, avatar
+    S-->>U: signed in → /dashboard
+```
+
+**Security stance:** the repo and the browser bundle contain **only public client ids**. The one secret in the system lives in an untracked local file (dev) or a Worker secret (prod) - never in git, never in the page.
+
+</details>
+
+## 🏗️ Architecture
+
+<details>
+<summary><b>How a 10k-dataset site stays a static SPA</b></summary>
 
 ```mermaid
 flowchart LR
@@ -60,92 +156,50 @@ flowchart LR
         SOC[GSoC archive] --> D4[public/data/gsoc-projects.json]
     end
     subgraph app [Static SPA - Vite + React 19]
-        D1 & D2 & D3 & D4 --> PAGES[15 routes: Home, /organizations, /opensource,<br/>/hackathons, /projects, /resources, /dashboard, /nova ...]
+        D1 & D2 & D3 & D4 --> PAGES[15 routes: Home, /organizations,<br/>/opensource, /hackathons, /projects,<br/>/resources, /dashboard, /nova ...]
     end
     PAGES --> V[(Vercel CDN<br/>cyrus-agent.vercel.app)]
 ```
 
-Everything renders client-side from typed, checked-in snapshots - the site boots instantly, works offline after first load, and the refresh scripts rewrite the datasets in place whenever you re-run them.
-
-## Sign-in, actually real
-
-No demo auth. Both providers run real OAuth against this static bundle:
-
-- **Google** - raw OIDC implicit flow (full-page redirect, no GIS dependency); the `id_token` comes back in the URL fragment, nonce verified against `sessionStorage`.
-- **GitHub** - OAuth **PKCE (S256)** in a popup; the code lands on same-origin `github-callback.html` and is post-Messaged back. Browsers can't call GitHub's token endpoint (no CORS), so a tiny relay holds the client secret: `npm run gh-relay` locally, a Cloudflare Worker in production.
-
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant S as cyrus.ai SPA
-    participant G as github.com
-    participant R as Exchange relay
-    U->>S: Click "Sign in with GitHub"
-    S->>G: authorize popup (client_id + PKCE challenge)
-    G-->>S: code -> /github-callback.html -> postMessage
-    S->>R: POST { code, code_verifier }
-    R->>G: token exchange (client secret stays here)
-    G-->>R: access_token
-    R-->>S: access_token
-    S->>G: GET /user with Bearer token
-    G-->>S: login, name, avatar
-    S-->>U: signed in, /dashboard
-```
-
-Security stance: the repo and the browser bundle contain **only public client ids** (Vite `VITE_*` vars). The one secret in the system lives in an untracked local file (dev) or a Worker secret (prod), never in git, never in the page.
-
-## Pages
-
-| Route | What it is |
-|---|---|
-| `/` | Warm editorial home: programs, hackathon shelves, org marquee, FAQ |
-| `/organizations` + `/organizations/:login` | 43 real GitHub orgs with live stats and program participation |
-| `/opensource` + `/programs/:id` | Contribo listing of 5,238 GSoC projects, filter by year/org/tech |
-| `/hackathons` + `/hackathons/:id` | 161 events, deadlines, prize pools, prep playbooks, "The brief" panel |
-| `/projects` | The 1,528-repo agent-skills catalog, downloadable |
-| `/resources` + `/resources/:id` | 58 first-party learning resources with why/use notes |
-| `/dashboard` | Signed-in home: profile, saved items, activity |
-| `/nova` | nova.ai recommender - suggests skills + hackathons from your stack |
-| `/repo/:id` | Repo detail with stats, tags, related projects |
-
-## Run it locally
-
-```bash
-git clone https://github.com/adityalenova/cyrus-ai && cd cyrus-ai
-npm install
-cp .env.example .env          # optional - fills in public client ids
-npm run dev                   # http://localhost:5330
-npm run build                 # tsc --noEmit (strict, noUnusedLocals) + vite build
-```
-
-Optional pieces:
-
-```bash
-npm run gh-relay              # local GitHub token-exchange relay on :8787
-                              # needs the OAuth app secret in .github-secret (untracked)
-npm run refresh               # re-pull Devpost hackathons + catalog data
-npm run orgs                  # regenerate realOrgs.ts from live GitHub
-```
-
-`.env` is gitignored; only these three vars exist:
+Everything renders client-side from typed, checked-in snapshots. Charts, cover gradients and the nova.ai recommender are computed in-app - zero runtime dependencies beyond React.
 
 ```
-VITE_GOOGLE_CLIENT_ID=...     # public OAuth client id
-VITE_GITHUB_CLIENT_ID=...     # public OAuth app client id
-VITE_GITHUB_EXCHANGE_URL=...  # relay URL (local :8787 or Cloudflare Worker)
+src/
+├── pages/        15 route components
+├── components/   chrome, cards, auth modal, UI primitives
+├── lib/          store, router helpers, google.ts (OIDC), github.ts (PKCE)
+└── data/         typed dataset snapshots (repos, orgs, hackathons, programs...)
+scripts/
+├── refresh.mjs               Devpost + catalog re-pull
+├── fetch-orgs.mjs            live GitHub org intel → realOrgs.ts
+├── fetch-covers.mjs          hackathon cover pipeline (sharp)
+├── github-exchange.local.mjs dev token-exchange relay (:8787)
+└── github-exchange.worker.mjs  Cloudflare Worker relay (prod)
 ```
 
-## Deploy
+</details>
 
-Static build on **Vercel** - `vercel.json` carries the Vite preset and the SPA rewrite so every route resolves. Three environment variables in project settings, and both OAuth apps need the production origin registered (Google: JS origin + redirect URI; GitHub: single callback URL `<origin>/github-callback.html`).
+## ☁️ Deploy on Vercel
 
-## Tech notes
+`vercel.json` carries the Vite preset + SPA rewrite, so importing the repo is all it takes:
 
-- React 19 + react-router 7, TypeScript 5 strict, Tailwind v4 (CSS-first config), Vite 6
-- Zero runtime dependencies beyond React - charts, covers and the recommender are computed in-app
-- Data pipeline: Node ESM scripts under `scripts/` using `gh api` and public JSON endpoints
-- Warm "Contriho" design system - coffee/bean/honey/foam palette, display + mono pairing, light/dark themes
+1. [vercel.com/new](https://vercel.com/new) → import `cyrus-ai` → Deploy.
+2. Add the three `VITE_*` env vars in Project Settings (Production + Preview), then redeploy.
+3. Register the production origin with Google (JS origin **and** redirect URI with trailing slash) and GitHub (callback `<origin>/github-callback.html`).
+4. For public GitHub sign-in, deploy `scripts/github-exchange.worker.mjs` as a Cloudflare Worker and point `VITE_GITHUB_EXCHANGE_URL` at it.
 
----
+## 🧩 Tech stack
 
-Private project, built by [Aditya Duggirala](https://github.com/adityalenova). All catalog numbers belong to their respective orgs and organizers; every listing links out to its official page.
+| Layer | Choice | Notes |
+|---|---|---|
+| UI | React 19 + react-router 7 | fully client-side SPA |
+| Language | TypeScript 5 strict | `noUnusedLocals`, build fails on any error |
+| Styling | Tailwind v4 | CSS-first config, warm "Contriho" palette, light/dark |
+| Build | Vite 6 | instant dev server, static `dist/` output |
+| Data | Node ESM scripts | `gh api` + public JSON endpoints, snapshots in git |
+| Auth | Google OIDC · GitHub PKCE | token exchange via local relay / Cloudflare Worker |
+| Hosting | Vercel | SPA rewrite via `vercel.json` |
+
+## 🤝 Credits & license
+
+Private project, built by [Aditya Duggirala](https://github.com/adityalenova). All catalog numbers belong to their respective orgs and organizers - every listing links out to its official page. Made with too much coffee, in the site's own palette. ☕

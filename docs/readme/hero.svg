@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" role="img" aria-label="cyrus.ai hero">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#150f07"/>
+      <stop offset=".5" stop-color="#1d150c"/>
+      <stop offset="1" stop-color="#2a1c0e"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx=".82" cy=".18" r=".7">
+      <stop offset="0" stop-color="#d9a441" stop-opacity=".28"/>
+      <stop offset="1" stop-color="#d9a441" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx=".12" cy=".9" r=".65">
+      <stop offset="0" stop-color="#c9683f" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#c9683f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d9a441" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#d9a441" stop-opacity=".9"/>
+      <stop offset="1" stop-color="#d9a441" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="420" rx="26" fill="url(#bg)"/>
+  <rect width="1280" height="420" rx="26" fill="url(#glowA)"/>
+  <rect width="1280" height="420" rx="26" fill="url(#glowB)"/>
+
+  <!-- orbit mark -->
+  <g transform="translate(640,96)">
+    <circle r="34" fill="none" stroke="#d9a441" stroke-width="11" stroke-dasharray="160 54" stroke-linecap="round" transform="rotate(-140)"/>
+    <circle r="8" fill="#f4ead8"/>
+  </g>
+
+  <text x="640" y="206" text-anchor="middle" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="72" font-weight="800" letter-spacing="-2">
+    <tspan fill="#f4ead8">cyrus</tspan><tspan fill="#d9a441">.ai</tspan>
+  </text>
+  <text x="640" y="244" text-anchor="middle" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif" font-size="21" fill="#c9b99a">Agent skills - Open-source programs - Hackathons - one self-refreshing catalog</text>
+
+  <rect x="240" y="276" width="800" height="2" fill="url(#rule)"/>
+
+  <g text-anchor="middle" font-family="'Avenir Next','Segoe UI',Helvetica,Arial,sans-serif">
+    <text x="248" y="330" font-size="34" font-weight="800" fill="#d9a441">1,528</text>
+    <text x="248" y="356" font-size="15" fill="#c9b99a">repos indexed</text>
+
+    <text x="494" y="330" font-size="34" font-weight="800" fill="#c9683f">33.8M</text>
+    <text x="494" y="356" font-size="15" fill="#c9b99a">stars tracked</text>
+
+    <text x="736" y="330" font-size="34" font-weight="800" fill="#7f9a4e">5,238</text>
+    <text x="736" y="356" font-size="15" fill="#c9b99a">GSoC projects</text>
+
+    <text x="962" y="330" font-size="34" font-weight="800" fill="#4e8f6b">161</text>
+    <text x="962" y="356" font-size="15" fill="#c9b99a">hackathons live</text>
+
+    <text x="1120" y="330" font-size="34" font-weight="800" fill="#a1739b">43</text>
+    <text x="1120" y="356" font-size="15" fill="#c9b99a">org profiles</text>
+  </g>
+</svg>
