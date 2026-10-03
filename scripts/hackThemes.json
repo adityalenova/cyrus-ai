@@ -1,0 +1,432 @@
+{
+ "THEME_TAGS": {
+  "machine learning/ai": [
+   "ai",
+   "machine-learning"
+  ],
+  "artificial intelligence": [
+   "ai"
+  ],
+  "web": [
+   "web",
+   "frontend"
+  ],
+  "mobile": [
+   "mobile",
+   "android/ios"
+  ],
+  "iot": [
+   "iot",
+   "embedded"
+  ],
+  "blockchain": [
+   "blockchain",
+   "web3"
+  ],
+  "cybersecurity": [
+   "security"
+  ],
+  "games": [
+   "gaming",
+   "game-dev"
+  ],
+  "games & entertainment": [
+   "gaming"
+  ],
+  "productivity": [
+   "productivity",
+   "tools"
+  ],
+  "open ended": [
+   "open-innovation"
+  ],
+  "social good": [
+   "social-good"
+  ],
+  "design": [
+   "design",
+   "ux"
+  ],
+  "hardware": [
+   "hardware"
+  ],
+  "fintech": [
+   "fintech"
+  ],
+  "health": [
+   "healthtech"
+  ],
+  "augmented reality/virtual reality": [
+   "ar-vr",
+   "xr"
+  ],
+  "developer tools": [
+   "devtools"
+  ],
+  "data": [
+   "data-viz",
+   "analytics"
+  ],
+  "education": [
+   "edtech"
+  ],
+  "devops": [
+   "devops"
+  ],
+  "e-commerce": [
+   "ecommerce"
+  ],
+  "robotics": [
+   "robotics"
+  ],
+  "ar/vr": [
+   "ar-vr"
+  ]
+ },
+ "LANGS": {
+  "machine learning/ai": [
+   "Python",
+   "PyTorch"
+  ],
+  "web": [
+   "JavaScript",
+   "React"
+  ],
+  "mobile": [
+   "Kotlin",
+   "Swift"
+  ],
+  "iot": [
+   "C++",
+   "MicroPython"
+  ],
+  "blockchain": [
+   "Solidity",
+   "Rust"
+  ],
+  "cybersecurity": [
+   "Python",
+   "Burp Suite"
+  ],
+  "games": [
+   "C#",
+   "Unity"
+  ],
+  "hardware": [
+   "C",
+   "Arduino"
+  ],
+  "augmented reality/virtual reality": [
+   "Unity",
+   "C#"
+  ],
+  "fintech": [
+   "TypeScript",
+   "Python"
+  ],
+  "data": [
+   "Python",
+   "SQL"
+  ],
+  "productivity": [
+   "TypeScript",
+   "Node.js"
+  ]
+ },
+ "IDEAS": {
+  "machine learning/ai": [
+   [
+    "Prompt-to-App",
+    "Describe a workflow in plain English and ship a working micro-app with an agent loop"
+   ],
+   [
+    "Model Drift Radar",
+    "Dashboard that watches a deployed model and flags drift with retraining suggestions"
+   ],
+   [
+    "Voice-first Copilot",
+    "Hands-free assistant for one niche job: field techs, nurses, line cooks"
+   ]
+  ],
+  "web": [
+   [
+    "Instant Site Doctor",
+    "Paste a URL, get Core Web Vitals fixes as PR-ready diffs"
+   ],
+   [
+    "Collab Canvas",
+    "Multiplayer whiteboard that turns sketches into React components"
+   ],
+   [
+    "A11y Autopilot",
+    "Crawler that files its own accessibility issues with reproduction steps"
+   ]
+  ],
+  "mobile": [
+   [
+    "Offline-First Diary",
+    "Location + mood journal that syncs when the bars come back"
+   ],
+   [
+    "Pocket Tutor",
+    "One-screen micro-lessons that adapt to swipe hesitations"
+   ],
+   [
+    "Group Trip Board",
+    "Shared itinerary app where every friend's calendar votes on plans"
+   ]
+  ],
+  "iot": [
+   [
+    "Silent Building",
+    "Sensors that negotiate HVAC and lighting to cut idle energy"
+   ],
+   [
+    "Farm Pulse",
+    "Soil-moisture mesh with SMS alerts for feature phones"
+   ],
+   [
+    "Gym Form Coach",
+    "Wearable IMU feedback for reps, no camera involved"
+   ]
+  ],
+  "blockchain": [
+   [
+    "Receipt Chain",
+    "Verifiable donation trail from wallet to charity checkout"
+   ],
+   [
+    "License Ledger",
+    "On-chain proof-of-rights for indie music samples"
+   ],
+   [
+    "Escrow for Gigs",
+    "Milestone escrow that releases on both parties' sign-off"
+   ]
+  ],
+  "cybersecurity": [
+   [
+    "Phish Fridge",
+    "Email gateway that explains why a message is suspicious in one line"
+   ],
+   [
+    "Honey Docs",
+    "Fake documents that alarm the moment an insider opens them"
+   ],
+   [
+    "SBOM Sentinel",
+    "Dependency scanner that reads advisories like a triage nurse"
+   ]
+  ],
+  "games": [
+   [
+    "One-Button Roguelike",
+    "Complete game loop, single input, infinite depth"
+   ],
+   [
+    "Replay Storyteller",
+    "Turns your match history into a narrated highlight reel"
+   ],
+   [
+    "Accessibility Modkit",
+    "Plug-in colorblind/motor-access layer for any Unity game"
+   ]
+  ],
+  "augmented reality/virtual reality": [
+   [
+    "Room Scale Museum",
+    "Point a headset at any wall and it becomes an exhibit"
+   ],
+   [
+    "AR Study Desks",
+    "Textbook diagrams that lift off the page in real scale"
+   ],
+   [
+    "VR Commute Gym",
+    "Exergame disguised as a subway ride"
+   ]
+  ],
+  "hardware": [
+   [
+    "Pantry Scale",
+    "Weight shelf that knows what ran out before you do"
+   ],
+   [
+    "Desk Weather",
+    "E-ink microclimate station tuned to your plants"
+   ],
+   [
+    "Latency Lantern",
+    "Physical light that glows red when your builds are slow"
+   ]
+  ],
+  "fintech": [
+   [
+    "Split Ledger",
+    "Group expenses that reconcile to bank statements automatically"
+   ],
+   [
+    "Invoice Whisperer",
+    "Freelancer invoice chaser with polite escalation ladder"
+   ],
+   [
+    "Spend Forecast",
+    "Three-month cash-flow forecast from your bank export"
+   ]
+  ],
+  "data": [
+   [
+    "Chart Critic",
+    "Upload a chart, get the misleading parts called out with fixes"
+   ],
+   [
+    "Queue Oracle",
+    "Predict any line - DMV, cafeteria, support - from public data"
+   ],
+   [
+    "Board Game Analyst",
+    "Replay logs turned into win-probability swing charts"
+   ]
+  ],
+  "productivity": [
+   [
+    "Meeting Autopsy",
+    "Transcript to decisions, owners and follow-ups in one pass"
+   ],
+   [
+    "Inbox Triage Bot",
+    "Rules that learn from what you archive on day one"
+   ],
+   [
+    "Standup Snapshot",
+    "Git history turned into yesterday/today/blockers, no asking"
+   ]
+  ],
+  "education": [
+   [
+    "Flashcard Forge",
+    "Any PDF becomes a spaced-repetition deck in seconds"
+   ],
+   [
+    "Lab Buddy",
+    "Virtual chemistry bench that fails your experiments loudly"
+   ],
+   [
+    "Skill Swap",
+    "Matches learners who each know what the other needs"
+   ]
+  ],
+  "open ended": [
+   [
+    "Weekend Warehouse",
+    "One weird constraint, one polished demo - surprise the judges"
+   ],
+   [
+    "Tiny Giant",
+    "The smallest useful product you can ship in the sprint window"
+   ],
+   [
+    "Before/After Bot",
+    "Automate one chore your household argues about"
+   ]
+  ],
+  "social good": [
+   [
+    "Crisis Map",
+    "Crowd-verified resource map for shelters and water points"
+   ],
+   [
+    "Civic Echo",
+    "Track local representatives' promises vs votes"
+   ],
+   [
+    "Food Rescue Router",
+    "Matches surplus restaurant stock to nearby shelters in real time"
+   ]
+  ],
+  "design": [
+   [
+    "Design Token Doctor",
+    "Audits a Figma file and renames tokens to a sane scale"
+   ],
+   [
+    "Contrast Copilot",
+    "Live palette suggestions that never break WCAG"
+   ],
+   [
+    "Landing Surgeon",
+    "Paste a URL, get a wireframe that converts better"
+   ]
+  ],
+  "devtools": [
+   [
+    "CI Storyteller",
+    "Every failed pipeline explained in plain English with a fix"
+   ],
+   [
+    "Dotfiles Diff",
+    "Version-control your machine setup and sync it safely"
+   ],
+   [
+    "Log Lens",
+    "Structured log search that finds the first domino"
+   ]
+  ],
+  "devops": [
+   [
+    "Incident DJ",
+    "Mixes alerts into one story with owner, blast radius, next step"
+   ],
+   [
+    "Cost Canary",
+    "Watches cloud spend per deploy and blocks regressions"
+   ],
+   [
+    "Runbook Runner",
+    "Chat ops runbooks that execute the safe steps themselves"
+   ]
+  ],
+  "health": [
+   [
+    "Waiting Room Triage",
+    "Symptom checker that outputs what to tell the nurse"
+   ],
+   [
+    "Meds Mirror",
+    "Photo your pillboard, get a schedule + interaction flags"
+   ],
+   [
+    "Rehab Reps",
+    "Physio exercise counter that no-cheats with pose estimates"
+   ]
+  ],
+  "e-commerce": [
+   [
+    "Return Referee",
+    "Fair, instant returns decisions with photo evidence"
+   ],
+   [
+    "Size Oracle",
+    "Fit predictor from two body photos and brand size charts"
+   ],
+   [
+    "Cart Archaeologist",
+    "Shows what you almost bought and why it dropped"
+   ]
+  ],
+  "robotics": [
+   [
+    "Warehouse Ants",
+    "Cooperative mini-bots that sort by swarm consensus"
+   ],
+   [
+    "Rescue Sniffer",
+    "Drone payload that maps air quality after incidents"
+   ],
+   [
+    "Table Tennis Coach",
+    "Cheap camera + servo arm that feeds repeatable shots"
+   ]
+  ]
+ }
+}

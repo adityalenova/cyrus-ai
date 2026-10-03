@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About us — why cyrus.ai exists · cyrus.ai</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2726%27 fill=%27%230b0b0d%27/%3E%3Cpath d=%27M67 35a21 21 0 1 0 .8 30%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%2711%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2772%27 cy=%2750%27 r=%277.5%27 fill=%27%238b5cf6%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="about">
+  <div id="nav"></div>
+
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow"><span class="dot"></span>About us</p>
+      <h1>A directory run like a <span class="grad-text">library, not an ad network</span></h1>
+      <p>cyrus.ai catalogs the skills, rules, configs and servers that power AI coding agents — and is honest about where every number comes from.</p>
+    </div>
+  </header>
+
+  <main class="wrap" style="max-width:840px;padding-bottom:70px">
+    <div class="prose">
+      <h2>The problem we got tired of</h2>
+      <p>Choosing agent tooling in 2026 meant ten browser tabs of GitHub search, listicles stuffed with paid placements, and READMEs that promised senior-engineer quality. Meanwhile the signal developers actually trust — stars, contributors, license, last push — sat scattered and unsearchable.</p>
+      <p>So we built the index we wanted: <strong>528 real repositories across five shelves</strong>, every one a live GitHub project, ranked by the only vote that can't be bought. No sponsored slots. No algorithmic boosting. When we feature something, it's because it's at the top of a shelf.</p>
+
+      <h2>What we believe</h2>
+      <ul>
+        <li><strong>Ranking must be falsifiable.</strong> Every number traces to the GitHub API with a timestamp.</li>
+        <li><strong>Maintainers deserve the money.</strong> The sponsor board isn't a feature for us — it's the point. Skills are infrastructure, and infrastructure has upkeep costs.</li>
+        <li><strong>Depth beats breadth.</strong> A repo page with contributors, languages and pulse is worth ten cards with a one-line blurb.</li>
+        <li><strong>Stay honest about the demo.</strong> Sign-in and the forum are local-first prototypes; we say so on the page that offers them.</li>
+      </ul>
+
+      <h2 id="data">Data &amp; methodology</h2>
+      <p>The snapshot regenerates from <strong>13 GitHub topic-search queries</strong> (<code>agent-skills</code>, <code>claude-skills</code>, <code>claude-code</code>, <code>cursorrules</code>, <code>mcp-server</code>, <code>agents-md</code> and friends), pulled with an authenticated GitHub API client on 2026-10-02. Results are deduplicated by repo name, classified into shelves by topics and description with a hand-curated override for well-known projects, filtered (≥25 stars, description required), and capped per shelf. Cards show snapshot figures; repo pages re-fetch <code>/repos</code>, <code>/contributors</code> and <code>/languages</code> live and label the source.</p>
+      <p>Known limits, stated plainly: stars undercount private/teamed usage; newly archived repos keep their stars until the next refresh; and classification of a repo that mixes MCP with skills is a judgment call we make per-project, not per-keyword. The generation script ships with the site — audit it.</p>
+
+      <h2>Who builds this</h2>
+      <p>cyrus.ai is built by a solo developer in Hyderabad — an AI-native product in the truest sense: designed, written and shipped with the same agent tooling it catalogs. The stack is deliberately boring: HTML, CSS, vanilla JS, the GitHub API, and a regeneration script.</p>
+
+      <p style="margin-top:26px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn--primary" href="browse.html">Browse the catalog</a>
+        <a class="btn" href="docs.html">Read the docs</a>
+        <a class="btn" href="community.html">Join the community</a>
+      </p>
+    </div>
+  </main>
+
+  <div id="foot"></div>
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>

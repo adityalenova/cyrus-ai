@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Features — everything cyrus.ai does for developers</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2726%27 fill=%27%230b0b0d%27/%3E%3Cpath d=%27M67 35a21 21 0 1 0 .8 30%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%2711%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2772%27 cy=%2750%27 r=%277.5%27 fill=%27%238b5cf6%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="features">
+  <div id="nav"></div>
+
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow"><span class="dot"></span>Product tour</p>
+      <h1>Built for the way developers <span class="grad-text">actually choose tools</span></h1>
+      <p>Compare, verify, save, submit, sponsor. Each feature exists because picking agent tooling by GitHub-stars-alone kept going wrong.</p>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding:34px 24px 60px">
+    <div class="section__head reveal"><p class="section-tag">// finding things</p><h2 style="font-size:24px">Discovery</h2></div>
+    <div class="featgrid reveal" style="margin-bottom:50px">
+      <div class="feat" data-tilt><span class="fi">🗂️</span><h3>Five honest shelves</h3><p>Skills, Cursor rules, AGENTS.md configs, MCP servers, dev agents — 528 real repos sorted by stars. <a href="browse.html">Browse →</a></p></div>
+      <div class="feat" data-tilt><span class="fi">⌘K</span><h3>Command-palette search</h3><p>Instant fuzzy-ish search across names, descriptions, tags and languages from any page. Press <span class="mono">⌘K</span> or <span class="mono">/</span> to try it right now.</p></div>
+      <div class="feat" data-tilt><span class="fi">🔥</span><h3>Trending row</h3><p>The top of the snapshot, ranked — the shortest path from “what should I install” to an answer.</p></div>
+      <div class="feat" data-tilt><span class="fi">🏢</span><h3>Org marquee</h3><p>See at a glance which companies' repositories the catalog tracks, and jump to their listings.</p></div>
+    </div>
+
+    <div class="section__head reveal"><p class="section-tag">// judging things</p><h2 style="font-size:24px">Deep-dive repo pages</h2></div>
+    <div class="featgrid reveal" style="margin-bottom:50px">
+      <div class="feat" data-tilt><span class="fi">📊</span><h3>Live GitHub data</h3><p>Every repo page re-fetches stars, forks and issues from api.github.com the moment you open it — snapshot as fallback, live when it answers.</p></div>
+      <div class="feat" data-tilt><span class="fi">👥</span><h3>Contributors &amp; language graph</h3><p>Who actually builds it, in what languages, in what proportions. No more installing a one-person weekend project by accident.</p></div>
+      <div class="feat" data-tilt><span class="fi">💚</span><h3>Community pulse</h3><p>Stars, forks, open issues and watchers side by side — the difference between “popular” and “maintained” in one glance.</p></div>
+      <div class="feat" data-tilt><span class="fi">🧭</span><h3>Developer use cases</h3><p>What people use each tool for, derived from its topics and description — not invented testimonials.</p></div>
+      <div class="feat" data-tilt><span class="fi">📜</span><h3>License &amp; health at a glance</h3><p>SPDX license, open-issue count and last-push date on every card and page. Compliance teams will thank you.</p></div>
+      <div class="feat" data-tilt><span class="fi">🔗</span><h3>Related &amp; trending rails</h3><p>Each page ends where the next decision starts: same shelf, same momentum, ranked.</p></div>
+    </div>
+
+    <div class="section__head reveal"><p class="section-tag">// for you</p><h2 style="font-size:24px">Developer account features</h2></div>
+    <div class="featgrid reveal" style="margin-bottom:50px">
+      <div class="feat" data-tilt><span class="fi">🔐</span><h3>Sign in three ways</h3><p>GitHub, Google, or guest. Sessions are demo-grade locally today; real OAuth drops into the same buttons.</p></div>
+      <div class="feat" data-tilt><span class="fi">⭐</span><h3>Save repos to your shelf</h3><p>Build a shortlist across shelves; it syncs to your account across pages and survives reloads.</p></div>
+      <div class="feat" data-tilt><span class="fi">📦</span><h3>List your repository</h3><p>Paste a URL, we fetch the metadata and auto-detect the shelf. Free for open source, forever. <a href="submit.html">Submit →</a></p></div>
+      <div class="feat" data-tilt><span class="fi">💖</span><h3>Sponsor board</h3><p>Every maintainer in the catalog, ranked by combined stars, linked straight to GitHub Sponsors. <a href="sponsors.html">Sponsor →</a></p></div>
+      <div class="feat" data-tilt><span class="fi">💬</span><h3>Forum &amp; community</h3><p>Show &amp; tell, MCP war stories, catalog feedback — with upvotes that actually stick. <a href="forum.html">Join →</a></p></div>
+      <div class="feat" data-tilt><span class="fi">📚</span><h3>Open data &amp; docs</h3><p>The whole snapshot regenerates from one script against the GitHub API. Methodology is public. <a href="about.html#data">Read it →</a></p></div>
+    </div>
+
+    <div class="cta reveal">
+      <h2>Try the parts that matter — <span class="grad-text">ten minutes, no signup wall</span></h2>
+      <p>Sign in as a guest, save three repos, submit one, and post a thread. That's the whole tour.</p>
+      <div class="cta__row">
+        <a class="btn btn--primary btn--lg" href="browse.html">Open the directory</a>
+        <a class="btn btn--lg" href="docs.html">Read the docs</a>
+      </div>
+    </div>
+  </main>
+
+  <div id="foot"></div>
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>

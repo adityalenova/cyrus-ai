@@ -1,0 +1,242 @@
+/* ═══════════════════════════════════════════════════════════
+   cyrus.ai — Tailwind v4 theme (Contriho-inspired warm system)
+   paper/sand/cream surfaces · espresso ink · terracotta accent
+   dark coffee islands · Bricolage / Inter / JetBrains Mono
+   ═══════════════════════════════════════════════════════════ */
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f5efe7;
+  --color-sand: #ede4d6;
+  --color-cream: #fbf7f1;
+  --color-card: #ffffff;
+  --color-clay: #f1e9dd;
+  --color-line: #e7dccd;
+  --color-liness: #efe7da;
+  --color-ink: #241b13;
+  --color-cocoa: #6e6153;
+  --color-dim: #a09282;
+  --color-accent: #b4602c;
+  --color-accentd: #a55728;
+  --color-ember: #d98546;
+  --color-peach: #f7e5d4;
+  --color-rust: #8a4a22;
+  --color-leaf: #3e7d4f;
+  --color-denim: #3b6ea5;
+  --color-plum: #7a5aa8;
+  --color-brick: #b0433c;
+  --color-honey: #a97b1f;
+  --color-coffee: #221a13;
+  --color-bean: #291f17;
+  --color-bark: #322619;
+  --color-roast: #46372a;
+  --color-foam: #f5eee3;
+  --color-steam: #b5a28c;
+  --color-dimdk: #7d6c5a;
+
+  --font-display: "Bricolage Grotesque", "Space Grotesk", sans-serif;
+  --font-sans: "Inter", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow-soft: 0 4px 16px -6px rgba(58, 40, 22, 0.1);
+  --shadow-lift: 0 16px 44px -16px rgba(58, 40, 22, 0.22);
+  --shadow-dark: 0 26px 60px -24px rgba(34, 26, 19, 0.55);
+
+  --ease-silk: cubic-bezier(0.22, 0.8, 0.36, 1);
+
+  --animate-floaty: floaty 6.5s ease-in-out infinite;
+  --animate-marq: marqLeft 46s linear infinite;
+  --animate-marq-slow: marqLeft 38s linear infinite;
+  --animate-blink: blink 1s steps(1) infinite;
+  --animate-blink-soft: blink 1.6s infinite;
+  --animate-rise: riseIn 0.6s cubic-bezier(0.22, 0.8, 0.36, 1) both;
+  --animate-grow-x: growX 0.9s cubic-bezier(0.22, 0.8, 0.36, 1) backwards;
+  --animate-grow-bar: growBar 0.9s cubic-bezier(0.22, 0.8, 0.36, 1) backwards;
+
+  @keyframes floaty { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+  @keyframes marqLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes blink { 50% { opacity: 0; } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  @keyframes growX { from { transform: scaleX(0); } }
+  @keyframes growBar { from { transform: scaleY(0); } }
+}
+
+/* ── dark theme: remap the warm surface + text tokens ─────────
+   Utilities compile to var(--color-x), so overriding the custom
+   properties under .dark flips the whole site in one cascade. */
+.dark {
+  --color-paper: #100c08;
+  --color-sand: #17120c;
+  --color-cream: #1d1710;
+  --color-card: #16110b;
+  --color-clay: #2a2218;
+  --color-line: #2e2619;
+  --color-liness: #241d14;
+  --color-ink: #f5eee3;
+  --color-cocoa: #bdae99;
+  --color-dim: #857461;
+  --color-accent: #dd8a4e;
+  --color-accentd: #e89b60;
+  --color-ember: #e59a5f;
+  --color-peach: #33230f;
+  --color-rust: #f0a878;
+  --color-leaf: #57b06e;
+  --color-denim: #6ba3d6;
+  --color-plum: #a98fd6;
+  --color-brick: #d9695f;
+  --color-honey: #e0b64a;
+}
+.dark body { background: var(--color-paper); }
+.dark ::selection { background: rgba(221, 138, 78, 0.3); }
+.dark .hero-glow {
+  background:
+    radial-gradient(640px 380px at 12% 0%, rgba(221, 138, 78, 0.14), transparent 70%),
+    radial-gradient(700px 420px at 88% 10%, rgba(180, 96, 44, 0.12), transparent 70%),
+    radial-gradient(900px 480px at 50% 118%, rgba(122, 90, 168, 0.12), transparent 70%);
+}
+.dark .hero-pattern {
+  background-image:
+    linear-gradient(rgba(221, 190, 150, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(221, 190, 150, 0.05) 1px, transparent 1px);
+}
+.dark .tl-phase {
+  color: color-mix(in srgb, var(--pc) 78%, #f5eee3);
+  background: color-mix(in srgb, var(--pc) 16%, #17120c);
+}
+.dark .tl-phase.is-active { background: color-mix(in srgb, var(--pc) 26%, #17120c); }
+
+html { scroll-behavior: smooth; }
+body { @apply bg-paper text-ink font-sans antialiased; }
+::selection { background: rgba(180, 96, 44, 0.22); }
+:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 6px; }
+/* text fields never get the outline box - their surrounding pill shows focus instead */
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline: none; }
+
+/* ── signature: accent word with hand-drawn underline swash ── */
+.word-accent {
+  position: relative; display: inline-block; color: var(--color-accent); z-index: 0;
+}
+.word-accent::after {
+  content: ""; position: absolute; left: -2%; right: -3%; bottom: -0.06em; z-index: -1; height: 0.46em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 26' preserveAspectRatio='none'%3E%3Cpath d='M4 17 C40 8 82 7 118 11 C152 15 190 17 216 10 L214 21 C182 26 146 24 112 20 C76 16 36 18 6 24 Z' fill='%23d98546' opacity='.42'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+  transform: rotate(-0.6deg);
+}
+
+/* ── edge-faded marquee track ─────────────────────────────── */
+.marq-mask {
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+.marq-track { display: flex; gap: 14px; width: max-content; }
+.marq-track:hover { animation-play-state: paused; }
+
+/* ── hero grid pattern overlay ────────────────────────────── */
+.hero-pattern {
+  position: absolute; inset: 0; z-index: 0; opacity: 0.55; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(70, 48, 26, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(70, 48, 26, 0.05) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(720px 430px at 76% 34%, #000, transparent 75%);
+  -webkit-mask-image: radial-gradient(720px 430px at 76% 34%, #000, transparent 75%);
+}
+.hero-glow {
+  position: absolute; inset: -220px 0 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(640px 380px at 12% 0%, rgba(217, 133, 70, 0.16), transparent 70%),
+    radial-gradient(700px 420px at 88% 10%, rgba(180, 96, 44, 0.12), transparent 70%),
+    radial-gradient(900px 480px at 50% 118%, rgba(122, 90, 168, 0.07), transparent 70%);
+}
+
+/* ── logocell float (per-cell rotation + delay via CSS vars) ─ */
+.logocell {
+  transform: rotate(var(--r, 0deg));
+  animation: floaty 6.5s var(--d, 0s) ease-in-out infinite;
+  transition: transform 0.25s var(--ease-silk), box-shadow 0.25s, border-color 0.25s;
+}
+.logocell:hover { animation-play-state: paused; transform: rotate(0deg) scale(1.07); }
+
+/* ── code panel (dark warm island) ────────────────────────── */
+.t-k { color: #ffa657; } .t-s { color: #a8d5a2; } .t-f { color: #e8b4c8; }
+.t-c { color: var(--color-dimdk); font-style: italic; } .t-g { color: #7ee2a8; }
+.t-y { color: #ffd166; } .t-o { color: #f2a35c; }
+.cp-line { display: flex; gap: 16px; white-space: pre-wrap; word-break: break-word; }
+.cp-line::before { content: attr(data-n); color: var(--color-dimdk); user-select: none; min-width: 16px; text-align: right; }
+.caret { display: inline-block; width: 8px; height: 15px; background: #7ee2a8; vertical-align: -2px; animation: blink 1s steps(1) infinite; }
+.mock-lights i { display: block; width: 10px; height: 10px; border-radius: 50%; }
+.mock-lights i:nth-child(1) { background: #e8896f; }
+.mock-lights i:nth-child(2) { background: #e5c07b; }
+.mock-lights i:nth-child(3) { background: #9dc88d; }
+
+/* ── timeline (Gantt) ─────────────────────────────────────── */
+.tl-track {
+  position: relative; height: 44px; border-radius: 12px; background:
+    repeating-linear-gradient(90deg, transparent 0, transparent calc(8.3333% - 1px), var(--color-liness) calc(8.3333% - 1px), var(--color-liness) 8.3333%),
+    var(--color-paper);
+}
+.tl-phase {
+  position: absolute; top: 7px; bottom: 7px; border-radius: 999px;
+  display: flex; align-items: center; padding: 0 12px; overflow: hidden;
+  font-size: 10.5px; font-weight: 700; white-space: nowrap;
+  color: color-mix(in srgb, var(--pc) 78%, #241b13);
+  background: color-mix(in srgb, var(--pc) 9%, white);
+  border: 1px dashed color-mix(in srgb, var(--pc) 45%, transparent);
+  transition: transform 0.18s var(--ease-silk), box-shadow 0.18s;
+}
+.tl-phase:hover { transform: translateY(-2px); box-shadow: var(--shadow-soft); z-index: 3; }
+.tl-phase.is-active { border-style: solid; border-width: 1.5px; background: color-mix(in srgb, var(--pc) 16%, white); }
+.tl-phase.is-done { opacity: 0.45; }
+.tl-dot::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%; flex: none;
+  background: var(--pc, var(--color-accent));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pc, var(--color-accent)) 18%, transparent);
+}
+
+/* ── charts ───────────────────────────────────────────────── */
+.donut svg { transform: rotate(-90deg); }
+.donut circle { fill: none; stroke-width: 15; stroke-linecap: round; }
+.pulse-bar { transform-origin: bottom; animation: growBar 0.9s var(--ease-silk) backwards; }
+.grow-x { transform-origin: left; animation: growX 0.9s var(--ease-silk) backwards; }
+
+/* active phase on the program timeline */
+.timeline-active { box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 22%, transparent); }
+@media (prefers-reduced-motion: no-preference) {
+  .timeline-active { animation: activeGlow 2.4s var(--ease-silk) infinite; }
+  @keyframes activeGlow {
+    0%, 100% { box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 14%, transparent); }
+    50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-accent) 26%, transparent); }
+  }
+}
+
+/* ── theme toggle mini sky ────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .tg-star { animation: twinkle 2.6s ease-in-out infinite; }
+  .tg-cloud { animation: drift 9s ease-in-out infinite alternate; }
+  .tg-rays { animation: raySpin 14s linear infinite; transform-origin: center; }
+  @keyframes twinkle { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+  @keyframes drift { from { transform: translateX(-3px); } to { transform: translateX(4px); } }
+  @keyframes raySpin { to { transform: rotate(360deg); } }
+}
+
+/* ── misc component-ish bits ──────────────────────────────── */
+.select-warm {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23a09282' fill='none' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+.faq details summary { list-style: none; cursor: pointer; }
+.faq details summary::-webkit-details-marker { display: none; }
+.faq details summary::after { content: "+"; font-family: var(--font-mono); font-size: 20px; color: var(--color-accent); transition: transform 0.2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details[open] summary { border-bottom: 1px solid var(--color-liness); }
+.reveal { animation: riseIn 0.6s var(--ease-silk) both; }
+.line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marq-track, .logocell, .caret, .pulse-bar, .grow-x, .reveal, .tg-star, .tg-cloud, .tg-rays { animation: none !important; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}

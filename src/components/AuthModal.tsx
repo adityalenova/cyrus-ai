@@ -1,0 +1,228 @@
+/* ══ AuthModal.tsx — full-screen split sign-in sheet ═
+   left: cyrus.ai logo + programming-language wall · right: LOGIN/SIGN UP tabs, email+password, OAuth row */
+import { useEffect, useState } from "react";
+import type { CSSProperties, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { useStore } from "../lib/store";
+import { LANG_COLORS } from "../lib/util";
+import { googleConfigured, promptGoogle, readGoogleRedirectCredential } from "../lib/google";
+import { githubConfigured, promptGitHub } from "../lib/github";
+import { REPOS } from "../data/repos";
+import { RESOURCES } from "../data/resources";
+import { Logo, Word } from "./ui";
+
+const PANEL_LANGS = ["TypeScript", "Python", "Go", "Rust", "JavaScript", "Java", "C++", "Swift", "MDX"];
+
+const GH_ICON = <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.29 9.42 7.86 10.95.58.1.79-.25.79-.55v-2.1c-3.2.7-3.87-1.36-3.87-1.36-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.35.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.24 2.76.12 3.05.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.26 5.66.41.36.78 1.06.78 2.14v3.17c0 .31.2.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" /></svg>;
+const G_ICON = <svg width="17" height="17" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.26c0-.85-.08-1.67-.22-2.45H12v4.64h6.45a5.52 5.52 0 0 1-2.4 3.62v3h3.87c2.27-2.09 3.58-5.17 3.58-8.81Z" /><path fill="#34A853" d="M12 24c3.24 0 5.96-1.08 7.95-2.93l-3.87-3c-1.08.72-2.45 1.15-4.08 1.15-3.13 0-5.78-2.11-6.73-4.96H1.29v3.09A11.99 11.99 0 0 0 12 24Z" /><path fill="#FBBC05" d="M5.27 14.26A7.2 7.2 0 0 1 4.89 12c0-.79.14-1.55.38-2.26V6.65H1.29a12 12 0 0 0 0 10.7l3.98-3.09Z" /><path fill="#EA4335" d="M12 4.77c1.76 0 3.35.61 4.6 1.8l3.42-3.42A11.97 11.97 0 0 0 12 0 11.99 11.99 0 0 0 1.29 6.65l3.98 3.09C6.22 6.88 8.87 4.77 12 4.77Z" /></svg>;
+const ARROW = <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5m0 0 6-6m-6 6 6 6" /></svg>;
+
+const GRID_BG: CSSProperties = {
+  backgroundImage:
+    "linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px)",
+  backgroundSize: "44px 44px",
+  opacity: 1,
+};
+
+export default function AuthModal() {
+  const { authOpen, setAuthOpen, signIn, toast } = useStore();
+  const nav = useNavigate();
+  const [tab, setTab] = useState<"login" | "signup">("login");
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [name, setName] = useState("");
+  const [busyGoogle, setBusyGoogle] = useState(false);
+  const [busyGithub, setBusyGithub] = useState(false);
+
+  /* landing spot for the Google redirect fallback: when the chooser popup was
+     blocked we navigated the whole tab to Google, which returns here with
+     ?credential=... - complete the sign-in on this fresh page load.
+     (This effect MUST sit above the authOpen guard - hook order.) */
+  useEffect(() => {
+    const g = readGoogleRedirectCredential();
+    if (!g) return;
+    signIn({ name: g.name, provider: "Google", email: g.email, picture: g.picture });
+    setAuthOpen(false);
+    toast(`Welcome, ${g.name.split(" ")[0]} - signed in with Google.`);
+    setTimeout(() => nav("/dashboard"), 450);
+  }, []);
+
+  if (!authOpen) return null;
+
+  const done = (who: string, provider: string, msg: string, extras?: { email?: string; picture?: string }) => {
+    signIn({ name: who, provider, ...extras });
+    setAuthOpen(false);
+    toast(msg);
+    setTimeout(() => nav("/dashboard"), 450);
+  };
+
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    const mail = email.trim();
+    if (!mail || !pw) { toast("Add an email and password to continue."); return; }
+    const who = tab === "signup" ? (name.trim() || mail.split("@")[0]) : mail.split("@")[0];
+    done(who, "Email", tab === "signup" ? `Account created - welcome, ${who}!` : `Welcome back, ${who}!`, { email: mail });
+  };
+
+  const oauth = (p: string) => {
+    const typed = window.prompt(`Your ${p} username (demo - no real ${p} call is made):`);
+    if (!typed) return;
+    done(typed.trim().replace(/^@/, "") || "you", p, `Signed in with ${p}. Opening your dashboard…`);
+  };
+
+  const signInGoogle = async () => {
+    if (!googleConfigured()) { oauth("Google"); return; }
+    setBusyGoogle(true);
+    try {
+      const g = await promptGoogle();
+      done(g.name, "Google", `Welcome, ${g.name.split(" ")[0]} - signed in with Google.`, { email: g.email, picture: g.picture });
+    } catch (e) {
+      const m = (e as Error).message ?? "";
+      toast(m.includes("popup") ? m : m || "Google sign-in didn't complete - try again.");
+    } finally {
+      setBusyGoogle(false);
+    }
+  };
+
+  const signInGitHub = async () => {
+    if (!githubConfigured()) { oauth("GitHub"); return; }
+    setBusyGithub(true);
+    try {
+      const g = await promptGitHub();
+      done(g.name, "GitHub", `Signed in as ${g.login} with GitHub. Opening your dashboard…`, { email: g.email, picture: g.avatar });
+    } catch (e) {
+      const m = (e as Error).message ?? "";
+      toast(m || "GitHub sign-in didn't complete - try again.");
+    } finally {
+      setBusyGithub(false);
+    }
+  };
+
+  const label = "block font-mono text-[11px] tracking-[.12em] uppercase text-cocoa mb-2";
+  const fin = "w-full bg-card border border-line rounded-[14px] px-4 py-3.5 text-[15px] outline-none transition-all placeholder:text-dim focus:border-accent focus:shadow-[0_0_0_3px_rgba(180,96,44,.14)]";
+
+  return (
+    <div className="fixed inset-0 z-[100] overflow-y-auto" style={{ background: "var(--color-paper)" }}
+      role="dialog" aria-modal="true" aria-label="Sign in">
+      {/* pinned to the top-left corner of the screen, over the brand wall */}
+      <button onClick={() => setAuthOpen(false)}
+        className="fixed top-6 left-6 z-[110] max-[900px]:top-4 max-[900px]:left-4 inline-flex items-center gap-2.5 bg-card border border-line rounded-full pl-4 pr-5 py-2.5 font-mono text-[12px] font-bold tracking-[.06em] text-ink shadow-soft hover:border-accent hover:text-rust transition-all cursor-pointer">
+        {ARROW} Back to Home
+      </button>
+      <div className="min-h-full grid grid-cols-2 max-[900px]:grid-cols-1">
+        {/* ── left: brand wall — logo + language tiles on a drafting grid ── */}
+        <div className="relative flex items-center justify-center p-12 max-[900px]:hidden" style={GRID_BG}>
+          <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, transparent 55%, color-mix(in srgb, var(--color-accent) 9%, transparent))" }} />
+          <div className="relative w-full max-w-[500px]">
+            <div className="flex items-center gap-5">
+              <span className="animate-floaty shrink-0 drop-shadow-[0_14px_28px_rgba(36,27,19,.28)]"><Logo size={78} /></span>
+              <div>
+                <p className="font-display font-extrabold text-[38px] leading-none tracking-[-.035em]">cyrus<span className="text-accent">.ai</span></p>
+                <p className="font-mono text-[10.5px] tracking-[.16em] uppercase text-dim mt-2.5">the developer year, planned</p>
+              </div>
+            </div>
+
+            <p className="text-cocoa text-[15px] leading-[1.7] mt-7 max-w-[440px]">
+              One account for the whole season - {REPOS.length} flagship open-source repos, {RESOURCES.length} curated resources, every program and hackathon that matters.
+            </p>
+
+            <div className="grid grid-cols-3 gap-2.5 mt-8 max-w-[440px]">
+              {PANEL_LANGS.map((l) => (
+                <span key={l} className="flex items-center gap-2 bg-card border border-line rounded-[12px] px-3 py-2.5 text-[12.5px] font-semibold text-ink shadow-soft hover:border-accent hover:-translate-y-px transition-all">
+                  <i className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: LANG_COLORS[l] ?? "var(--color-accent)" }} aria-hidden />
+                  <span className="truncate">{l}</span>
+                </span>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-3 mt-8 font-mono text-[10.5px] tracking-[.1em] uppercase text-dim">
+              <span className="h-px flex-1 bg-liness" />
+              <span>repos · programs · hackathons · resources</span>
+              <span className="h-px flex-1 bg-liness" />
+            </div>
+          </div>
+        </div>
+
+        {/* ── right: the form column - the single "Back to Home" button lives
+            at the screen's top-left corner above (see fixed button), so this
+            column carries no duplicate of it. ── */}
+        <div className="relative flex flex-col items-center justify-center px-6 py-14 max-[900px]:py-10">
+          <div className="w-full max-w-[420px]">
+            <h1 className="font-display font-extrabold tracking-[-.03em] text-[clamp(30px,3.4vw,40px)] text-center leading-tight mt-4">
+              {tab === "login" ? <>Welcome <Word>back</Word></> : <>Create your <Word>shortlist</Word></>}
+            </h1>
+            <p className="text-center text-cocoa text-[15px] leading-[1.6] mt-3 mb-8">
+              {tab === "login"
+                ? "Log in to access your matches and saved roadmaps."
+                : "One account for hackathons, programs, skills and deadlines."}
+            </p>
+
+            {/* tabs */}
+            <div className="bg-cream border border-line rounded-[14px] p-1.5 grid grid-cols-2 mb-8">
+              {(["login", "signup"] as const).map((t) => (
+                <button key={t} onClick={() => setTab(t)}
+                  className={`rounded-[10px] py-2.5 font-mono text-[12px] font-bold tracking-[.12em] uppercase transition-all cursor-pointer ${tab === t ? "bg-card text-rust shadow-soft" : "text-dim hover:text-cocoa"}`}>
+                  {t === "login" ? "Login" : "Sign up"}
+                </button>
+              ))}
+            </div>
+
+            <form onSubmit={submit} className="grid gap-5">
+              {tab === "signup" && (
+                <div>
+                  <span className={label}>Display name</span>
+                  <input className={fin} placeholder="ada@lovelace.dev" value={name} onChange={(e) => setName(e.target.value)} autoComplete="nickname" />
+                </div>
+              )}
+              <div>
+                <span className={label}>Email address</span>
+                <input className={fin} type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+              </div>
+              <div>
+                <div className="flex items-baseline justify-between mb-2">
+                  <span className={`${label} !mb-0`}>Password</span>
+                  {tab === "login" && (
+                    <button type="button" onClick={() => toast("Demo preview - password reset isn't wired up yet.")}
+                      className="font-mono text-[11px] font-bold tracking-[.08em] text-rust hover:text-accent cursor-pointer">
+                      Forgot?
+                    </button>
+                  )}
+                </div>
+                <input className={fin} type="password" placeholder="••••••••" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete={tab === "login" ? "current-password" : "new-password"} />
+              </div>
+              <button type="submit"
+                className="mt-1 w-full bg-accent hover:bg-accentd text-white font-display font-bold text-[16px] rounded-[14px] py-4 shadow-[0_14px_30px_-12px_rgba(180,96,44,.6)] transition-all active:scale-[.99] cursor-pointer">
+                {tab === "login" ? "Log In" : "Create Account"}
+              </button>
+            </form>
+
+            <div className="flex items-center gap-4 text-dim text-[12px] font-mono tracking-[.1em] my-7 before:content-[''] before:flex-1 before:h-px before:bg-line after:content-[''] after:flex-1 after:h-px after:bg-line">OR</div>
+
+            <div className="grid grid-cols-2 gap-3.5">
+              <button onClick={signInGitHub} disabled={busyGithub}
+                className="flex items-center justify-center gap-2.5 bg-card border border-line rounded-[14px] py-3.5 font-semibold text-[14.5px] text-ink shadow-soft hover:border-accent hover:-translate-y-px transition-all cursor-pointer disabled:opacity-60 disabled:cursor-wait">
+                {GH_ICON} {busyGithub ? "Opening GitHub..." : "GitHub"}
+              </button>
+              <button onClick={signInGoogle} disabled={busyGoogle}
+                className="flex items-center justify-center gap-2.5 bg-card border border-line rounded-[14px] py-3.5 font-semibold text-[14.5px] text-ink shadow-soft hover:border-accent hover:-translate-y-px transition-all cursor-pointer disabled:opacity-60 disabled:cursor-wait">
+                {G_ICON} {busyGoogle ? "Opening Google..." : "Google"}
+              </button>
+            </div>
+
+            <p className="text-center text-[12.5px] text-cocoa leading-[1.7] mt-8">
+              By logging in or signing up, you agree to our{" "}
+              <button onClick={() => toast("Demo preview - Terms page is on the roadmap.")} className="text-rust font-semibold hover:underline cursor-pointer">Terms &amp; Conditions</button>{" "}
+              and{" "}
+              <button onClick={() => toast("Demo preview - Privacy page is on the roadmap.")} className="text-rust font-semibold hover:underline cursor-pointer">Privacy Policy</button>.
+            </p>
+            <p className="text-center font-mono text-[10px] text-dim mt-3">
+              {googleConfigured()
+                ? "Google sign-in is live - your profile stays in this browser, nothing is sent to a cyrus server"
+                : "demo auth - everything stays in your browser, nothing is sent anywhere"}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse — 528 agent skills, rules, MCP servers & dev agents</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2726%27 fill=%27%230b0b0d%27/%3E%3Cpath d=%27M67 35a21 21 0 1 0 .8 30%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%2711%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2772%27 cy=%2750%27 r=%277.5%27 fill=%27%238b5cf6%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="browse">
+  <div id="nav"></div>
+
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow"><span class="dot"></span>GitHub snapshot · Oct 2, 2026</p>
+      <h1>The <span class="grad-text">directory</span></h1>
+      <p>Every listing is a real repository with real stars. Click any card for the full profile — contributors, languages, license, pulse.</p>
+    </div>
+  </header>
+
+  <div class="chips-rail"><div class="chips" id="chips"></div>
+    <div style="max-width:1240px;margin:0 auto;padding:0 24px 12px;display:flex;gap:10px;align-items:center">
+      <div class="viewtoggle" id="viewToggle" style="display:flex;border:1px solid var(--line);border-radius:9px;overflow:hidden">
+        <button class="btn btn--ghost" data-view="shelves" style="border-radius:0;padding:6px 14px;font-size:13px">Shelves</button>
+        <button class="btn btn--ghost" data-view="grid" style="border-radius:0;padding:6px 14px;font-size:13px">Grid</button>
+      </div>
+      <span id="statusText" style="font-size:13px;color:var(--dim)"></span>
+    </div>
+  </div>
+
+  <main>
+    <div id="shelvesWrap"></div>
+    <div id="gridWrap" hidden><div class="uigrid" id="uigrid"></div>
+      <p style="text-align:center;padding:10px 0 40px"><button class="btn btn--lg" id="loadMore">Load more ↓</button></p></div>
+    <p class="empty" id="empty" hidden style="text-align:center;color:var(--dim);padding:80px 24px">Nothing matches — try <em style="color:var(--blue)">mcp</em>, <em style="color:var(--blue)">skills</em> or <em style="color:var(--blue)">cursor</em>, or press ⌘K.</p>
+  </main>
+
+  <div id="foot"></div>
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+  <script src="browse.js"></script>
+</body>
+</html>

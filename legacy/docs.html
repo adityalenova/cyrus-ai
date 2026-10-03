@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Docs — how cyrus.ai works · cyrus.ai</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2726%27 fill=%27%230b0b0d%27/%3E%3Cpath d=%27M67 35a21 21 0 1 0 .8 30%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%2711%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2772%27 cy=%2750%27 r=%277.5%27 fill=%27%238b5cf6%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="docs">
+  <div id="nav"></div>
+
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow"><span class="dot"></span>docs · v2 · updated 2026-10-02</p>
+      <h1>Documentation</h1>
+      <p>Everything a builder needs: where the data comes from, how pages fetch live stats, and how to get your repo listed.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="doclayout">
+      <ol class="docside">
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#data">The dataset &amp; refresh</a></li>
+        <li><a href="#pages">Repo pages &amp; live API</a></li>
+        <li><a href="#search">Search &amp; filters</a></li>
+        <li><a href="#submit">Listing a repository</a></li>
+        <li><a href="#auth">Authentication today</a></li>
+        <li><a href="#embed">Embedding the data</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+      </ol>
+
+      <article class="prose">
+        <h2 id="intro">Introduction</h2>
+        <p>cyrus.ai is a static multi-page site: <strong>plain HTML, CSS and JavaScript, no framework, no build step</strong>. The catalog lives in one file (<code>data.js</code>) generated from the GitHub API. Pages render it client-side; repo detail pages additionally call the live GitHub API when you open them.</p>
+        <pre><code>data.js      — 528 repo records (stars, forks, license, language, topics…)
+site.js      — shared chrome: nav, footer, ⌘K palette, auth, tilt/reveal
+home.js      — hero code-panel typing, org marquee, feature visuals
+browse.js    — shelves &amp; grid directory
+repo.js      — per-repo profile pages with live API enrichment
+pages.js     — sponsors board, submit queue, forum, community stats</code></pre>
+
+        <h2 id="data">The dataset &amp; refresh</h2>
+        <p>The snapshot is produced by <code>generate.mjs</code>, which reads raw GitHub topic-search dumps (<code>.rawdata/</code>) for topics like <code>agent-skills</code>, <code>claude-code</code>, <code>cursorrules</code>, <code>mcp-server</code> and <code>agents-md</code>, dedupes by repo name, classifies each repo into one of the five shelves (with a curated override map for well-known projects), filters to repos with a description and ≥25 stars, and caps each shelf. Re-running it regenerates <code>data.js</code> in seconds:</p>
+        <pre><code>node generate.mjs
+# → data.js v2: 528 repos {"skills":220,"mcp":150,"tools":80,"agentsmd":50,"cursor":28}</code></pre>
+        <p>Star counts in cards are <strong>frozen at snapshot time (2026-10-02)</strong>; repo pages show live values whenever the API answers, and label which is which.</p>
+
+        <h2 id="pages">Repo pages &amp; live API</h2>
+        <p>Opening <code>repo.html?id=owner/name</code> renders the snapshot record immediately, then fires unauthenticated requests to <code>api.github.com</code> for:</p>
+        <ul>
+          <li><code>/repos/{id}</code> — refreshes stars, forks, open issues and the community pulse;</li>
+          <li><code>/repos/{id}/contributors?per_page=12</code> — the avatar wall with real commit counts;</li>
+          <li><code>/repos/{id}/languages</code> — the language breakdown bar.</li>
+        </ul>
+        <p>Any request that fails (usually the 60 req/h unauthenticated limit) silently falls back to snapshot data, and the page keeps the honest “from the snapshot” label.</p>
+
+        <h2 id="search">Search &amp; filters</h2>
+        <p><kbd>⌘K</kbd> / <kbd>Ctrl-K</kbd> (or <kbd>/</kbd>) opens the command palette on every page. It searches names, descriptions, tags and languages across all 528 repos, ranked by stars. Category chips on <a href="browse.html">browse</a> filter shelves and grid; deep links like <code>browse.html#mcp</code> open a shelf pre-filtered.</p>
+
+        <h2 id="submit">Listing a repository</h2>
+        <p><a href="submit.html">submit.html</a> parses your URL, fetches <code>/repos/{id}</code> live, auto-detects the shelf from your topics and description, and queues the listing with a verified/unverified badge. In this demo the queue is stored in your browser's <code>localStorage</code> (<code>agenthub.submissions</code>); in production it posts to a review endpoint backed by the same enrichment.</p>
+
+        <h2 id="auth">Authentication today</h2>
+        <p>Sign-in (GitHub / Google / guest) creates a <strong>local demo session</strong> in <code>localStorage</code> — enough to exercise saved repos, submissions and forum posting. No credentials are transmitted anywhere. Production OAuth (GitHub App + Google) replaces the prompt step behind the identical buttons; the session shape (<code>{name, provider}</code>) stays the same.</p>
+
+        <h2 id="embed">Embedding the data</h2>
+        <p><code>data.js</code> is a flat, well-commented array — <code>REPOS</code> records carry <code>cat, repo, stars, forks, issues, lang, license, updated, home, url, desc, tags</code>. Import it anywhere, or hit the GitHub API yourself the same way the detail pages do.</p>
+
+        <h2 id="roadmap">Roadmap</h2>
+        <ul>
+          <li>Weekly automated snapshot + changelog of risers/fallers;</li>
+          <li>Real OAuth + accounts, so saved shelves travel with you;</li>
+          <li>Submit flow → backend review queue → one-click accept;</li>
+          <li>Install counts (“how many AGENTS.md reference this skill”);</li>
+          <li>Per-shelf GitHub Discussions replacing the demo forum.</li>
+        </ul>
+      </article>
+    </div>
+  </main>
+
+  <div id="foot"></div>
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>

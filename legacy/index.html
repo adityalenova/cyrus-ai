@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cyrus.ai — find your open-source contribution</title>
+  <meta name="description" content="Developer programs, organizations and 528 GitHub projects for AI coding agents — skills, Cursor rules, AGENTS.md configs and MCP servers, ranked by stars, with a timeline of every contribution window." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='27' fill='%23241b13'/%3E%3Cpath d='M68 34a21.5 21.5 0 1 0 .9 32' fill='none' stroke='%23f5eee3' stroke-width='11' stroke-linecap='round'/%3E%3Cpath d='M76 22c1.6 8.4 5.2 12 13.5 13.6C81.2 37.2 77.6 40.8 76 49.2 74.4 40.8 70.8 37.2 62.4 35.6 70.8 34 74.4 30.4 76 22z' fill='%23d98546'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="home">
+  <div id="nav"></div>
+
+  <!-- ══ Hero: headline + search + logo wall ═══════════════ -->
+  <header class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>GitHub snapshot · Oct 2, 2026 · 528 repos tracked</p>
+        <h1 class="hero__title">
+          <span class="line">Find your</span>
+          <span class="line"><span class="word-accent">open source</span></span>
+          <span class="line">contribution.</span>
+        </h1>
+        <p class="hero__sub">Programs with stipends, organizations that mentor, and the skills, rules, configs and MCP servers your coding agent actually needs — all in one warm catalog.</p>
+        <form class="hero__search" id="heroSearch" action="projects.html">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="heroQuery" type="text" name="q" placeholder="Search projects, orgs, skills…" autocomplete="off" />
+          <button class="btn btn--primary" type="submit">Search</button>
+        </form>
+        <div class="hero__try">
+          <span class="lbl">Try:</span>
+          <a class="trychip" href="projects.html?q=mcp">MCP servers</a>
+          <a class="trychip" href="projects.html?q=skills">agent skills</a>
+          <a class="trychip" href="projects.html?q=cursor">cursor rules</a>
+          <a class="trychip" href="projects.html?q=agents">dev agents</a>
+        </div>
+        <div class="hero__cta">
+          <a class="btn btn--dark btn--lg" href="#programs">Explore programs</a>
+          <a class="link" href="organizations.html">Browse organizations →</a>
+        </div>
+      </div>
+      <div class="logowall">
+        <div class="logowall__grid" id="logoWall"></div>
+        <p class="logowall__note">official logos · github.com/&lt;org&gt;</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ Top developer programs ══════════════════════════════ -->
+  <section class="section wrap" id="programs">
+    <div class="section__head">
+      <div>
+        <span class="section-tag">Paid & mentored</span>
+        <h2>Top developer <span class="word-accent">programs</span></h2>
+        <p class="sub">Stipend-backed internships and contribution sprints, ranked by how welcoming their maintainers are.</p>
+      </div>
+      <div class="side"><a class="btn" href="#timeline">See the year →</a></div>
+    </div>
+    <div class="progs" id="progShelf"><!-- filled by home.js --></div>
+  </section>
+
+  <!-- ══ How it works ════════════════════════════════════════ -->
+  <section class="section wrap" id="how">
+    <div class="howrow">
+      <div>
+        <span class="section-tag">How it works</span>
+        <h2 style="font-size:clamp(30px,3.6vw,42px);font-weight:800;margin-top:14px">From “I should contribute” to <span class="word-accent">merged PR</span>.</h2>
+        <div class="howlist">
+          <div class="howitem"><div class="howic">🧭</div><div><b>Pick a program or project</b><p>Filter 528 agent-tooling repos by stars, difficulty and stack — or jump straight into a mentored program window.</p></div></div>
+          <div class="howitem"><div class="howic">🏢</div><div><b>Match with an organization</b><p>Every org page shows its live issues, languages and contributor pulse before you commit.</p></div></div>
+          <div class="howitem"><div class="howic">⭐</div><div><b>Save your shortlist</b><p>Sign in and your dashboard keeps projects, progress and deadlines in one coffee-dark panel.</p></div></div>
+          <div class="howitem"><div class="howic">🚀</div><div><b>Ship with your agent</b><p>Install the winning skills and MCP servers, then send the PR. The streak counter does the rest.</p></div></div>
+        </div>
+      </div>
+      <div class="browsermock" data-tilt>
+        <div class="browsermock__bar">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span class="browsermock__url">🔒 cyrus.ai/first-pull-request</span>
+        </div>
+        <div class="browsermock__body">
+          <div class="codepanel" id="heroPanel"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trustrow" id="trustRow"></div>
+
+    <div class="whitecards" id="whiteCards"><!-- filled by home.js --></div>
+  </section>
+
+  <!-- ══ Program timeline ════════════════════════════════════ -->
+  <section class="section wrap" id="timeline">
+    <div class="section__head">
+      <div>
+        <span class="section-tag">The contribution calendar</span>
+        <h2>Every window, <span class="word-accent">2026</span>.</h2>
+        <p class="sub">Application and coding phases for the eight programs tracked here — October is highlighted because that’s you, right now.</p>
+      </div>
+      <div class="side"><a class="btn btn--dark" href="organizations.html">All programs & orgs →</a></div>
+    </div>
+    <div class="tl reveal" id="timelineBox"><!-- filled by home.js --></div>
+  </section>
+
+  <!-- ══ Stats band ══════════════════════════════════════════ -->
+  <div class="wrap">
+    <div class="band"><div class="band__inner">
+      <div><b data-count="528">0</b><span>repos tracked by stars</span></div>
+      <div><b><i data-count="26">0</i></b><span>organizations profiled</span></div>
+      <div><b><i data-count="8">0</i></b><span>developer programs</span></div>
+      <div><b><i>3.5M+</i></b><span>GitHub stars represented</span></div>
+    </div></div>
+  </div>
+
+  <!-- ══ Popular organizations marquee ═══════════════════════ -->
+  <section class="section wrap" id="orgs">
+    <div class="section__head">
+      <div>
+        <span class="section-tag">Where contributors land</span>
+        <h2>Popular <span class="word-accent">organizations</span></h2>
+        <p class="sub">Hover to pause, click for the full profile with graphs.</p>
+      </div>
+      <div class="side"><a class="btn btn--dark" href="organizations.html">Browse all →</a></div>
+    </div>
+    <div class="orgmarq"><div class="orgmarq__row" id="orgMarq"></div></div>
+  </section>
+
+  <!-- ══ CTA ═════════════════════════════════════════════════ -->
+  <div class="wrap">
+    <section class="cta">
+      <h2>Your first merged PR is <span class="word-accent">one search away</span>.</h2>
+      <p>Sign in free, save the projects and programs worth your weekend, and let the dashboard track the windows for you.</p>
+      <div class="cta__row">
+        <button class="btn btn--primary btn--lg" id="ctaSignIn">Sign in & open dashboard</button>
+        <a class="btn btn--lg" href="projects.html">Browse projects</a>
+      </div>
+      <p class="cta__fine">Demo auth, stored locally · no email spam · <a href="about.html#data">how we rank repos ↗</a></p>
+    </section>
+  </div>
+
+  <div id="foot"></div>
+  <script src="data.js"></script>
+  <script src="orgsdata.js"></script>
+  <script src="site.js"></script>
+  <script src="home.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Forum — talk agent tooling with builders · cyrus.ai</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2726%27 fill=%27%230b0b0d%27/%3E%3Cpath d=%27M67 35a21 21 0 1 0 .8 30%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%2711%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2772%27 cy=%2750%27 r=%277.5%27 fill=%27%238b5cf6%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="forum">
+  <div id="nav"></div>
+
+  <header class="pagehead">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+      <div>
+        <p class="eyebrow"><span class="dot"></span>The commons · be nice, cite your repo</p>
+        <h1>cyrus.ai <span class="grad-text">forum</span></h1>
+        <p>Show &amp; tell, MCP war stories, and catalog feedback. Threads you post here are stored in your browser for the demo.</p>
+      </div>
+      <button class="btn btn--primary btn--lg" id="newThreadBtn">+ New thread</button>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding:10px 24px 60px;max-width:980px">
+    <div class="forumtabs" role="tablist">
+      <button class="is-active" data-mode="latest">Latest</button>
+      <button data-mode="top">Top voted</button>
+      <button data-mode="unanswered">Unanswered</button>
+    </div>
+
+    <div id="composer" class="form-card" hidden style="max-width:none;margin:16px 0 4px">
+      <form id="ntForm">
+        <div class="field">
+          <label for="ntTitle">Title</label>
+          <input id="ntTitle" maxlength="120" placeholder="Say it in one line — the listing IS the question" required />
+        </div>
+        <div class="field">
+          <label for="ntCat">Category</label>
+          <select id="ntCat">
+            <option>General</option><option>Skills</option><option>MCP</option><option>Cursor Rules</option><option>Show &amp; tell</option><option>Help</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="ntBody">Body</label>
+          <textarea id="ntBody" rows="5" placeholder="What did you try? What broke? Link the repo." required></textarea>
+        </div>
+        <button class="btn btn--primary" type="submit">Post thread</button>
+      </form>
+    </div>
+
+    <div class="threadlist" id="threadList"></div>
+
+    <p class="mono" style="text-align:center;color:var(--dim);font-size:12px;margin-top:22px">voting, posting and sessions are demo-grade (localStorage). Production forum → GitHub Discussions per shelf.</p>
+  </main>
+
+  <div id="foot"></div>
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+  <script src="pages.js"></script>
+</body>
+</html>

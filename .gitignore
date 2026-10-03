@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+.env.local
+
+# local GitHub token-exchange relay secret - never commit
+.github-secret

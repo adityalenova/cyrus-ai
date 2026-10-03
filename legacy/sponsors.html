@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sponsors — fund the maintainers behind your agents · cyrus.ai</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2726%27 fill=%27%230b0b0d%27/%3E%3Cpath d=%27M67 35a21 21 0 1 0 .8 30%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%2711%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2772%27 cy=%2750%27 r=%277.5%27 fill=%27%238b5cf6%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="sponsors">
+  <div id="nav"></div>
+
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow"><span class="dot"></span>Money for maintainers</p>
+      <h1>The <span class="grad-text">sponsor board</span></h1>
+      <p>Every org and builder in the catalog, ranked by the stars their repositories hold here. Sponsorship links go straight to their GitHub Sponsors pages — cyrus.ai takes nothing.</p>
+      <input class="spsearch" id="spSearch" type="search" placeholder="Search maintainers or repos — “anthropics”, “playwright”, “mcp”…" autocomplete="off" />
+      <p class="mono" style="font-size:12px;color:var(--dim)"><span id="spCount"></span> · showing the top of the board</p>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding-bottom:40px">
+    <div class="statrow" id="spStats"></div>
+    <div class="spgrid" id="spGrid"></div>
+    <p style="text-align:center;padding:18px 0 40px"><button class="btn btn--lg" id="spMore">Show more maintainers ↓</button></p>
+
+    <div class="cta reveal">
+      <h2>Corporate team? Sponsor a <span class="grad-text">whole shelf</span></h2>
+      <p>Your dependency tree is on this board. A pooled sponsorship of the top 10 unpaid maintainers costs less than one conference booth and keeps the commons alive.</p>
+      <div class="cta__row">
+        <a class="btn btn--primary btn--lg" href="https://github.com/sponsors" target="_blank" rel="noopener">Learn about GitHub Sponsors ↗</a>
+        <a class="btn btn--lg" href="about.html#data">How we rank impact</a>
+      </div>
+    </div>
+  </main>
+
+  <div id="foot"></div>
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+  <script src="pages.js"></script>
+</body>
+</html>

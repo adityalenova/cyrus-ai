@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>List a repository — get your agent skill discovered · cyrus.ai</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2726%27 fill=%27%230b0b0d%27/%3E%3Cpath d=%27M67 35a21 21 0 1 0 .8 30%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%2711%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2772%27 cy=%2750%27 r=%277.5%27 fill=%27%238b5cf6%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="submit">
+  <div id="nav"></div>
+
+  <header class="pagehead">
+    <div class="wrap">
+      <p class="eyebrow"><span class="dot"></span>Free · for open-source projects</p>
+      <h1>List your <span class="grad-text">repository</span></h1>
+      <p>Paste a GitHub URL. We pull stars, language, license and description straight from the API, guess the shelf, and queue the listing. You write zero marketing copy.</p>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding:30px 24px 60px">
+    <form class="form-card reveal" id="submitForm" novalidate>
+      <div class="field">
+        <label for="fUrl">GitHub repository URL *</label>
+        <input id="fUrl" type="url" placeholder="https://github.com/you/my-skill-pack" required />
+        <small>Public repos only. Metadata is fetched live from api.github.com when you submit.</small>
+      </div>
+      <div class="field">
+        <label for="fCat">Shelf *</label>
+        <select id="fCat" required>
+          <option value="skills">Agent Skills</option>
+          <option value="mcp">MCP Servers</option>
+          <option value="cursor">Cursor Rules</option>
+          <option value="agentsmd">AGENTS.md &amp; Design.md</option>
+          <option value="tools">Dev Agents &amp; Programs</option>
+        </select>
+        <small>Auto-detected from your repo's topics &amp; description — override it if we guess wrong.</small>
+      </div>
+      <div class="field">
+        <label for="fWhy">Why should developers use it? <span style="color:var(--dim);font-weight:400">(optional)</span></label>
+        <textarea id="fWhy" rows="3" placeholder="One or two sentences — what problem it solves, what makes it different. Goes on your listing."></textarea>
+      </div>
+      <div class="submit-preview" id="subPreview" aria-live="polite"></div>
+      <button class="btn btn--primary btn--lg" id="submitBtn" type="submit" style="width:100%;justify-content:center;margin-top:8px">Queue my listing</button>
+      <p class="form-note">Listings are reviewed against the catalog rules — real repository, open-source license, relevant to AI coding agents. You'll appear on the sponsor board automatically once accepted. This demo stores your queue locally in your browser.</p>
+    </form>
+
+    <section style="margin-top:44px" id="myQueueWrap">
+      <div class="section__head"><p class="section-tag">// your queue</p><h2 style="font-size:24px">Pending listings</h2></div>
+      <div id="myQueue"></div>
+    </section>
+  </main>
+
+  <div id="foot"></div>
+  <script src="data.js"></script>
+  <script src="site.js"></script>
+  <script src="pages.js"></script>
+</body>
+</html>
