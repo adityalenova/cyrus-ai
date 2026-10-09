@@ -94,7 +94,7 @@ function ProjCard({ p }: { p: Proj }) {
           <OrgImg src={avatarOf(p.org, 72)} name={p.org} className="w-full h-full object-cover" />
         </span>
         <div className="min-w-0 flex-1">
-          <h3 className="font-display font-bold text-[14.5px] leading-[1.25] line-clamp-2">{p.title}</h3>
+          <h3 className="card-title text-[15.5px] line-clamp-2">{p.title}</h3>
           <p className="font-mono text-[10px] tracking-[.08em] uppercase text-dim mt-1 truncate">{p.org} • {p.year}</p>
         </div>
         <span className={`font-mono text-[9px] font-bold uppercase tracking-[.09em] px-2 py-1 rounded-full border shrink-0 ${DIFF_CLS[p.size]}`}>{DIFF[p.size]}</span>

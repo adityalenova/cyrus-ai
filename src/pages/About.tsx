@@ -85,7 +85,7 @@ export default function About() {
 
         <aside className="sticky top-[86px] max-[980px]:static grid gap-4">
           <div className="bg-card border border-line rounded-[20px] p-6 shadow-soft">
-            <h3 className="font-display font-bold text-[16px] mb-4">Catalog at a glance</h3>
+            <h3 className="panel-h text-[17px] mb-4">Catalog at a glance</h3>
             {[
               [String(REPOS.length), "repos in the snapshot"],
               [String(ORGS.length), "organizations hand-picked"],
@@ -99,7 +99,7 @@ export default function About() {
             ))}
           </div>
           <div className="bg-peach border border-accent/20 rounded-[20px] p-6">
-            <h3 className="font-display font-bold text-[16px] mb-2">Built by one developer, <Word>in Hyderabad.</Word></h3>
+            <h3 className="panel-h text-[17px] mb-2">Built by one developer, <Word>in Hyderabad.</Word></h3>
             <p className="text-rust text-[13px] leading-[1.65] mb-4">
               cyrus.ai is a solo project: a scraper, a design system and a grudge against “awesome lists”.
               Feedback, corrections and sponsorship suggestions all land in the same inbox.

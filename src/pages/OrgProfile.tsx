@@ -342,7 +342,7 @@ export default function OrgProfile() {
         {/* ── live GitHub repositories ── */}
         {real.length > 0 && (
           <section className="bg-card border border-line rounded-[18px] overflow-hidden shadow-soft">
-            <h2 className="px-[18px] py-3.5 border-b border-liness font-display font-bold text-[14.5px] flex items-center gap-2.5">
+            <h2 className="px-[18px] py-3.5 border-b border-liness panel-h flex items-center gap-2.5">
               Top repositories on GitHub
               <span className="font-mono text-[11px] text-dim font-medium">live from github.com/{org.login}, ranked by stars</span>
               <a href={`https://github.com/${org.login}?tab=repositories`} target="_blank" rel="noopener"
@@ -354,7 +354,7 @@ export default function OrgProfile() {
                   className="bg-cream border border-line rounded-[14px] p-4 flex flex-col gap-2 transition-all hover:-translate-y-px hover:border-accent/40">
                   <div className="flex items-center gap-2.5">
                     <span className="text-accent shrink-0">{IC_REPO}</span>
-                    <b className="font-display text-[14px] truncate">{r.repo.split("/")[1]}</b>
+                    <b className="card-title text-[14px] truncate">{r.repo.split("/")[1]}</b>
                     <span className="ml-auto flex items-center gap-3 font-mono text-[10.5px] text-dim shrink-0">
                       <span className="flex items-center gap-1.5">
                         <i className="w-[9px] h-[9px] rounded-full not-italic" style={{ background: LANG_COLORS[r.lang] ?? "#a09282" }} />
@@ -376,7 +376,7 @@ export default function OrgProfile() {
 
         {/* ── open source program history ── */}
         <section className="bg-card border border-line rounded-[18px] overflow-hidden shadow-soft">
-          <h2 className="px-[18px] py-3.5 border-b border-liness font-display font-bold text-[14.5px] flex items-center gap-2.5">
+          <h2 className="px-[18px] py-3.5 border-b border-liness panel-h flex items-center gap-2.5">
             How @{org.login} runs open source programs <span className="font-mono text-[11px] text-dim font-medium">participation estimated from mentor listings and archived project tables; the playbook blends org-level signals with per-program norms</span>
           </h2>
           <div className="p-[18px]">
@@ -476,7 +476,7 @@ export default function OrgProfile() {
         {/* ── what they've built, by shelf ── */}
         {shelves.length > 0 && (
           <section className="bg-card border border-line rounded-[18px] overflow-hidden shadow-soft">
-            <h2 className="px-[18px] py-3.5 border-b border-liness font-display font-bold text-[14.5px] flex items-center gap-2.5">
+            <h2 className="px-[18px] py-3.5 border-b border-liness panel-h flex items-center gap-2.5">
               What they've built <span className="font-mono text-[11px] text-dim font-medium">{repos.length} repos · {shelves.map((c) => `${shelfCounts[c]} ${CAT_META[c]?.label ?? c}`).join(" · ")}</span>
             </h2>
             <div className="p-[18px] grid grid-cols-3 gap-3 max-[900px]:grid-cols-1">
@@ -500,7 +500,7 @@ export default function OrgProfile() {
 
         {/* ── contributor intel (in depth) ── */}
         <section className="bg-card border border-line rounded-[18px] overflow-hidden shadow-soft">
-          <h2 className="px-[18px] py-3.5 border-b border-liness font-display font-bold text-[14.5px] flex items-center gap-2.5">
+          <h2 className="px-[18px] py-3.5 border-b border-liness panel-h flex items-center gap-2.5">
             Contributor intel <span className="font-mono text-[11px] text-dim font-medium">per-org estimates from the 2026-10-02 snapshot</span>
           </h2>
           <div className="p-[18px] grid grid-cols-[300px_1fr] gap-6 max-[960px]:grid-cols-1">
@@ -539,13 +539,13 @@ export default function OrgProfile() {
         {/* ── language mix + community pulse ── */}
         <div className="grid grid-cols-[1fr_1fr] gap-5 max-[960px]:grid-cols-1">
           <section className="bg-card border border-line rounded-[18px] overflow-hidden shadow-soft">
-            <h2 className="px-[18px] py-3.5 border-b border-liness font-display font-bold text-[14.5px] flex items-center gap-2.5">
+            <h2 className="px-[18px] py-3.5 border-b border-liness panel-h flex items-center gap-2.5">
               Language mix <span className="font-mono text-[11px] text-dim font-medium">by star weight</span>
             </h2>
             <div className="p-[18px]"><Donut mix={mix} /></div>
           </section>
           <section className="bg-card border border-line rounded-[18px] overflow-hidden shadow-soft">
-            <h2 className="px-[18px] py-3.5 border-b border-liness font-display font-bold text-[14.5px] flex items-center gap-2.5">
+            <h2 className="px-[18px] py-3.5 border-b border-liness panel-h flex items-center gap-2.5">
               Community pulse <span className="font-mono text-[11px] text-dim font-medium">last 12 months</span>
             </h2>
             <div className="p-[18px]">
@@ -598,12 +598,12 @@ export default function OrgProfile() {
                   <div className="flex items-center gap-3">
                     <OrgImg src={avatarOf(r.repo.split("/")[0], 64)} name={r.repo} className="w-10 h-10 rounded-xl object-cover bg-clay" />
                     <div className="min-w-0">
-                      <h3 className="font-display text-[15.5px] font-bold leading-tight truncate">{r.repo.split("/")[1]}</h3>
+                      <h3 className="card-title text-[15.5px] truncate">{r.repo.split("/")[1]}</h3>
                       <span className="font-mono text-[10px] text-dim tracking-[.05em]">{CAT_META[r.cat]?.label ?? r.cat}</span>
                     </div>
                     <span className="ml-auto shrink-0"><Chip tone="stars">★ {fmt(r.stars)}</Chip></span>
                   </div>
-                  <p className="text-cocoa text-[13px] leading-[1.6] line-clamp-2">{r.desc}</p>
+                  <p className="card-desc line-clamp-2">{r.desc}</p>
                   <div className="flex gap-1.5 flex-wrap"><Chip tone="lang">{r.lang}</Chip>{r.tags.slice(0, 2).map((t) => <Chip key={t}>{t}</Chip>)}</div>
                 </Link>
               ))}
@@ -620,7 +620,7 @@ export default function OrgProfile() {
 
         {/* ── similar organizations ── */}
         <section className="bg-card border border-line rounded-[18px] overflow-hidden shadow-soft">
-          <h2 className="px-[18px] py-3.5 border-b border-liness font-display font-bold text-[14.5px] flex items-center gap-2.5">
+          <h2 className="px-[18px] py-3.5 border-b border-liness panel-h flex items-center gap-2.5">
             Similar organizations <span className="font-mono text-[11px] text-dim font-medium">shared focus tags and program history</span>
           </h2>
           <div className="p-[18px] grid grid-cols-4 gap-3.5 max-[980px]:grid-cols-2 max-[560px]:grid-cols-1">
@@ -629,7 +629,7 @@ export default function OrgProfile() {
                 className="bg-cream border border-line rounded-[14px] p-4 flex flex-col gap-2 transition-all hover:-translate-y-1 hover:border-accent/40">
                 <span className="flex items-center gap-2.5 min-w-0">
                   <OrgImg src={avatarOf(o.login, 64)} name={o.login} className="w-8 h-8 rounded-[9px] object-cover bg-white border border-line shrink-0" />
-                  <b className="font-display text-[13px] truncate">{o.name}</b>
+                  <b className="card-title text-[13.5px] truncate">{o.name}</b>
                 </span>
                 <span className="font-mono text-[10px] text-dim">{shared ? `${shared} shared focus tags` : "adjacent ecosystem"} · ★ {fmt(o.stars)}</span>
                 <span className="text-[12px] text-cocoa line-clamp-2 leading-[1.55]">{o.tagline}</span>

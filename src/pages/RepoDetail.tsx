@@ -58,7 +58,7 @@ function useLive(r: Repo | undefined) {
 function Panel({ title, count, children }: { title: string; count?: string; children: React.ReactNode }) {
   return (
     <section className="bg-card border border-line rounded-[18px] overflow-hidden shadow-soft mb-5">
-      <h2 className="px-[18px] py-3.5 border-b border-liness font-display font-bold text-[14.5px] flex items-center gap-2.5">
+      <h2 className="px-[18px] py-3.5 border-b border-liness panel-h flex items-center gap-2.5">
         {title}{count && <span className="font-mono text-[11px] text-dim font-medium">{count}</span>}
       </h2>
       <div className="p-[18px]">{children}</div>
@@ -303,7 +303,7 @@ export default function RepoDetail() {
           </Panel>
 
           <div className="bg-peach border border-accent/20 rounded-[18px] p-5">
-            <h3 className="font-display font-bold text-[15px] mb-1.5">Data <Word>honesty</Word></h3>
+            <h3 className="panel-h mb-1.5">Data <Word>honesty</Word></h3>
             <p className="text-[12.5px] text-rust leading-[1.65]">
               Snapshot stats were taken 2026-10-02. Contributors and languages above are fetched live from the
               GitHub API; if rate-limited, you'll see clearly-labelled estimates instead.

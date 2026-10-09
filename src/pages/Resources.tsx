@@ -18,12 +18,12 @@ function ResCard({ r }: { r: Resource }) {
       <div className="flex items-center gap-2.5">
         <OrgImg src={avatarOf(r.provider, 64)} name={r.brand} className="w-[34px] h-[34px] rounded-[10px] object-cover bg-sand shrink-0" />
         <div className="min-w-0 flex-1">
-          <b className="block font-display text-[15px] leading-tight truncate group-hover:text-rust transition-colors">{r.title}</b>
+          <b className="block card-title truncate group-hover:text-rust transition-colors">{r.title}</b>
           <span className="text-[11.5px] text-dim">{r.brand}</span>
         </div>
         {r.free && <span className="font-mono text-[9.5px] font-bold text-leaf border border-leaf/30 bg-leaf/8 rounded-full px-2 py-[3px] shrink-0">FREE</span>}
       </div>
-      <p className="text-cocoa text-[13px] leading-[1.55] line-clamp-2">{r.desc}</p>
+      <p className="card-desc line-clamp-2">{r.desc}</p>
       <div className="flex items-center gap-1.5 flex-wrap mt-auto pt-1">
         <Chip tone={CAT_TONE[r.cat] as never}>{r.cat}</Chip>
         <Chip>{r.level}</Chip>
@@ -92,7 +92,7 @@ export default function Resources() {
                     <OrgImg src={avatarOf(r.provider, 64)} name={r.brand} className="w-[26px] h-[26px] rounded-[8px] object-cover bg-sand shrink-0" />
                     <span className="font-mono text-[9.5px] font-bold tracking-[.12em] uppercase text-ember">{r.level}</span>
                   </div>
-                  <b className="font-display text-[16.5px] leading-snug">{r.title}</b>
+                  <b className="card-title text-[16.5px] leading-snug">{r.title}</b>
                   <span className="text-[12.5px] text-foam/70 leading-[1.5]">{p.best}</span>
                   <span className="mt-auto flex items-center gap-2 font-mono text-[10.5px] text-foam/50 pt-2">
                     {r.brand} · {r.time}
@@ -200,7 +200,7 @@ export function ResourceDetail() {
           </div>
 
           <div className="bg-card border border-line rounded-[20px] p-5">
-            <h3 className="font-display font-bold text-[15px] mb-3">Skills that match</h3>
+            <h3 className="panel-h mb-3">Skills that match</h3>
             <ul className="grid gap-2.5 list-none">
               {skills.map((s) => (
                 <li key={s.repo}>
@@ -216,7 +216,7 @@ export function ResourceDetail() {
           </div>
 
           <div className="bg-card border border-line rounded-[20px] p-5">
-            <h3 className="font-display font-bold text-[15px] mb-3">More from this shelf</h3>
+            <h3 className="panel-h mb-3">More from this shelf</h3>
             <ul className="grid gap-2.5 list-none">
               {more.map((m) => (
                 <li key={m.id}><Link to={`/resources/${m.id}`} className="block text-[13px] font-semibold text-cocoa hover:text-rust leading-snug transition-colors">{m.title}<span className="block font-normal text-[11px] text-dim mt-0.5">{m.brand} · {m.cat}</span></Link></li>

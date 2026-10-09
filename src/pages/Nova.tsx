@@ -175,7 +175,7 @@ export default function Nova() {
                       <span className="font-mono text-[10px] text-dim truncate">{r.repo.split("/")[0]}</span>
                       <Chip tone="lang" key={r.lang + r.repo}>{r.lang}</Chip>
                     </div>
-                    <p className="text-cocoa text-[13px] leading-[1.6] line-clamp-2">{r.desc}</p>
+                    <p className="card-desc line-clamp-2">{r.desc}</p>
                     <div className="flex gap-1.5 flex-wrap">{r.tags.filter((t) => needles.some((n) => t.toLowerCase().includes(n))).slice(0, 4).map((t) => <Chip key={t} tone="green">{t}</Chip>)}
                       {r.tags.filter((t) => !needles.some((n) => t.toLowerCase().includes(n))).slice(0, 2).map((t) => <Chip key={t}>{t}</Chip>)}</div>
                     <div className="flex gap-2 mt-auto pt-1">

@@ -54,7 +54,7 @@ function OrgCard({ org }: { org: Org }) {
       <div className="flex items-center gap-3">
         <OrgImg src={avatarOf(org.login, 88)} name={org.login} className="w-11 h-11 rounded-[13px] object-cover bg-clay" />
         <div className="min-w-0">
-          <b className="block font-display text-[15px] leading-tight truncate">{org.name}</b>
+          <b className="block card-title truncate">{org.name}</b>
           <span className="font-mono text-[10.5px] text-dim">@{org.login} · {org.domain}</span>
         </div>
         <span className="ml-auto shrink-0"><LevelChip level={org.level} /></span>
@@ -99,7 +99,7 @@ function ProgramCard({ p }: { p: Program }) {
         </div>
       </div>
       <div className="p-5 flex flex-col gap-3 flex-1">
-        <p className="text-cocoa text-[13px] leading-[1.6] line-clamp-2 flex-1">{p.tag}</p>
+        <p className="card-desc line-clamp-2 flex-1">{p.tag}</p>
         <div className="flex items-center justify-between gap-2">
           <div>
             <b className="block font-display text-[16px] text-accent">{p.pay}</b>

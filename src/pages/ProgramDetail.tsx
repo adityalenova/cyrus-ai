@@ -164,7 +164,7 @@ export default function ProgramDetail() {
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div className="min-w-0">
-                    <b className="font-display text-[15px] block mb-1">{title}</b>
+                    <b className="panel-h block mb-1">{title}</b>
                     <p className="text-cocoa text-[13px] leading-[1.65]">{text}</p>
                   </div>
                 </li>
@@ -174,7 +174,7 @@ export default function ProgramDetail() {
 
           <div className="grid grid-cols-2 gap-5 max-[820px]:grid-cols-1">
             <section className="bg-card border border-line rounded-[20px] p-6 shadow-soft">
-              <h2 className="font-display font-bold text-[16px] mb-3.5">Who it's <Word>for</Word></h2>
+              <h2 className="panel-h text-[17px] mb-3.5">Who it's <Word>for</Word></h2>
               <ul className="grid gap-2.5 list-none">
                 {d.whoFor.map((x) => (
                   <li key={x.slice(0, 20)} className="flex gap-2.5 text-[13px] leading-[1.6] text-cocoa">
@@ -184,7 +184,7 @@ export default function ProgramDetail() {
               </ul>
             </section>
             <section className="bg-card border border-line rounded-[20px] p-6 shadow-soft">
-              <h2 className="font-display font-bold text-[16px] mb-3.5">What you <Word>walk away with</Word></h2>
+              <h2 className="panel-h text-[17px] mb-3.5">What you <Word>walk away with</Word></h2>
               <ul className="grid gap-2.5 list-none">
                 {d.outcomes.map((x) => (
                   <li key={x.slice(0, 20)} className="flex gap-2.5 text-[13px] leading-[1.6] text-cocoa">
@@ -197,13 +197,13 @@ export default function ProgramDetail() {
           </div>
 
           <section className="bg-card border border-line rounded-[20px] p-6 shadow-soft">
-            <h2 className="font-display font-bold text-[16px] mb-1">Program <Word>timeline</Word></h2>
+            <h2 className="panel-h text-[17px] mb-1">Program <Word>timeline</Word></h2>
             <p className="text-cocoa text-[12.5px] mb-5">Calendar positions for the 2026 cycle - the marker shows October, where you are now.</p>
             <MonthBar p={p} />
           </section>
 
           <section className="bg-card border border-line rounded-[20px] p-6 shadow-soft">
-            <h2 className="font-display font-bold text-[16px] mb-1">{d.chartTitle}</h2>
+            <h2 className="panel-h text-[17px] mb-1">{d.chartTitle}</h2>
             <p className="text-cocoa text-[12.5px] mb-5">Program-level totals across recent cycles, blended from organizer reports and archive counts.</p>
             <YearChart data={d.projectsPerYear} unit={d.chartUnit} />
           </section>
@@ -220,7 +220,7 @@ export default function ProgramDetail() {
                     className="bg-card border border-line rounded-[18px] p-4.5 flex flex-col gap-2.5 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:shadow-lift hover:border-accent/40">
                     <div className="flex items-center gap-2.5 min-w-0">
                       <OrgImg src={avatarOf(r.repo.split("/")[0], 64)} name={r.repo} className="w-8 h-8 rounded-[9px] object-cover bg-clay shrink-0" />
-                      <b className="font-display text-[13.5px] truncate">{r.repo.split("/")[1]}</b>
+                      <b className="card-title text-[13.5px] truncate">{r.repo.split("/")[1]}</b>
                       <span className="ml-auto font-mono text-[10.5px] text-honey font-bold shrink-0">★ {fmt(r.stars)}</span>
                     </div>
                     <p className="text-cocoa text-[12px] leading-[1.55] line-clamp-2">{r.desc}</p>
@@ -251,7 +251,7 @@ export default function ProgramDetail() {
           </div>
 
           <div className="bg-peach border border-accent/25 rounded-[20px] p-5">
-            <h2 className="font-display font-bold text-[14.5px] text-rust mb-1.5">Stack your seasons</h2>
+            <h2 className="panel-h text-rust mb-1.5">Stack your seasons</h2>
             <p className="text-cocoa text-[12.5px] leading-[1.6]">
               Programs run on staggered calendars. Pair this one with a winter or spring season so your
               contribution history never idles - check the full 12-month view from the home timeline.

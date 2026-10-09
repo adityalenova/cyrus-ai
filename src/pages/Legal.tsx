@@ -243,14 +243,14 @@ export default function Legal({ kind }: { kind: LegalKind }) {
 
         {doc.secs.map((s) => (
           <section key={s.id} id={s.id} className="mt-10 pt-9 border-t border-liness first-of-type:border-t-0 scroll-mt-24">
-            <h2 className="font-display font-bold text-[20px] tracking-[-.02em] mb-4">{s.h}</h2>
+            <h2 className="panel-h-lg tracking-[-.02em] mb-4">{s.h}</h2>
             <div className="grid gap-4">{s.body}</div>
           </section>
         ))}
 
         <div className="mt-12 bg-card border border-line rounded-[20px] p-6 shadow-soft flex flex-wrap items-center gap-4">
           <div className="flex-1 min-w-[240px]">
-            <h3 className="font-display font-bold text-[15.5px] mb-1.5">Other documents</h3>
+            <h3 className="panel-h mb-1.5">Other documents</h3>
             <p className="text-cocoa text-[13.5px]">The full legal set for cyrus.ai, all written for what the site actually does.</p>
           </div>
           <div className="flex flex-wrap gap-2.5">

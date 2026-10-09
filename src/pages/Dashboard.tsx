@@ -238,7 +238,7 @@ export default function Dashboard() {
         </section>
 
         <section id="saved" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
-          <h3 className="font-display font-bold text-[18px] mb-4 flex items-center gap-2.5">
+          <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">
             {IC_STAR_SM} Saved projects <Link to="/projects" className="go ml-auto text-dim text-[13px] font-medium hover:text-accent">browse more →</Link>
           </h3>
           {savedRepos.length ? savedRepos.map((r) => {
@@ -247,7 +247,7 @@ export default function Dashboard() {
               <div key={r!.repo} className="flex items-center gap-3.5 py-3.5 border-b border-liness last:border-0 last:pb-0">
                 <OrgImg src={avatarOf(r!.repo.split("/")[0], 76)} name={r!.repo} className="w-[38px] h-[38px] rounded-[11px] object-cover bg-clay shrink-0" />
                 <div className="min-w-0 flex-1">
-                  <b className="block font-display text-[14px] truncate"><Link to={`/repo/${encodeURIComponent(r!.repo)}`} className="hover:text-accent">{r!.repo.split("/")[1]}</Link></b>
+                  <b className="block card-title text-[14px] truncate"><Link to={`/repo/${encodeURIComponent(r!.repo)}`} className="hover:text-accent">{r!.repo.split("/")[1]}</Link></b>
                   <span className="font-mono text-[10.5px] text-dim">★ {fmt(r!.stars)} · {r!.lang} · {CAT_META[r!.cat]?.label}</span>
                 </div>
                 <div className="w-[120px] h-1.5 rounded-full bg-clay overflow-hidden shrink-0 max-[640px]:hidden" title={`${prog}% catalog activity`}>
@@ -264,7 +264,7 @@ export default function Dashboard() {
         </section>
 
         <section id="orgs" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
-          <h3 className="font-display font-bold text-[18px] mb-4 flex items-center gap-2.5"><Ic d={D.building} size={16} /> Saved organizations</h3>
+          <h3 className="panel-h-lg mb-4 flex items-center gap-2.5"><Ic d={D.building} size={16} /> Saved organizations</h3>
           {orgList.length ? (
             <div className="flex gap-2.5 flex-wrap">
               {orgList.map((o) => (
@@ -283,7 +283,7 @@ export default function Dashboard() {
         </section>
 
         <section id="deadlines" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
-          <h3 className="font-display font-bold text-[18px] mb-4 flex items-center gap-2.5">
+          <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">
             {IC_FLAG} Deadlines ahead <Link to="/hackathons" className="ml-auto text-[13px] font-medium text-dim hover:text-accent">full calendar →</Link>
           </h3>
           {due.length ? (
@@ -295,7 +295,7 @@ export default function Dashboard() {
                     className="group flex items-center gap-3 border border-line rounded-[16px] p-4 hover:border-ember hover:-translate-y-px transition-all">
                     <OrgImg src={avatarOf(h.orgLogo, 64)} name={h.orgLogo} className="w-[34px] h-[34px] rounded-[10px] object-cover bg-sand shrink-0" />
                     <div className="min-w-0">
-                      <b className="block font-display text-[14px] truncate group-hover:text-rust transition-colors">{h.name}</b>
+                      <b className="block card-title text-[14px] group-hover:text-rust transition-colors">{h.name}</b>
                       <span className="font-mono text-[10.5px] text-dim">{h.org} · closes {h.deadline}</span>
                     </div>
                     <span className={`ml-auto shrink-0 font-mono text-[10px] font-bold border rounded-full px-2.5 py-1 ${dueTone(d)}`}>
@@ -311,7 +311,7 @@ export default function Dashboard() {
         </section>
 
         <section className="bg-card border border-line rounded-[22px] p-6 shadow-soft">
-          <h3 className="font-display font-bold text-[18px] mb-4 flex items-center gap-2.5">
+          <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">
             {IC_BOOK} Reading picked for your stack <Link to="/resources" className="ml-auto text-[13px] font-medium text-dim hover:text-accent">all resources →</Link>
           </h3>
           <div className="grid grid-cols-3 gap-3 max-[800px]:grid-cols-1">
@@ -323,7 +323,7 @@ export default function Dashboard() {
                   <span className="font-mono text-[10px] text-dim truncate">{r.brand}</span>
                   {r.free && <span className="ml-auto shrink-0 font-mono text-[9px] font-bold text-leaf">FREE</span>}
                 </div>
-                <b className="font-display text-[13.5px] leading-snug group-hover:text-rust transition-colors line-clamp-2">{r.title}</b>
+                <b className="card-title text-[14px] leading-snug group-hover:text-rust transition-colors line-clamp-2">{r.title}</b>
                 <span className="font-mono text-[10px] text-dim mt-auto">{r.cat} · {r.time}</span>
               </Link>
             ))}
@@ -331,7 +331,7 @@ export default function Dashboard() {
         </section>
 
         <section id="activity" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
-          <h3 className="font-display font-bold text-[18px] mb-2 flex items-center gap-2.5"><Ic d={D.pulse} size={16} /> Activity</h3>
+          <h3 className="panel-h-lg mb-2 flex items-center gap-2.5"><Ic d={D.pulse} size={16} /> Activity</h3>
           <div>
             {acts.map(([txt, when], i) => (
               <div key={i} className="flex gap-3.5 py-3 relative">
@@ -349,7 +349,7 @@ export default function Dashboard() {
         </section>
 
         <section className="bg-card border border-line rounded-[22px] p-6 shadow-soft">
-          <h3 className="font-display font-bold text-[18px] mb-4 flex items-center gap-2.5"><Ic d={D.bookmark} size={16} /> Your working stack, per the board</h3>
+          <h3 className="panel-h-lg mb-4 flex items-center gap-2.5"><Ic d={D.bookmark} size={16} /> Your working stack, per the board</h3>
           <div className="flex flex-wrap gap-2">
             {(langs.length ? langs : ["TypeScript", "Python"]).map((l) => <Chip key={l} tone="lang">{l}</Chip>)}
             {skills.map((t) => <Chip key={t} tone="cat">{t}</Chip>)}

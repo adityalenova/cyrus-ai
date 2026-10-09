@@ -61,7 +61,6 @@ function Hero() {
               </Link>
             ))}
           </div>
-          <p className="text-center mt-4 text-[12.5px] text-dim font-mono">official logos · github.com/&lt;org&gt;</p>
         </div>
       </div>
     </header>
@@ -109,8 +108,8 @@ function ProgCard({ p }: { p: Program }) {
       </div>
       <div className="mt-auto p-5 flex flex-col gap-2.5">
         <span className="font-mono text-[10.5px] tracking-[.1em] uppercase text-ember">{p.owner} · {p.window}</span>
-        <h3 className="font-display text-[22px] font-bold leading-[1.15] text-white">{p.name}</h3>
-        <p className="text-foam/72 text-[13px] leading-[1.55]">{p.tag}</p>
+        <h3 className="card-title-xl text-white">{p.name}</h3>
+        <p className="text-foam/75 text-[13.5px] leading-[1.6]">{p.tag}</p>
         <div className="flex items-center justify-between gap-2.5 mt-1.5">
           <span className="font-mono text-[13px] font-bold text-[#f0a35c]">{p.pay}
             <small className="block text-[9.5px] font-medium text-foam/55 tracking-[.08em] uppercase">{p.payNote}</small></span>
@@ -173,7 +172,7 @@ function Timeline() {
             <div key={p.id} className="grid grid-cols-[230px_1fr] gap-4 items-center py-3 border-b border-liness last:border-0">
               <span className="flex items-center gap-2.5 min-w-0">
                 <img src={avatarOf(p.owner, 48)} alt="" loading="lazy" className="w-[24px] h-[24px] rounded-[7px] bg-sand object-cover shrink-0" />
-                <b className="font-display text-[13.5px] truncate">{p.name}</b>
+                <b className="card-title text-[13.5px] truncate">{p.name}</b>
               </span>
               <div className="relative h-[30px]">
                 {MONTHS.map((_, i) => <i key={i} className="absolute top-0 bottom-0 w-px bg-liness" style={{ left: `${((i + 1) / 12) * 100}%` }} />)}
@@ -347,7 +346,7 @@ function HowItWorks() {
               <div key={b} className="flex gap-4 items-start">
                 <div className="w-[46px] h-[46px] rounded-[14px] shrink-0 grid place-items-center text-rust bg-peach border border-accent/20">{ic}</div>
                 <div>
-                  <b className="block font-display text-[16px] mb-1">{b}</b>
+                  <b className="block panel-h mb-1">{b}</b>
                   <p className="text-cocoa text-[14px] leading-[1.6] max-w-[380px]">{p}</p>
                 </div>
               </div>
@@ -379,7 +378,7 @@ function HowItWorks() {
               className="bg-card border border-line rounded-[20px] p-[22px] flex flex-col gap-3 shadow-soft hover:-translate-y-[5px] hover:shadow-lift hover:border-accent/40 transition-all">
               <div className="flex items-center gap-3">
                 <OrgImg src={avatarOf(owner, 96)} name={owner} className="w-10 h-10 rounded-[12px] object-cover bg-sand" />
-                <span><h4 className="font-display text-[16px] leading-[1.2]">{name}</h4>
+                <span><h4 className="panel-h text-[15.5px] leading-[1.25]">{name}</h4>
                   <span className="font-mono text-[10px] text-dim tracking-[.05em]">{owner}</span></span>
               </div>
               <p className="text-cocoa text-[13px] leading-[1.6] flex-1 line-clamp-3">{r.desc}</p>
@@ -410,7 +409,7 @@ function BpCard({ id, n, c, t, sub, d, span, children }: { id?: string; n: strin
       <div className="bg-card border border-line rounded-[14px] p-4 mb-5 shadow-soft">{children}</div>
       <span className="inline-block font-mono text-[11px] font-bold rounded-[7px] px-1.5 py-[3px] border mb-2"
         style={{ color: inkOn(c), borderColor: `color-mix(in srgb, ${c} 45%, transparent)` }}>{n}</span>
-      <h3 className="font-display text-[21px] font-bold leading-tight">{t}</h3>
+      <h3 className="card-title-xl leading-[1.25]">{t}</h3>
       <p className="font-mono text-[10.5px] font-bold tracking-[.1em] uppercase mt-1.5" style={{ color: inkOn(c) }}>{sub}</p>
       <p className="text-cocoa text-[13.5px] leading-[1.65] mt-2.5">{d}</p>
     </div>
@@ -569,7 +568,7 @@ function Season() {
               <span className="flex items-center gap-3.5 min-w-0">
                 <OrgImg src={avatarOf(h.orgLogo, 64)} name={h.orgLogo} className="w-[36px] h-[36px] rounded-[11px] object-cover bg-sand shrink-0" />
                 <span className="min-w-0">
-                  <b className="block font-display text-[14.5px] truncate group-hover:text-rust transition-colors">{h.name}</b>
+                  <b className="block card-title text-[14.5px] group-hover:text-rust transition-colors">{h.name}</b>
                   <span className="flex items-center gap-2 mt-1">
                     <span className={`font-mono text-[9px] font-bold tracking-[.08em] uppercase px-2 py-[3px] rounded-full border ${sCls}`}>{sLabel}</span>
                     <span className="font-mono text-[10.5px] text-dim truncate max-[500px]:hidden">{h.org}</span>
@@ -634,7 +633,7 @@ function OrgMarquee() {
       className="shrink-0 w-[250px] flex items-center gap-3 bg-card border border-line rounded-[18px] px-[17px] py-[15px] shadow-soft hover:-translate-y-1 hover:border-ember hover:shadow-lift transition-all">
       <OrgImg src={avatarOf(o.login, 88)} name={o.login} className="w-[42px] h-[42px] rounded-[12px] object-cover bg-sand shrink-0" />
       <span className="min-w-0">
-        <b className="block font-display text-[14px] truncate">{o.name}</b>
+        <b className="block card-title text-[14px] truncate">{o.name}</b>
         <span className="block text-[11.5px] text-cocoa truncate">{o.tagline}</span>
         <span className="font-mono text-[10.5px] text-honey font-bold">★ {fmt(o.stars)} · {o.repos} repos</span>
       </span>

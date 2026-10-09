@@ -30,7 +30,7 @@ function PCard({ r }: { r: Repo }) {
       <div className="flex items-center gap-3.5">
         <OrgImg src={avatarOf(owner, 88)} name={r.repo} className="w-11 h-11 rounded-[13px] object-cover bg-clay" />
         <div className="min-w-0">
-          <h3 className="font-display font-bold text-[16.5px] leading-tight truncate">{r.repo.split("/")[1]}</h3>
+          <h3 className="card-title text-[16.5px] truncate">{r.repo.split("/")[1]}</h3>
           <span className="font-mono text-[10.5px] text-dim tracking-[.05em]">{owner} · {CAT_META[r.cat]?.label ?? r.cat}</span>
         </div>
         <span className="ml-auto shrink-0"><LevelChip level={levelOf(r.stars)} /></span>
@@ -41,7 +41,7 @@ function PCard({ r }: { r: Repo }) {
         <Chip tone="lang"><i className="w-2 h-2 rounded-full shrink-0" style={{ background: LANG_COLORS[r.lang] ?? "currentColor" }} aria-hidden />{r.lang}</Chip>
         <Chip>⎇ {fmt(r.forks)}</Chip>
       </div>
-      <p className="text-cocoa text-[13.5px] leading-[1.6] line-clamp-2">{r.desc}</p>
+      <p className="card-desc line-clamp-2">{r.desc}</p>
       <div className="flex gap-1.5 flex-wrap">{r.tags.slice(0, 4).map((t) => <Tag key={t}>{t}</Tag>)}</div>
       <div className="flex items-center gap-2.5 mt-auto pt-1.5">
         <span className="font-mono text-[10.5px] text-dim">pushed {r.updated}</span>

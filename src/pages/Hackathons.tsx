@@ -112,8 +112,8 @@ export function HackCard({ h }: { h: Hack }) {
       </div>
       <div className="mt-auto p-5 flex flex-col gap-2.5">
         <span className="font-mono text-[10.5px] tracking-[.1em] uppercase text-ember">{h.org}</span>
-        <h3 className="font-display text-[21px] font-bold leading-[1.15] text-white">{h.name}</h3>
-        <p className="text-foam/72 text-[13px] leading-[1.55]">{h.theme}</p>
+        <h3 className="card-title-xl text-white">{h.name}</h3>
+        <p className="text-foam/75 text-[13.5px] leading-[1.6]">{h.theme}</p>
         <div className="flex items-center justify-between gap-2.5 mt-1.5">
           <span className="font-mono text-[13px] font-bold text-[#f0a35c]">{h.prize.split("+")[0]}
             <small className="block text-[9.5px] font-medium text-foam/55 tracking-[.08em] uppercase">{h.status === "open" || h.status === "rolling" ? (d > 0 ? `closes in ${d} days` : "closing") : `deadline ${h.deadline.slice(0, 7)}`}</small></span>
@@ -170,7 +170,7 @@ export default function Hackathons() {
         Top <Word>hackathons</Word>, decoded.
       </h1>
       <p className="text-ink font-medium mt-4 text-[16.5px] leading-[1.6] max-w-[620px]">
-        Every event ships with a full prep plan: real deadlines, week-by-week prep, judging strategy, project ideas and the right stack.
+        Every event decoded - deadlines, prep plan, judging strategy and the right stack.
       </p>
 
       <div className="flex gap-3 items-center flex-wrap mt-8">
@@ -368,7 +368,7 @@ export function HackathonDetail() {
           </div>
 
           <div className="bg-card border border-line rounded-[20px] p-5">
-            <h3 className="font-display font-bold text-[15px] mb-1.5">Skills for this stack</h3>
+            <h3 className="panel-h mb-1.5">Skills for this stack</h3>
             <p className="text-[12px] text-dim mb-3 leading-relaxed">Install these from the catalog so your agent builds on the winning stack from hour one.</p>
             <ul className="grid gap-2.5 list-none">
               {skills.map((s) => (
@@ -385,7 +385,7 @@ export function HackathonDetail() {
           </div>
 
           <div className="bg-card border border-line rounded-[20px] p-5">
-            <h3 className="font-display font-bold text-[15px] mb-1.5">Prep with the shelf</h3>
+            <h3 className="panel-h mb-1.5">Prep with the shelf</h3>
             <ul className="grid gap-2 list-none text-[13px]">
               <li><Link className="text-cocoa hover:text-rust font-semibold" to="/resources">Learning resources by company →</Link></li>
               <li><Link className="text-cocoa hover:text-rust font-semibold" to="/#roadmap">The 6-step contributor blueprint →</Link></li>

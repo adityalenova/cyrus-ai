@@ -123,6 +123,18 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 /* ── accent word in headlines (color only, no underline) ──── */
 .word-accent { color: var(--color-accent); }
 
+/* ── card & panel type system ───────────────────────────────
+   One scale for every card title, description and panel header
+   so browsing and detail pages share the same voice. Utilities
+   (text-[..]) still win over these since they layer later. */
+@layer components {
+  .card-title { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: -.011em; line-height: 1.3; color: var(--color-ink); }
+  .card-title-xl { font-family: var(--font-display); font-weight: 700; font-size: 22px; letter-spacing: -.018em; line-height: 1.15; }
+  .card-desc { color: var(--color-cocoa); font-size: 13.5px; line-height: 1.62; }
+  .panel-h { font-family: var(--font-display); font-weight: 700; font-size: 15px; letter-spacing: -.012em; }
+  .panel-h-lg { font-family: var(--font-display); font-weight: 700; font-size: 19px; letter-spacing: -.016em; }
+}
+
 /* ── edge-faded marquee track ─────────────────────────────── */
 .marq-mask {
   mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
