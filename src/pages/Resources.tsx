@@ -5,7 +5,7 @@ import { RESOURCES, RESOURCE_CATS, RESOURCE_PROVIDERS, providerGroup } from "../
 import type { Resource } from "../data/resources";
 import { REPOS } from "../data/repos";
 import { avatarOf, byStars } from "../lib/util";
-import { Word, Eyebrow, SectionTag, btn, OrgImg, Chip, Tag } from "../components/ui";
+import { Word, SectionTag, btn, OrgImg, Chip, Tag } from "../components/ui";
 
 const CAT_TONE: Record<string, string> = {
   Course: "green", "Docs & guides": "blue", Practice: "cat", Reading: "purple", "Tools & labs": "",
@@ -61,12 +61,11 @@ export default function Resources() {
 
   return (
     <div className="max-w-[1240px] mx-auto px-6 pt-14 pb-4">
-      <Eyebrow>{RESOURCES.length} resources · curated from the companies that build the tools</Eyebrow>
-      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-5 text-[clamp(38px,4.8vw,58px)]">
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] text-[clamp(38px,4.8vw,58px)]">
         Developer <Word>resources</Word>, ranked.
       </h1>
-      <p className="text-cocoa mt-4 text-[16px] leading-[1.65] max-w-[620px]">
-        The courses, docs and labs that top engineers actually recommend - from Google, Meta, Microsoft, GitHub, NVIDIA, OpenAI, Anthropic and friends. Every card opens a full breakdown here on cyrus before you click out.
+      <p className="text-ink font-medium mt-4 text-[16.5px] leading-[1.6] max-w-[620px]">
+        The courses, docs and labs engineers actually recommend - from Google, Meta, Microsoft, GitHub, NVIDIA and OpenAI. Each card opens a full breakdown on cyrus before you click out.
       </p>
 
       <div className="flex items-center gap-2 flex-wrap mt-5 font-mono text-[11.5px] text-dim">

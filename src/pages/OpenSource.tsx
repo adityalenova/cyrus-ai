@@ -10,7 +10,7 @@ import { PROGRAM_REPOS, PROGRAM_META } from "../data/programRepos";
 import type { ProgramName } from "../data/programRepos";
 import { avatarOf, fmt, hash } from "../lib/util";
 import { useStore } from "../lib/store";
-import { btn, Chip, Eyebrow, OrgImg, Word } from "../components/ui";
+import { btn, Chip, OrgImg, Word } from "../components/ui";
 
 const W = "max-w-[1240px] mx-auto px-6";
 const GSOC_URL = "https://summerofcode.withgoogle.com";
@@ -205,12 +205,12 @@ export default function OpenSource() {
       <p className="font-mono text-[10.5px] tracking-[.14em] uppercase text-dim">
         <Link to="/" className="hover:text-accent">Home</Link> / <span className="text-cocoa">Open Source</span>
       </p>
-      <div className="mt-3.5"><Eyebrow>Open source programs · {gsocTotal ? `${fmt(gsocTotal)} archive projects` : "loading the archive"} · GitHub snapshot Oct 3, 2026</Eyebrow></div>
-      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-4 mb-3 text-[clamp(33px,4.2vw,52px)] max-w-[860px]">
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(33px,4.2vw,52px)] max-w-[860px]">
         Every project the programs <Word>ship</Word> - searchable, sortable, one click to apply.
       </h1>
-      <p className="text-cocoa max-w-[720px] text-[16px] leading-[1.65]">
-        {PROGRAMS.length} mentored programs tracked, {gsocTotal === null ? "the Google Summer of Code archive loading" : `${fmt(gsocTotal)} accepted GSoC projects (2021-2025)`} listed here plus {flagships.length} flagship repos from GSSoC, LFX and Outreachy orgs. Cards link straight to the real project page - stipend band, hours, tech and mentors on the face of the card.
+      <p className="text-ink font-medium max-w-[640px] text-[16.5px] leading-[1.6]">
+        {PROGRAMS.length} programs tracked - {gsocTotal === null ? "loading the GSoC archive" : `${fmt(gsocTotal)} accepted GSoC projects (2021-2025)`} plus {flagships.length} flagship repos.
+        Every card links straight to the real project page.
       </p>
 
       {/* rail + results - the same filter style as the Projects page */}

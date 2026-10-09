@@ -9,7 +9,7 @@ import type { HackLive } from "../data/hackathonsLive";
 import { LIVE_CREDITS } from "../data/liveCovers";
 import { REPOS } from "../data/repos";
 import { avatarOf, byStars, hash } from "../lib/util";
-import { Word, Eyebrow, SectionTag, btn, OrgImg, Chip } from "../components/ui";
+import { Word, SectionTag, btn, OrgImg, Chip } from "../components/ui";
 
 /* curated prep plans first, then the live Devpost pull (open → upcoming → closed) */
 export const ALL_HACKS: Hack[] = [...HACKS, ...HACKS_LIVE];
@@ -166,12 +166,11 @@ export default function Hackathons() {
 
   return (
     <div className="max-w-[1240px] mx-auto px-6 pt-14 pb-4">
-      <Eyebrow>{`${ALL_HACKS.length} tracked · Google · Microsoft · NVIDIA · Meta · GitHub · Anthropic · Unstop · Devpost`}</Eyebrow>
-      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-5 text-[clamp(38px,4.8vw,58px)]">
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] text-[clamp(38px,4.8vw,58px)]">
         Top <Word>hackathons</Word>, decoded.
       </h1>
-      <p className="text-cocoa mt-4 text-[16px] leading-[1.65] max-w-[640px]">
-        Every event comes with a full cyrus prep plan: real deadlines, how to prepare week by week, the approach that survives judging, project ideas and the ideal tech stack.
+      <p className="text-ink font-medium mt-4 text-[16.5px] leading-[1.6] max-w-[620px]">
+        Every event ships with a full prep plan: real deadlines, week-by-week prep, judging strategy, project ideas and the right stack.
       </p>
 
       <div className="flex gap-3 items-center flex-wrap mt-8">
