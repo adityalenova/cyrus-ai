@@ -167,7 +167,7 @@ export default function Hackathons() {
   return (
     <div className="max-w-[1240px] mx-auto px-6 pt-14 pb-4">
       <Eyebrow>{`${ALL_HACKS.length} tracked · Google · Microsoft · NVIDIA · Meta · GitHub · Anthropic · Unstop · Devpost`}</Eyebrow>
-      <h1 className="font-display font-extrabold tracking-[-.03em] leading-[1.06] mt-5 text-[clamp(36px,4.6vw,56px)]">
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-5 text-[clamp(36px,4.6vw,56px)]">
         Top <Word>hackathons</Word>, decoded.
       </h1>
       <p className="text-cocoa mt-4 text-[16px] leading-[1.65] max-w-[640px]">
@@ -216,7 +216,7 @@ function Block({ tag, title, children }: { tag: string; title: string; children:
   return (
     <section className="mt-9">
       <SectionTag>{tag}</SectionTag>
-      <h2 className="font-display font-extrabold tracking-tight text-[26px] mt-2">{title}</h2>
+      <h2 className="font-display font-extrabold tracking-[-.02em] text-[26px] mt-2">{title}</h2>
       <div className="mt-4">{children}</div>
     </section>
   );
@@ -252,7 +252,7 @@ export function HackathonDetail() {
               <OrgImg src={avatarOf(h.orgLogo, 96)} name={h.orgLogo} className="w-[34px] h-[34px] object-contain" />
             </span>
             <div className="min-w-0">
-              <h1 className="font-display font-extrabold tracking-tight text-[clamp(26px,3.4vw,42px)] leading-[1.08]">{h.name}</h1>
+              <h1 className="font-display font-extrabold tracking-[-.02em] text-[clamp(26px,3.4vw,42px)] leading-[1.08]">{h.name}</h1>
               <span className="text-cocoa text-[14px]">{h.org}</span>
             </div>
             <span className={`font-mono text-[10px] font-bold tracking-[.1em] uppercase px-3 py-[6px] rounded-full border ${cls} !text-rust !border-accent/40 !bg-peach`}>{label}{d > 0 && h.status !== "recurring" ? ` · ${d}d left` : ""}</span>
@@ -274,7 +274,7 @@ export function HackathonDetail() {
             <span className="font-mono text-[10px] tracking-[.14em] uppercase text-foam/60">The brief</span>
             <span className={`font-mono text-[10px] font-bold tracking-[.1em] uppercase px-3 py-[6px] rounded-full border ${cls}${h.status === "closed" ? " !text-foam/70 !border-white/15 !bg-white/5" : ""}`}>{label}</span>
           </div>
-          <p className="font-display font-extrabold tracking-tight text-[clamp(30px,3.6vw,46px)] leading-[1.05] mt-6">{h.prize}</p>
+          <p className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.6vw,46px)] leading-[1.08] mt-6">{h.prize}</p>
           <p className="font-mono text-[10px] tracking-[.14em] uppercase text-foam/55 mt-1.5">prize pool at stake</p>
           {h.status === "closed" ? (
             <p className="text-[13.5px] text-foam/80 mt-6 leading-relaxed">This edition has wrapped. Winners and projects live on the organizer page below.</p>

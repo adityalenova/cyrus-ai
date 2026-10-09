@@ -26,7 +26,7 @@ function Hero() {
       <div className="wrap max-w-[1240px] mx-auto px-6 relative z-[1] grid grid-cols-[1.08fr_.92fr] gap-14 items-center max-[1020px]:grid-cols-1 max-[1020px]:gap-12">
         <div>
           <Eyebrow>GitHub snapshot · Oct 2, 2026 · 528 repos tracked</Eyebrow>
-          <h1 className="font-display font-extrabold tracking-[-.035em] leading-[1.05] mt-5 text-[clamp(42px,5.2vw,66px)]">
+          <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-5 text-[clamp(42px,5.2vw,66px)]">
             <span className="block">Find your</span>
             <span className="block"><Word>hackathon</Word></span>
             <span className="block">edge.</span>
@@ -78,7 +78,7 @@ function HackathonShelf() {
       <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
         <div>
           <SectionTag>Prize events worth your weekend</SectionTag>
-          <h2 className="font-display font-extrabold tracking-tight text-[clamp(30px,3.8vw,46px)] mt-3">Top company <Word>hackathons</Word></h2>
+          <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,46px)] mt-3">Top company <Word>hackathons</Word></h2>
           <p className="text-cocoa mt-3 text-[15.5px] leading-[1.6] max-w-[560px]">Live events from NVIDIA, GitHub, Google and Microsoft - each one opens into a full prep plan with timeline, ideas and the exact skills to install.</p>
         </div>
         <Link className={btn("outline", "md")} to="/hackathons">All hackathons →</Link>
@@ -134,7 +134,7 @@ function Programs() {
       <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
         <div>
           <SectionTag>Paid &amp; mentored</SectionTag>
-          <h2 className="font-display font-extrabold tracking-tight text-[clamp(30px,3.8vw,46px)] mt-3">Open source <Word>programs</Word></h2>
+          <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,46px)] mt-3">Open source <Word>programs</Word></h2>
           <p className="text-cocoa mt-3 text-[15.5px] leading-[1.6] max-w-[560px]">Stipend-backed internships and contribution sprints beside the hackathons - all eight run on the calendar below.</p>
         </div>
         <a className={btn("outline", "md")} href="#timeline">See the year →</a>
@@ -156,7 +156,7 @@ function Timeline() {
       <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
         <div>
           <SectionTag>The contributor year</SectionTag>
-          <h2 className="font-display font-extrabold tracking-tight text-[clamp(30px,3.8vw,46px)] mt-3">Programs <Word>calendar</Word>, month by month.</h2>
+          <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,46px)] mt-3">Programs <Word>calendar</Word>, month by month.</h2>
           <p className="text-cocoa mt-3 text-[15.5px] leading-[1.6] max-w-[560px]">Every mentored program and its application, bonding and coding windows across 2026. Bars follow each organizer's own schedule.</p>
         </div>
         <span className={btn("ghost", "sm")}>Snapshot · Oct 2026</span>
@@ -341,7 +341,7 @@ function HowItWorks() {
       <div className="grid grid-cols-[.9fr_1.1fr] gap-14 items-center max-[1020px]:grid-cols-1 max-[1020px]:gap-10">
         <div>
           <SectionTag>How it works</SectionTag>
-          <h2 className="font-display font-extrabold tracking-tight mt-3.5 text-[clamp(30px,3.6vw,42px)]">
+          <h2 className="font-display font-extrabold tracking-[-.02em] mt-3.5 text-[clamp(30px,3.6vw,42px)]">
             From "I should build something" to <Word>shipped demo</Word>.
           </h2>
           <div className="grid gap-[22px] mt-7.5">
@@ -438,7 +438,7 @@ function Roadmap() {
       <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
         <div>
           <span className="inline-block font-mono text-[10.5px] font-bold tracking-[.14em] uppercase text-rust bg-peach border border-accent/30 rounded-[7px] px-2.5 py-[6px]">6-step hackathon blueprint</span>
-          <h2 className="font-display font-extrabold tracking-tight text-[clamp(30px,3.8vw,46px)] mt-4">Hackathon <Word>roadmap</Word></h2>
+          <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,46px)] mt-4">Hackathon <Word>roadmap</Word></h2>
           <p className="text-cocoa mt-3 text-[15.5px] leading-[1.6] max-w-[600px]">The path from choosing your stack to pitching judges and publishing your own skill - the same order every prep plan on cyrus.ai follows.</p>
         </div>
         <Link className={`${btn("outline", "md")} !font-mono !text-[11.5px] !tracking-[.1em] !uppercase`} to="/hackathons">All prep plans →</Link>
@@ -550,7 +550,7 @@ function Season() {
       <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
         <div>
           <SectionTag>The season at a glance</SectionTag>
-          <h2 className="font-display font-extrabold tracking-tight text-[clamp(30px,3.8vw,46px)] mt-3">Every deadline, <Word>2026</Word>.</h2>
+          <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,46px)] mt-3">Every deadline, <Word>2026</Word>.</h2>
           <p className="text-cocoa mt-3 text-[15.5px] leading-[1.6] max-w-[560px]">The next eight hackathons by closing date. The runway meter shows how much time you have left - click any row for its full prep plan.</p>
         </div>
         <Link className={btn("dark", "md")} to="/hackathons">All hackathons →</Link>
@@ -619,7 +619,7 @@ function Band() {
         <div className="grid grid-cols-4 gap-5 px-[30px] py-[46px] text-center max-[860px]:grid-cols-2">
           {cells.map(([n, l, accent]) => (
             <div key={l}>
-              <b className={`font-display block text-[38px] font-extrabold tracking-[-.03em] ${accent ? "text-accent" : ""}`}>{n}</b>
+              <b className={`font-display block text-[38px] font-extrabold tracking-[-.02em] ${accent ? "text-accent" : ""}`}>{n}</b>
               <span className="text-cocoa text-[13px]">{l}</span>
             </div>
           ))}
@@ -647,7 +647,7 @@ function OrgMarquee() {
       <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
         <div>
           <SectionTag>Where builders land</SectionTag>
-          <h2 className="font-display font-extrabold tracking-tight text-[clamp(30px,3.8vw,46px)] mt-3">Popular <Word>organizations</Word></h2>
+          <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,46px)] mt-3">Popular <Word>organizations</Word></h2>
           <p className="text-cocoa mt-3 text-[15.5px] leading-[1.6] max-w-[560px]">Hover to pause, click for the full profile with graphs.</p>
         </div>
         <Link className={btn("dark", "md")} to="/organizations">Browse all →</Link>
@@ -714,7 +714,7 @@ function Testimonials() {
         <div className="flex items-end justify-between gap-5 flex-wrap">
           <div>
             <SectionTag>Developer stories</SectionTag>
-            <h2 className="font-display font-extrabold tracking-tight text-[clamp(30px,3.8vw,44px)] mt-3 text-white">Built here, <Word>shipped there</Word>.</h2>
+            <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,44px)] mt-3 text-white">Built here, <Word>shipped there</Word>.</h2>
           </div>
           <p className="text-steam text-[14px] max-w-[380px] leading-[1.6]">Eight builders, two seasons of hackathons and mentored programs. The wall drifts - hover to pause, click through for the plans behind each story.</p>
         </div>
@@ -753,7 +753,7 @@ function Faq() {
       <div className="grid grid-cols-[.72fr_1.28fr] gap-12 max-[1020px]:grid-cols-1 max-[1020px]:gap-8 items-start">
         <div>
           <SectionTag>Answers, plainly</SectionTag>
-          <h2 className="font-display font-extrabold tracking-tight text-[clamp(30px,3.8vw,46px)] mt-3">Frequently asked <Word>questions</Word></h2>
+          <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,46px)] mt-3">Frequently asked <Word>questions</Word></h2>
           <p className="text-cocoa mt-3 text-[15px] leading-[1.6]">Anything else? The about page explains exactly how this catalog is built.</p>
           <Link className={`${btn("outline", "sm")} mt-4`} to="/about">How we rank data</Link>
         </div>

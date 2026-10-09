@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    cyrus.ai — Tailwind v4 theme (Contriho-inspired warm system)
    paper/sand/cream surfaces · espresso ink · terracotta accent
-   dark coffee islands · Bricolage / Inter / JetBrains Mono
+   dark coffee islands · Plus Jakarta Sans / Inter / JetBrains Mono
    ═══════════════════════════════════════════════════════════ */
 @import "tailwindcss";
 
@@ -34,7 +34,7 @@
   --color-steam: #b5a28c;
   --color-dimdk: #7d6c5a;
 
-  --font-display: "Bricolage Grotesque", "Space Grotesk", sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, sans-serif;
   --font-sans: "Inter", -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
@@ -107,6 +107,13 @@
 
 html { scroll-behavior: smooth; }
 body { @apply bg-paper text-ink font-sans antialiased; }
+
+/* ── display typography polish (Plus Jakarta Sans) ──────────
+   headings wrap evenly instead of orphaning one word; large
+   extrabold type gets slightly open leading via the scale */
+h1, h2 { text-wrap: balance; }
+h3, h4 { text-wrap: pretty; }
+.font-display { text-rendering: optimizeLegibility; }
 ::selection { background: rgba(180, 96, 44, 0.22); }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 6px; }
 /* text fields never get the outline box - their surrounding pill shows focus instead */

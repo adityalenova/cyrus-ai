@@ -206,7 +206,7 @@ export default function OpenSource() {
         <Link to="/" className="hover:text-accent">Home</Link> / <span className="text-cocoa">Open Source</span>
       </p>
       <div className="mt-3.5"><Eyebrow>Open source programs · {gsocTotal ? `${fmt(gsocTotal)} archive projects` : "loading the archive"} · GitHub snapshot Oct 3, 2026</Eyebrow></div>
-      <h1 className="font-display font-extrabold tracking-[-.03em] leading-[1.05] mt-4 mb-3 text-[clamp(30px,4vw,46px)] max-w-[860px]">
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-4 mb-3 text-[clamp(30px,4vw,46px)] max-w-[860px]">
         Every project the programs <Word>ship</Word> - searchable, sortable, one click to apply.
       </h1>
       <p className="text-cocoa max-w-[720px] text-[16px] leading-[1.65]">

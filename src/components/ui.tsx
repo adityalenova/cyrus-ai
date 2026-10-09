@@ -15,7 +15,7 @@ export function Logo({ size = 30 }: { size?: number }) {
 }
 
 export const Brand = () => (
-  <span className="font-display font-extrabold text-[19px] tracking-[-.03em]">
+  <span className="font-display font-extrabold text-[19px] tracking-[-.02em]">
     cyrus<span className="text-accent">.ai</span>
   </span>
 );
@@ -117,7 +117,7 @@ export function SectionHead({ tag, title, sub, side }: { tag: string; title: Rea
     <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
       <div>
         <SectionTag>{tag}</SectionTag>
-        <h2 className="font-display font-extrabold tracking-tight leading-[1.08] mt-3 text-[clamp(30px,3.8vw,46px)]">{title}</h2>
+        <h2 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3 text-[clamp(30px,3.8vw,46px)]">{title}</h2>
         {sub && <p className="text-cocoa mt-3 text-[15.5px] leading-[1.6] max-w-[560px]">{sub}</p>}
       </div>
       {side && <div className="flex items-center gap-3">{side}</div>}

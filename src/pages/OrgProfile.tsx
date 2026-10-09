@@ -176,7 +176,7 @@ function StatCard({ ic, value, label, delta }: { ic: React.ReactNode; value: str
   return (
     <div className="bg-card border border-line rounded-[18px] p-5 shadow-soft">
       <span className="w-[34px] h-[34px] rounded-[10px] grid place-items-center mb-3 bg-peach text-rust block">{ic}</span>
-      <b className="block font-display text-[28px] font-extrabold tracking-[-.03em]">{value}</b>
+      <b className="block font-display text-[28px] font-extrabold tracking-[-.02em]">{value}</b>
       <span className="text-cocoa text-[12.5px]">{label}</span>
       {delta && <span className="block font-mono text-[10.5px] font-bold text-leaf mt-1">{delta}</span>}
     </div>
@@ -265,7 +265,7 @@ export default function OrgProfile() {
               <OrgImg src={avatarOf(org.login, 140)} name={org.login} className="w-[46px] h-[46px] object-contain" />
             </span>
             <div>
-              <h1 className="font-display font-extrabold text-[clamp(26px,3.2vw,38px)] tracking-[-.03em]">
+              <h1 className="font-display font-extrabold text-[clamp(26px,3.2vw,38px)] tracking-[-.02em]">
                 {org.name} <small className="text-dim font-medium text-[.55em]">@{org.login}</small>
               </h1>
               <div className="flex gap-3.5 flex-wrap mt-2 font-mono text-[12px] text-cocoa">
@@ -587,7 +587,7 @@ export default function OrgProfile() {
         {/* ── repo cards ── */}
         <section>
           <div className="flex items-end justify-between gap-4 flex-wrap mb-5">
-            <h2 className="font-display font-extrabold text-[26px] tracking-[-.03em]">Every build, <Word>on cyrus.ai</Word></h2>
+            <h2 className="font-display font-extrabold text-[26px] tracking-[-.02em]">Every build, <Word>on cyrus.ai</Word></h2>
             <Link to="/projects" className={btn("ghost", "sm")}>Browse all projects →</Link>
           </div>
           {repos.length ? (

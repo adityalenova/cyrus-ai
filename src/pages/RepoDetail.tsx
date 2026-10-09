@@ -154,7 +154,7 @@ export default function RepoDetail() {
               <OrgImg src={avatarOf(owner, 96)} name={repo.repo} className="w-[38px] h-[38px] object-contain" />
             </span>
             <div className="min-w-0">
-              <h1 className="font-display font-extrabold text-[clamp(24px,3vw,34px)] tracking-[-.03em]">
+              <h1 className="font-display font-extrabold text-[clamp(24px,3vw,34px)] tracking-[-.02em]">
                 {owner}<small className="text-dim font-medium"> / {repo.repo.split("/")[1]}</small>
               </h1>
               <div className="flex gap-1.5 flex-wrap mt-2">

@@ -128,7 +128,7 @@ export default function Dashboard() {
     return (
       <div className={`${W} py-24 text-center`}>
         <p className="font-mono text-[10.5px] tracking-[.14em] uppercase text-dim mb-4">Dashboard</p>
-        <h1 className="font-display font-extrabold text-[clamp(28px,4vw,42px)] tracking-[-.03em] mb-3">
+        <h1 className="font-display font-extrabold text-[clamp(28px,4vw,42px)] tracking-[-.02em] mb-3">
           Your board is <Word>empty</Word> until you sign in.
         </h1>
         <p className="text-cocoa max-w-[440px] mx-auto text-[15.5px] leading-[1.65] mb-8">
@@ -212,7 +212,7 @@ export default function Dashboard() {
       <main className="grid gap-5 min-w-0">
         <section className="bg-card border border-line rounded-[22px] p-6 shadow-soft flex items-center gap-5 flex-wrap">
           <div className="min-w-0">
-            <h2 className="font-display font-extrabold tracking-[-.03em] text-[clamp(22px,2.6vw,30px)]">
+            <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(22px,2.6vw,30px)]">
               {greet()}, {user.name.split(" ")[0]}<span className="text-accent">.</span>
             </h2>
             <p className="text-cocoa text-[14px] mt-1.5">
@@ -231,7 +231,7 @@ export default function Dashboard() {
           {stats.map(([ic, v, l]) => (
             <div key={l} className="bg-card border border-line rounded-[18px] p-5 shadow-soft">
               <span className="w-[34px] h-[34px] rounded-[10px] grid place-items-center mb-3 bg-peach text-rust block">{ic}</span>
-              <b className="block font-display text-[28px] font-extrabold tracking-[-.03em]">{v}</b>
+              <b className="block font-display text-[28px] font-extrabold tracking-[-.02em]">{v}</b>
               <span className="text-cocoa text-[12.5px]">{l}</span>
             </div>
           ))}

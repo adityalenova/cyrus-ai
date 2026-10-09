@@ -62,7 +62,7 @@ export default function Resources() {
   return (
     <div className="max-w-[1240px] mx-auto px-6 pt-14 pb-4">
       <Eyebrow>{RESOURCES.length} resources · curated from the companies that build the tools</Eyebrow>
-      <h1 className="font-display font-extrabold tracking-[-.03em] leading-[1.06] mt-5 text-[clamp(36px,4.6vw,56px)]">
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-5 text-[clamp(36px,4.6vw,56px)]">
         Developer <Word>resources</Word>, ranked.
       </h1>
       <p className="text-cocoa mt-4 text-[16px] leading-[1.65] max-w-[620px]">
@@ -163,7 +163,7 @@ export function ResourceDetail() {
           <div className="flex items-center gap-4 flex-wrap">
             <OrgImg src={avatarOf(r.provider, 96)} name={r.brand} className="w-[58px] h-[58px] rounded-[16px] object-cover bg-sand shadow-soft" />
             <div>
-              <h1 className="font-display font-extrabold tracking-tight text-[clamp(26px,3.4vw,40px)] leading-[1.1]">{r.title}</h1>
+              <h1 className="font-display font-extrabold tracking-[-.02em] text-[clamp(26px,3.4vw,40px)] leading-[1.1]">{r.title}</h1>
               <span className="text-cocoa text-[14px]">by {r.brand}</span>
             </div>
           </div>

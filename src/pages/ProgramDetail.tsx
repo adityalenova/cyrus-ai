@@ -115,7 +115,7 @@ export default function ProgramDetail() {
               <p className="font-mono text-[10.5px] tracking-[.12em] uppercase text-cocoa mb-1.5">
                 Organized by <b className="text-accent">{p.owner}</b>
               </p>
-              <h1 className="font-display font-extrabold tracking-[-.03em] leading-[1.05] text-[clamp(26px,3.4vw,40px)]">{p.name}</h1>
+              <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] text-[clamp(26px,3.4vw,40px)]">{p.name}</h1>
             </div>
             <div className="ml-auto flex gap-2.5 items-center flex-wrap">
               <span className={`font-mono text-[10px] font-bold uppercase tracking-[.1em] px-2.5 py-1 rounded-full border ${STATUS_CLS[p.status]}`}>{p.status}</span>

@@ -219,7 +219,7 @@ export default function Legal({ kind }: { kind: LegalKind }) {
     <div className={W}>
       <article className="max-w-[820px] mx-auto pt-14 pb-8">
         <p className="font-mono text-[10.5px] tracking-[.14em] uppercase text-dim mb-4">Legal</p>
-        <h1 className="font-display font-extrabold text-[clamp(30px,4.4vw,44px)] tracking-[-.03em] leading-[1.05]">
+        <h1 className="font-display font-extrabold text-[clamp(30px,4.4vw,44px)] tracking-[-.02em] leading-[1.08]">
           {doc.title}.
         </h1>
         <p className="text-cocoa text-[16px] leading-[1.7] mt-4">

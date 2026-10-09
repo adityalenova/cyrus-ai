@@ -117,7 +117,7 @@ export default function AuthModal() {
             <div className="flex items-center gap-5">
               <span className="animate-floaty shrink-0 drop-shadow-[0_14px_28px_rgba(36,27,19,.28)]"><Logo size={78} /></span>
               <div>
-                <p className="font-display font-extrabold text-[38px] leading-none tracking-[-.035em]">cyrus<span className="text-accent">.ai</span></p>
+                <p className="font-display font-extrabold text-[38px] leading-none tracking-[-.02em]">cyrus<span className="text-accent">.ai</span></p>
                 <p className="font-mono text-[10.5px] tracking-[.16em] uppercase text-dim mt-2.5">the developer year, planned</p>
               </div>
             </div>
@@ -148,7 +148,7 @@ export default function AuthModal() {
             column carries no duplicate of it. ── */}
         <div className="relative flex flex-col items-center justify-center px-6 py-14 max-[900px]:py-10">
           <div className="w-full max-w-[420px]">
-            <h1 className="font-display font-extrabold tracking-[-.03em] text-[clamp(30px,3.4vw,40px)] text-center leading-tight mt-4">
+            <h1 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.4vw,40px)] text-center leading-tight mt-4">
               {tab === "login" ? <>Welcome <Word>back</Word></> : <>Create your <Word>shortlist</Word></>}
             </h1>
             <p className="text-center text-cocoa text-[15px] leading-[1.6] mt-3 mb-8">
