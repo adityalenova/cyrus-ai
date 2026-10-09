@@ -51,9 +51,14 @@ function PCard({ r }: { r: Repo }) {
         }} className={`ml-auto w-9 h-9 rounded-[11px] border grid place-items-center text-[14px] transition-all ${on ? "bg-accent border-accent text-white" : "bg-cream border-line text-dim hover:border-accent hover:text-accent"}`}>
           {on ? "★" : "☆"}
         </button>
-        <a href={`https://api.github.com/repos/${r.repo}/zipball`} title="Download the whole skill as a .zip - cyrus.ai resolves the default branch"
-          onClick={() => { countDownload(r.repo); toast(`Downloading ${r.repo.split("/")[1]} .zip via cyrus.ai`); }}
-          className={btn("primary", "sm")}>Download .zip{dl > 0 ? ` (${dl})` : ""}</a>
+        {r.cat === "tools" ? (
+          <a href={r.url} target="_blank" rel="noopener" title="Application-oriented project - opens its GitHub page"
+            className={btn("primary", "sm")}>GitHub ↗</a>
+        ) : (
+          <a href={`https://api.github.com/repos/${r.repo}/zipball`} title="Download the whole skill as a .zip - cyrus.ai resolves the default branch"
+            onClick={() => { countDownload(r.repo); toast(`Downloading ${r.repo.split("/")[1]} .zip via cyrus.ai`); }}
+            className={btn("primary", "sm")}>Download .zip{dl > 0 ? ` (${dl})` : ""}</a>
+        )}
         <Link to={`/repo/${encodeURIComponent(r.repo)}`} className={btn("dark", "sm")}>Open →</Link>
       </div>
     </article>
@@ -100,11 +105,10 @@ export default function Projects() {
         <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(33px,4.2vw,52px)]">
           GitHub skills your <Word>AI tools</Word> plug into.
         </h1>
-        <p className="text-cocoa max-w-[640px] text-[16px] leading-[1.65]">
-          Agent skills, Cursor rules, AGENTS.md files, MCP servers and dev agents - {REPOS.length} repos you can
-          install straight into Claude Code, Cursor, Codex or any coding agent. Hit <b className="text-ink">Download .zip</b>
-          on any card, unzip into <code className="font-mono text-[13px] text-rust">~/.claude/skills</code>
-          or <code className="font-mono text-[13px] text-rust">.cursor/rules</code> and it is live. Mentored programs and their projects live on the <Link to="/opensource" className="text-accent font-semibold hover:underline">open source page</Link>.
+        <p className="text-ink font-medium max-w-[640px] text-[16.5px] leading-[1.6]">
+          Agent skills, Cursor rules, MCP servers and AGENTS.md files - {REPOS.length} repos for Claude Code, Cursor,
+          Codex and any coding agent. Hit <b>Download .zip</b> on any card, unzip into <code className="font-mono text-[13px] text-rust">~/.claude/skills</code>
+          or <code className="font-mono text-[13px] text-rust">.cursor/rules</code>, done. Mentored programs live on the <Link to="/opensource" className="text-accent font-semibold hover:underline">open source page</Link>.
         </p>
       </header>
 

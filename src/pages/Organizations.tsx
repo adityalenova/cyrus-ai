@@ -19,11 +19,9 @@ function PageHead() {
       <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(33px,4.2vw,52px)]">
         Find your <Word>people.</Word> Then your<br />first good issue.
       </h1>
-      <p className="text-cocoa max-w-[640px] text-[16px] leading-[1.65]">
-        {ORGS.length} major open-source organizations, tracked live from GitHub - both sides of the story: what they ship
-        (their top repositories, stars and issues straight from the API, plus the skills, rules, MCP servers and tools
-        you plug into your AI stack) and the mentored programs they
-        contribute and mentor in, with their participation stats.
+      <p className="text-ink font-medium max-w-[640px] text-[16.5px] leading-[1.6]">
+        {ORGS.length} major open-source organizations, tracked live from GitHub. Every profile shows both sides -
+        what they ship and the mentored programs they build, with real participation stats.
       </p>
     </header>
   );

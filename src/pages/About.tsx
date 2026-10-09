@@ -33,7 +33,7 @@ export default function About() {
         <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(33px,4.2vw,52px)]">
           An honest index for the <Word>agent era.</Word>
         </h1>
-        <p className="text-cocoa max-w-[640px] text-[16px] leading-[1.65]">
+        <p className="text-ink font-medium max-w-[640px] text-[16.5px] leading-[1.6]">
           cyrus.ai exists because finding a good skill, rule pack, MCP server, hackathon or mentored program takes
           longer than shipping one. We cut that search to one keystroke.
         </p>

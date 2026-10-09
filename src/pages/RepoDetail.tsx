@@ -171,10 +171,12 @@ export default function RepoDetail() {
             <div className="ml-auto flex gap-2.5 items-center flex-wrap">
               <button onClick={() => { const added = toggleSaved(repo.repo); toast(added ? "Saved to your dashboard" : "Removed from saved"); }}
                 className={btn(on ? "primary" : "outline", "md")}>{on ? "★ Saved" : "☆ Save"}</button>
-              <a href={`https://api.github.com/repos/${repo.repo}/zipball`}
-                onClick={() => { countDownload(repo.repo); toast(`Downloading ${repo.repo.split("/")[1]} .zip via cyrus.ai`); }}
-                className={btn("primary", "md")}>Download .zip</a>
-              <a href={repo.url} target="_blank" rel="noopener" className={btn("dark", "md")}>View on GitHub ↗</a>
+              {repo.cat !== "tools" && (
+                <a href={`https://api.github.com/repos/${repo.repo}/zipball`}
+                  onClick={() => { countDownload(repo.repo); toast(`Downloading ${repo.repo.split("/")[1]} .zip via cyrus.ai`); }}
+                  className={btn("primary", "md")}>Download .zip</a>
+              )}
+              <a href={repo.url} target="_blank" rel="noopener" className={btn(repo.cat === "tools" ? "primary" : "dark", "md")}>View on GitHub ↗</a>
             </div>
           </div>
           <p className="text-cocoa mt-4 max-w-[720px] text-[15.5px] leading-[1.65]">{repo.desc}</p>

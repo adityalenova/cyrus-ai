@@ -179,7 +179,11 @@ export default function Nova() {
                     <div className="flex gap-1.5 flex-wrap">{r.tags.filter((t) => needles.some((n) => t.toLowerCase().includes(n))).slice(0, 4).map((t) => <Chip key={t} tone="green">{t}</Chip>)}
                       {r.tags.filter((t) => !needles.some((n) => t.toLowerCase().includes(n))).slice(0, 2).map((t) => <Chip key={t}>{t}</Chip>)}</div>
                     <div className="flex gap-2 mt-auto pt-1">
-                      <a href={`https://api.github.com/repos/${r.repo}/zipball`} className={btn("primary", "sm")}>Download .zip</a>
+                      {r.cat === "tools" ? (
+                        <a href={r.url} target="_blank" rel="noopener" className={btn("primary", "sm")}>GitHub ↗</a>
+                      ) : (
+                        <a href={`https://api.github.com/repos/${r.repo}/zipball`} className={btn("primary", "sm")}>Download .zip</a>
+                      )}
                       <Link to={`/repo/${encodeURIComponent(r.repo)}`} className={btn("outline", "sm")}>Open →</Link>
                     </div>
                   </article>
