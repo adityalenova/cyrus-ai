@@ -177,7 +177,7 @@ export default function Projects() {
 
           {list.length ? (
             <>
-              <div className="grid grid-cols-2 gap-4 max-[640px]:grid-cols-1">
+              <div className="pulse-grid grid grid-cols-2 gap-4 max-[640px]:grid-cols-1">
                 {list.slice(0, shown).map((r) => <PCard key={r.repo} r={r} />)}
               </div>
               {shown < list.length && (

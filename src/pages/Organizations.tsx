@@ -164,7 +164,7 @@ export default function Organizations() {
           <b className="text-accent">{list.length}</b> organization{list.length === 1 ? "" : "s"} found
         </p>
         {list.length ? (
-          <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
+          <div className="pulse-grid grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
             {list.map((o) => <OrgCard key={o.login} org={o} />)}
           </div>
         ) : (
@@ -178,7 +178,7 @@ export default function Organizations() {
         <SectionHead tag="// get mentored & paid" title={<>Open source <Word>programs</Word></>}
           sub="Contribution windows for the eight mentored open-source programs we track - stipends, dates and the orgs that join them."
           side={<span className={btn("ghost", "sm")}>Snapshot · Oct 2026</span>} />
-        <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
+        <div className="pulse-grid grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
           {PROGRAMS.map((p) => <ProgramCard key={p.id} p={p} />)}
         </div>
         <div className="flex justify-center mt-10">

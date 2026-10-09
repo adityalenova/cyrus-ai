@@ -82,7 +82,7 @@ export default function Resources() {
             <SectionTag>Not sure where to begin?</SectionTag>
             <span className="text-[12.5px] text-dim">Four picks that unblock the most people.</span>
           </div>
-          <div className="grid grid-cols-4 gap-4 mt-4 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
+          <div className="pulse-grid grid grid-cols-4 gap-4 mt-4 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
             {PICKS.map((p) => {
               const r = RESOURCES.find((x) => x.id === p.id)!;
               return (
@@ -120,7 +120,7 @@ export default function Resources() {
         <span className="ml-auto font-mono text-[11px] text-dim">{list.length} of {RESOURCES.length} shown</span>
       </div>
 
-      <div className="grid grid-cols-3 gap-4 mt-8 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
+      <div className="pulse-grid grid grid-cols-3 gap-4 mt-8 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
         {list.map((r) => <ResCard key={r.id} r={r} />)}
       </div>
       {list.length === 0 && (

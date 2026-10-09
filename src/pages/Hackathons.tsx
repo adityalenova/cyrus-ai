@@ -198,7 +198,7 @@ export default function Hackathons() {
         )}
       </p>
       {list.length ? (
-        <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+        <div className="pulse-grid grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
           {list.map((h) => <HackCard key={h.id} h={h} />)}
         </div>
       ) : (

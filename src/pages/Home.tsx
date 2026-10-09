@@ -26,31 +26,36 @@ function Hero() {
       <div className="wrap max-w-[1240px] mx-auto px-6 relative z-[1] grid grid-cols-[1.08fr_.92fr] gap-14 items-center max-[1020px]:grid-cols-1 max-[1020px]:gap-12">
         <div>
           <h1 className="font-display font-extrabold tracking-[-.025em] leading-[1.04] mt-5 text-[clamp(46px,5.6vw,76px)]">
-            <span className="block">Find your</span>
-            <span className="block"><Word>hackathon</Word> edge.</span>
+            <span className="block reveal" style={{ animationDelay: ".05s" }}>Find your</span>
+            <span className="block">
+              <span className="inline-block reveal" style={{ animationDelay: ".22s" }}><Word>hackathon</Word></span>{" "}
+              <span className="inline-block reveal" style={{ animationDelay: ".38s" }}>edge.</span>
+            </span>
           </h1>
-          <p className="mt-6 max-w-[540px] text-ink font-medium text-[17.5px] leading-[1.6]">
+          <p className="mt-6 max-w-[540px] text-ink font-medium text-[17.5px] leading-[1.6] reveal" style={{ animationDelay: ".52s" }}>
             Your one-stop catalog of company hackathons, mentored open-source programs and agent skills for your coding agent.
           </p>
-          <form className="mt-7 flex items-center gap-2 bg-card border border-line rounded-full py-[7px] pl-[18px] pr-[7px] max-w-[520px] shadow-lift transition-all focus-within:border-accent focus-within:shadow-[0_0_0_3px_rgba(180,96,44,.14),0_18px_40px_-18px_rgba(36,27,19,.25)]"
+          <div className="reveal" style={{ animationDelay: ".66s" }}>
+          <form className="mt-7 flex items-center gap-2 bg-card border border-line rounded-full py-[7px] pl-[18px] pr-[7px] max-w-[520px] shadow-lift transition-all focus-within:border-accent focus-within:shadow-[0_0_0_3px_rgba(180,96,44,.14),0_18px_40px_-18px_rgba(36,27,19,.25)] search-pulse"
             onSubmit={(e) => { e.preventDefault(); nav(`/projects${q.trim() ? `?q=${encodeURIComponent(q.trim())}` : ""}`); }}>
             <SearchIcon size={17} />
             <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search skills, orgs, stacks…"
               className="flex-1 min-w-0 border-0 outline-none bg-transparent text-[15px] placeholder:text-dim py-2" autoComplete="off" />
             <button type="submit" className={btn("primary", "md")}>Search</button>
           </form>
-          <div className="flex items-center gap-2 mt-3.5 flex-wrap">
+          </div>
+          <div className="flex items-center gap-2 mt-3.5 flex-wrap reveal" style={{ animationDelay: ".78s" }}>
             <span className="font-mono text-[10.5px] tracking-[.12em] uppercase text-dim">Try:</span>
             {[["mcp", "MCP servers"], ["skills", "agent skills"], ["cursor", "cursor rules"], ["agents", "dev agents"]].map(([k, l]) => (
               <Link key={k} to={`/projects?q=${k}`} className="text-[12.5px] font-semibold text-cocoa bg-card border border-line rounded-full px-3.5 py-[5px] hover:border-accent hover:text-rust hover:-translate-y-px transition-all">{l}</Link>
             ))}
           </div>
-          <div className="flex gap-x-6 gap-y-3.5 mt-8 flex-wrap items-center">
+          <div className="flex gap-x-6 gap-y-3.5 mt-8 flex-wrap items-center reveal" style={{ animationDelay: ".9s" }}>
             <a className={btn("dark", "lg")} href="#programs">Explore open source programs</a>
             <Link className="text-[13.5px] font-semibold text-cocoa border-b border-dashed border-dim pb-0.5 hover:text-accent hover:border-accent transition-colors" to="/organizations">Browse organizations →</Link>
           </div>
         </div>
-        <div>
+        <div className="reveal" style={{ animationDelay: ".45s" }}>
           <div className="grid grid-cols-4 gap-4 max-[700px]:grid-cols-3 max-[700px]:gap-2.5">
             {WALL.map((o, i) => (
               <Link key={o} to={`/organizations/${o}`}
@@ -80,7 +85,7 @@ function HackathonShelf() {
         </div>
         <Link className={btn("outline", "md")} to="/hackathons">All hackathons →</Link>
       </div>
-      <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+      <div className="pulse-grid grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
         {shelf.map((h) => <HackCard key={h.id} h={h} />)}
       </div>
     </section>
@@ -136,7 +141,7 @@ function Programs() {
         </div>
         <a className={btn("outline", "md")} href="#timeline">See the year →</a>
       </div>
-      <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+      <div className="pulse-grid grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
         {shelf.map((p) => <ProgCard key={p.id} p={p} />)}
       </div>
     </section>
@@ -370,7 +375,7 @@ function HowItWorks() {
       </div>
 
       <div className="text-left mb-3"><SectionTag>Most-starred in the catalog</SectionTag></div>
-      <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+      <div className="pulse-grid grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
         {cards.map((r) => {
           const [owner, name] = r.repo.split("/");
           return (

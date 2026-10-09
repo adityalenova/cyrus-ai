@@ -273,7 +273,7 @@ export default function OpenSource() {
 
           {list.length ? (
             <>
-              <div className="grid grid-cols-2 gap-4 max-[1150px]:grid-cols-2 max-[640px]:grid-cols-1">
+              <div className="pulse-grid grid grid-cols-2 gap-4 max-[1150px]:grid-cols-2 max-[640px]:grid-cols-1">
                 {visible.map((p) => <ProjCard key={p.key} p={p} />)}
               </div>
               {shown < list.length && (
