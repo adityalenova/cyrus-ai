@@ -117,8 +117,8 @@ export function SectionHead({ tag, title, sub, side }: { tag: string; title: Rea
     <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
       <div>
         <SectionTag>{tag}</SectionTag>
-        <h2 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3 text-[clamp(30px,3.8vw,46px)]">{title}</h2>
-        {sub && <p className="text-cocoa mt-3 text-[15.5px] leading-[1.6] max-w-[560px]">{sub}</p>}
+        <h2 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3 text-[clamp(32px,4vw,50px)]">{title}</h2>
+        {sub && <p className="text-cocoa mt-3 text-[16.5px] leading-[1.65] max-w-[560px]">{sub}</p>}
       </div>
       {side && <div className="flex items-center gap-3">{side}</div>}
     </div>

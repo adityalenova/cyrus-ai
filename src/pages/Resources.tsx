@@ -62,7 +62,7 @@ export default function Resources() {
   return (
     <div className="max-w-[1240px] mx-auto px-6 pt-14 pb-4">
       <Eyebrow>{RESOURCES.length} resources · curated from the companies that build the tools</Eyebrow>
-      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-5 text-[clamp(36px,4.6vw,56px)]">
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-5 text-[clamp(38px,4.8vw,58px)]">
         Developer <Word>resources</Word>, ranked.
       </h1>
       <p className="text-cocoa mt-4 text-[16px] leading-[1.65] max-w-[620px]">

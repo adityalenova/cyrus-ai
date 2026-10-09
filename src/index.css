@@ -113,7 +113,8 @@ body { @apply bg-paper text-ink font-sans antialiased; }
    extrabold type gets slightly open leading via the scale */
 h1, h2 { text-wrap: balance; }
 h3, h4 { text-wrap: pretty; }
-.font-display { text-rendering: optimizeLegibility; }
+p { text-wrap: pretty; }
+.font-display { text-rendering: optimizeLegibility; font-variant-numeric: tabular-nums; }
 ::selection { background: rgba(180, 96, 44, 0.22); }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 6px; }
 /* text fields never get the outline box - their surrounding pill shows focus instead */

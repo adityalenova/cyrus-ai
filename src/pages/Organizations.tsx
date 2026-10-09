@@ -16,7 +16,7 @@ function PageHead() {
       <p className="font-mono text-[10.5px] tracking-[.14em] uppercase text-dim">
         <Link to="/" className="hover:text-accent">Home</Link> / <span className="text-cocoa">Organizations</span>
       </p>
-      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(30px,4vw,46px)]">
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(33px,4.2vw,52px)]">
         Find your <Word>people.</Word> Then your<br />first good issue.
       </h1>
       <p className="text-cocoa max-w-[640px] text-[16px] leading-[1.65]">
