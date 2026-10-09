@@ -8,7 +8,7 @@ import { HACKS } from "../data/hackathons";
 import type { Hack } from "../data/hackathons";
 import type { Program } from "../lib/types";
 import { avatarOf, fmt, byStars, hash, CAT_META } from "../lib/util";
-import { Word, Eyebrow, SectionTag, btn, OrgImg, Avatar } from "../components/ui";
+import { Word, SectionTag, btn, OrgImg, Avatar } from "../components/ui";
 import { SearchIcon } from "../components/Nav";
 import { useStore } from "../lib/store";
 import { HackCard } from "./Hackathons";
@@ -25,7 +25,6 @@ function Hero() {
       <div className="hero-glow" /><div className="hero-pattern" />
       <div className="wrap max-w-[1240px] mx-auto px-6 relative z-[1] grid grid-cols-[1.08fr_.92fr] gap-14 items-center max-[1020px]:grid-cols-1 max-[1020px]:gap-12">
         <div>
-          <Eyebrow>GitHub snapshot · Oct 2, 2026 · 1,528 repos tracked</Eyebrow>
           <h1 className="font-display font-extrabold tracking-[-.025em] leading-[1.04] mt-5 text-[clamp(46px,5.6vw,76px)]">
             <span className="block">Find your</span>
             <span className="block"><Word>hackathon</Word> edge.</span>
