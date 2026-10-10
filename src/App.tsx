@@ -4,7 +4,6 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import { StoreProvider } from "./lib/store";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
-import CompanyBand from "./components/CompanyBand";
 import Palette from "./components/Palette";
 import AuthModal from "./components/AuthModal";
 import { Logo } from "./components/ui";
@@ -99,7 +98,6 @@ export default function App() {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
-        <CompanyBand />
         <Footer />
       </div>
       <Palette />

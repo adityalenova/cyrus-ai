@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { btn, Word, OrgImg } from "../components/ui";
 import { avatarOf } from "../lib/util";
 import { W, Pill, StepHead, Behind, YourAction, MockPanel, MockRow, GridBG, PlatCTA, Rule } from "../components/plat";
+import CompanyBand from "../components/CompanyBand";
 
 const D = {
   gauge: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-8.5 3.5A9.9 9.9 0 0 1 2 12C2 6.5 6.5 2 12 2s10 4.5 10 10a9.9 9.9 0 0 1-1.5 5.5",
@@ -166,6 +167,7 @@ export default function How() {
           </p>
           <PlatCTA to="/platform/features" label="Explore platform features" also={["/platform/trust", "See how we verify data"]} />
         </section>
+        <CompanyBand />
       </div>
     </div>
   );

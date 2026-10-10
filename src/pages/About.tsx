@@ -11,6 +11,7 @@ import { HACKS } from "../data/hackathons";
 import { RESOURCES } from "../data/resources";
 import { avatarOf, fmt } from "../lib/util";
 import { btn, Word, SectionTag, OrgImg, Logo } from "../components/ui";
+import CompanyBand from "../components/CompanyBand";
 
 const W = "max-w-[1240px] mx-auto px-6";
 
@@ -327,6 +328,7 @@ export default function About() {
           <Link to="/dashboard" className={btn("outline", "md")}>Open your dashboard</Link>
         </div>
       </section>
+      <CompanyBand />
     </>
   );
 }

@@ -10,6 +10,7 @@ import { ORGS } from "../data/orgs";
 import { HACKS } from "../data/hackathons";
 import { RESOURCES } from "../data/resources";
 import { W, Pill, Ico, Check, CenterHead, GridBG, PlatCTA, Rule } from "../components/plat";
+import CompanyBand from "../components/CompanyBand";
 
 const D: Record<string, string> = {
   shield: "M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3Z",
@@ -158,6 +159,7 @@ export default function Trust() {
           </p>
           <PlatCTA to="/about#data" label="Read the full methodology" also={["/platform/features", "Back to platform features"]} />
         </section>
+        <CompanyBand />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@
 import { Link } from "react-router-dom";
 import { btn, Word } from "../components/ui";
 import { W, Pill, Ico, Check, Cross, Tile, CenterHead, GridBG, Rule } from "../components/plat";
+import CompanyBand from "../components/CompanyBand";
 
 const D: Record<string, string> = {
   spark: "M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z",
@@ -202,11 +203,12 @@ export default function NovaAI() {
               exactly why you can trust the shortlist it hands you.
             </p>
             <div className="flex gap-3 justify-center flex-wrap mt-8">
-              <Link to="/nova" className={btn("primary", "lg")}>Open Nova — free</Link>
+              <Link to="/nova" className={btn("primary", "lg")}>Open Nova - free</Link>
               <Link to="/platform/features" className={btn("outline", "lg")}>All platform features</Link>
             </div>
           </div>
         </section>
+        <CompanyBand />
       </div>
     </div>
   );

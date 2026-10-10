@@ -8,6 +8,7 @@ import { fmt } from "../lib/util";
 import { btn, Word } from "../components/ui";
 import { REPOS } from "../data/repos";
 import { W, Pill, Ico, Check, Tile, CenterHead, GridBG, PlatCTA, Rule } from "../components/plat";
+import CompanyBand from "../components/CompanyBand";
 
 /* ── icon paths ── */
 const D: Record<string, string> = {
@@ -291,6 +292,7 @@ export default function Features() {
           </h2>
           <PlatCTA to="/dashboard" label="Open the dashboard" also={["/platform/nova", "Meet Nova AI"]} />
         </section>
+        <CompanyBand />
       </div>
     </div>
   );
