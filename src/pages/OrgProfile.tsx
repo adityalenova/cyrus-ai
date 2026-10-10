@@ -352,8 +352,8 @@ export default function OrgProfile() {
                 <p className="font-mono text-[11px] uppercase tracking-[.12em] text-dim mt-1.5">@{org.login} · {org.domain}</p>
               </div>
               <div className="flex flex-col gap-2 shrink-0 ml-auto">
-                <a href={`https://github.com/${org.login}`} target="_blank" rel="noopener" className={btn("dark", "sm")}>Visit official site ↗</a>
-                <Link to="/nova" className={btn("outline", "sm")}>Ask Nova AI about {org.login} →</Link>
+                <a href={`https://github.com/${org.login}`} target="_blank" rel="noopener" className={btn("dark", "sm")}>Visit official site</a>
+                <Link to="/nova" className={btn("outline", "sm")}>Ask Nova AI about {org.login}</Link>
               </div>
             </div>
 
@@ -390,7 +390,7 @@ export default function OrgProfile() {
                 <b className="block text-ink text-[14px] font-display font-extrabold leading-snug">Draft a project proposal for {org.name}</b>
                 <span className="block text-cocoa text-[12px] mt-0.5">Use the dashboard proposal studio - templates, mentors and timeline included.</span>
               </span>
-              <span className="ml-auto font-mono text-[10.5px] font-bold uppercase tracking-[.1em] text-accent shrink-0">Open studio →</span>
+              <span className="ml-auto font-mono text-[10.5px] font-bold uppercase tracking-[.1em] text-accent shrink-0">Open studio</span>
             </Link>
           </section>
 
@@ -441,7 +441,7 @@ export default function OrgProfile() {
             <div className="bg-card border border-line rounded-[20px] p-5 shadow-soft">
               <div className="flex items-center justify-between mb-3">
                 <p className="panel-h !mb-0">Similar organizations</p>
-                <Link to="/organizations" className="font-mono text-[10px] font-bold uppercase tracking-[.1em] text-accent hover:underline">All →</Link>
+                <Link to="/organizations" className="font-mono text-[10px] font-bold uppercase tracking-[.1em] text-accent hover:underline">All</Link>
               </div>
               <div className="grid grid-cols-2 gap-2.5">
                 {similar.map(({ o }) => (
@@ -463,7 +463,7 @@ export default function OrgProfile() {
                 <b className="block text-ink text-[12.5px] font-display font-extrabold leading-snug">Official project ideas list</b>
                 <span className="block text-cocoa text-[11px] mt-0.5">Maintainer wishlists on GitHub.</span>
               </span>
-              <span className="ml-auto shrink-0 font-mono text-[10px] font-bold uppercase tracking-[.1em] text-accent">Ideas ↗</span>
+              <span className="ml-auto shrink-0 font-mono text-[10px] font-bold uppercase tracking-[.1em] text-accent">Ideas</span>
             </a>
           </aside>
         </div>
@@ -522,7 +522,7 @@ export default function OrgProfile() {
                         {(p.tt ?? []).slice(0, 3).map((t) => <Chip key={t} tone="lang">{t}</Chip>)}
                       </div>
                       <div className="flex items-center gap-2 mt-auto pt-3.5 border-t border-line/70">
-                        <span className="font-mono text-[10.5px] font-bold uppercase tracking-[.08em] text-accent group-hover:underline">More Details →</span>
+                        <span className="font-mono text-[10.5px] font-bold uppercase tracking-[.08em] text-accent group-hover:underline">More Details</span>
                         <span className="ml-auto text-dim group-hover:text-accent transition-colors">{IC_TERMINAL}</span>
                       </div>
                     </a>
@@ -586,7 +586,7 @@ export default function OrgProfile() {
               Top repositories on GitHub
               <span className="font-mono text-[11px] text-dim font-medium">live from github.com/{org.login}, ranked by stars</span>
               <a href={`https://github.com/${org.login}?tab=repositories`} target="_blank" rel="noopener"
-                className="ml-auto font-mono text-[10.5px] font-bold uppercase tracking-[.1em] text-accent hover:underline">All {fmt(org.repos)} repos ↗</a>
+                className="ml-auto font-mono text-[10.5px] font-bold uppercase tracking-[.1em] text-accent hover:underline">All {fmt(org.repos)} repos</a>
             </h2>
             <div className="p-[18px] grid grid-cols-2 gap-3.5 max-[840px]:grid-cols-1">
               {real.map((r) => (
@@ -623,7 +623,7 @@ export default function OrgProfile() {
             <div className="flex gap-1.5 flex-wrap mb-6 items-center">
               {history.map((h) => (
                 <Link key={h.name} to={programLink(h.name)} className="hover:-translate-y-px transition-transform">
-                  <Chip tone={h.tone}>{h.name} · {h.years.length} yrs →</Chip>
+                  <Chip tone={h.tone}>{h.name} · {h.years.length} yrs</Chip>
                 </Link>
               ))}
               <span className="ml-auto flex gap-1.5 flex-wrap">
@@ -704,7 +704,7 @@ export default function OrgProfile() {
                           </li>
                         ))}
                       </ul>
-                      <Link to={programLink(h.name)} className="inline-block font-mono text-[10px] font-bold uppercase tracking-[.1em] text-accent mt-2.5 hover:underline">{h.name} program page →</Link>
+                      <Link to={programLink(h.name)} className="inline-block font-mono text-[10px] font-bold uppercase tracking-[.1em] text-accent mt-2.5 hover:underline">{h.name} program page</Link>
                     </div>
                   </div>
                 );
@@ -828,7 +828,7 @@ export default function OrgProfile() {
         <section>
           <div className="flex items-end justify-between gap-4 flex-wrap mb-5">
             <h2 className="font-display font-extrabold text-[26px] tracking-[-.02em]">Every build, <Word>on cyrus.ai</Word></h2>
-            <Link to="/projects" className={btn("ghost", "sm")}>Browse all projects →</Link>
+            <Link to="/projects" className={btn("ghost", "sm")}>Browse all projects</Link>
           </div>
           {repos.length ? (
             <div className="grid grid-cols-2 gap-4 max-[840px]:grid-cols-1">

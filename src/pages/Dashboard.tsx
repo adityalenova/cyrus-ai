@@ -281,6 +281,35 @@ export default function Dashboard() {
     toast(`Watching ${org} - it now feeds your mentor finder`);
   };
 
+  /* one-tap: every followed org joins the watchlist */
+  const trackFollowed = () => {
+    const names = orgList.map((o) => o!.name).filter((n) => !watch.some((w) => norm(w.org) === norm(n)));
+    if (!names.length) { toast("Every followed org is already on the watchlist."); return; }
+    setWatch([...watch, ...names.map((org) => ({ org, status: "researching" as const, note: "" }))]);
+    toast(`Added ${names.length} followed org${names.length === 1 ? "" : "s"} to the watchlist`);
+  };
+
+  /* what the runtime archive actually holds right now */
+  const pulse = useMemo(() => {
+    const gsoc = archive.filter((p) => (p.program ?? "GSoC") === "GSoC").length;
+    const years = [...new Set(archive.map((p) => p.y))].sort();
+    return {
+      total: archive.length, gsoc, other: archive.length - gsoc,
+      orgs: new Set(archive.map((p) => p.o)).size,
+      span: years.length ? `${years[0]}–${years[years.length - 1]}` : "2022–2026",
+    };
+  }, [archive]);
+
+  /* next-steps checklist: every row derived from real board state */
+  const steps: [boolean, string, string][] = [
+    [saved.length >= 3, "Save three projects to your shelf", "/projects"],
+    [savedOrgs.length >= 1, "Follow an organization", "/organizations"],
+    [watch.length >= 1, "Put one org on the watchlist", "#watchlist"],
+    [prof.done, "Run the personalised org matcher", "#matcher"],
+    [cmpIds.length >= 2, "Compare two organizations", "#compare"],
+  ];
+  const stepsDone = steps.filter(([on]) => on).length;
+
 
   if (!user) {
     return (
@@ -389,6 +418,17 @@ export default function Dashboard() {
           </div>
         </section>
 
+        <section aria-label="The archive right now" className="bg-coffee text-foam border border-bean rounded-[22px] px-6 py-4 flex items-center gap-7 flex-wrap">
+          <span className="font-mono text-[10px] font-bold tracking-[.16em] uppercase text-ember shrink-0">The archive now</span>
+          {([[fmt(pulse.total), "projects indexed"], [fmt(pulse.orgs), "organizations"], [pulse.span, "program years"], [fmt(pulse.other), "LFX · Outreachy · SoB"] ] as [string, string][]).map(([v, l], i) => (
+            <span key={l} className={`flex items-baseline gap-2 ${i ? "border-l border-bean pl-7 max-[860px]:border-0 max-[860px]:pl-0" : ""}`}>
+              <b className="font-mono text-[16px] text-white">{v}</b>
+              <span className="text-[12px] text-foam/60">{l}</span>
+            </span>
+          ))}
+          <Link to="/opensource" className="ml-auto font-mono text-[10px] tracking-[.1em] uppercase text-foam/70 hover:text-white underline underline-offset-4 decoration-white/25 transition-colors">Browse archive</Link>
+        </section>
+
         <section id="overview" className="grid grid-cols-4 gap-3.5 scroll-mt-24 max-[900px]:grid-cols-2">
           {stats.map(([ic, v, l]) => (
             <div key={l} className="bg-card border border-line rounded-[18px] p-5 shadow-soft">
@@ -399,9 +439,30 @@ export default function Dashboard() {
           ))}
         </section>
 
+        <section aria-label="Next steps" className="bg-card border border-line rounded-[22px] p-6 shadow-soft">
+          <div className="flex items-baseline gap-3 flex-wrap">
+            <h3 className="panel-h-lg">Next steps</h3>
+            <span className="font-mono text-[11px] text-dim ml-auto">{stepsDone} of {steps.length} done</span>
+          </div>
+          <div className="h-1.5 rounded-full bg-clay overflow-hidden mt-3 mb-5">
+            <i className="block h-full rounded-full grow-x transition-all duration-500" style={{ width: `${(stepsDone / steps.length) * 100}%`, background: "linear-gradient(90deg, var(--color-accent), var(--color-ember))" }} />
+          </div>
+          <div className="grid gap-1">
+            {steps.map(([on, l, to]) => (
+              <Link key={l} to={to} className="group flex items-center gap-3.5 px-2 py-2.5 rounded-xl hover:bg-cream transition-colors">
+                <span className={`w-[22px] h-[22px] rounded-[7px] border grid place-items-center shrink-0 transition-colors ${on ? "bg-leaf border-leaf text-white" : "border-line bg-paper text-transparent"}`}>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M4 12.5 10 18.5 20 6" /></svg>
+                </span>
+                <span className={`text-[14px] font-semibold ${on ? "text-dim line-through decoration-line" : "text-ink"}`}>{l}</span>
+                {!on && <span className="ml-auto font-mono text-[10px] uppercase tracking-[.1em] text-accent opacity-0 group-hover:opacity-100 transition-opacity">Do it</span>}
+              </Link>
+            ))}
+          </div>
+        </section>
+
         <section id="saved" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
           <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">
-            {IC_STAR_SM} Saved projects <Link to="/projects" className="go ml-auto text-dim text-[13px] font-medium hover:text-accent">browse more →</Link>
+            {IC_STAR_SM} Saved projects <Link to="/projects" className="go ml-auto text-dim text-[13px] font-medium hover:text-accent">browse more</Link>
           </h3>
           {savedRepos.length ? savedRepos.map((r) => {
             const prog = Math.round(20 + rnd(r!.repo + user.name, 3) * 70);
@@ -421,7 +482,7 @@ export default function Dashboard() {
               </div>
             );
           }) : (
-            <p className="text-dim text-[14px] py-6 text-center">Nothing saved yet - tap the star on any project card and it lands here. <Link to="/projects" className="text-accent font-semibold hover:underline">Browse projects →</Link></p>
+            <p className="text-dim text-[14px] py-6 text-center">Nothing saved yet - tap the star on any project card and it lands here. <Link to="/projects" className="text-accent font-semibold hover:underline">Browse projects</Link></p>
           )}
         </section>
 
@@ -440,7 +501,7 @@ export default function Dashboard() {
               ))}
             </div>
           ) : (
-            <p className="text-dim text-[14px] py-6 text-center">Follow a few orgs and their new catalog repos show up in your digest. <Link to="/organizations" className="text-accent font-semibold hover:underline">Browse organizations →</Link></p>
+            <p className="text-dim text-[14px] py-6 text-center">Follow a few orgs and their new catalog repos show up in your digest. <Link to="/organizations" className="text-accent font-semibold hover:underline">Browse organizations</Link></p>
           )}
         </section>
 
@@ -467,7 +528,7 @@ export default function Dashboard() {
                 </label>
               </div>
             </label>
-            <button onClick={runMatch} className={btn("primary", "md")}>Match me →</button>
+            <button onClick={runMatch} className={btn("primary", "md")}>Match me</button>
           </div>
           {fileNote && <p className="font-mono text-[10.5px] text-leaf mt-2">{fileNote}</p>}
           {prof.done && (
@@ -496,7 +557,7 @@ export default function Dashboard() {
                         {r.login ? (
                           <Link to={`/organizations/${r.login}`} className={btn("primary", "sm") + " flex-1 justify-center !px-2 text-[11.5px]"}>View org</Link>
                         ) : (
-                          <a href={`https://github.com/search?q=${encodeURIComponent(r.name)}&type=organizations`} target="_blank" rel="noopener" className={btn("outline", "sm") + " flex-1 justify-center !px-2 text-[11.5px]"}>Find on GitHub ↗</a>
+                          <a href={`https://github.com/search?q=${encodeURIComponent(r.name)}&type=organizations`} target="_blank" rel="noopener" className={btn("outline", "sm") + " flex-1 justify-center !px-2 text-[11.5px]"}>Find on GitHub</a>
                         )}
                         <button onClick={() => addWatch(r.name)} title="Add to watchlist"
                           className="w-[30px] h-[30px] rounded-[9px] border border-line grid place-items-center text-dim hover:border-accent hover:text-accent transition-colors cursor-pointer shrink-0">{IC_EYE}</button>
@@ -513,7 +574,10 @@ export default function Dashboard() {
 
         <section id="watchlist" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
           <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">
-            {IC_EYE} Watchlist <Link to="/organizations" className="go ml-auto text-dim text-[13px] font-medium hover:text-accent">add orgs →</Link>
+            {IC_EYE} Watchlist
+            <button onClick={trackFollowed} title="Copy every followed org into the watchlist"
+              className="ml-auto font-mono text-[10px] font-bold uppercase tracking-[.08em] text-rust bg-peach border border-accent/25 rounded-full px-3 py-[5px] hover:bg-accent/15 transition-colors cursor-pointer">Track followed orgs</button>
+            <Link to="/organizations" className="go text-dim text-[13px] font-medium hover:text-accent">add orgs</Link>
           </h3>
           {watch.length ? (
             <div className="grid gap-2.5">
@@ -623,7 +687,7 @@ export default function Dashboard() {
 
         <section id="deadlines" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
           <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">
-            {IC_FLAG} Deadlines ahead <Link to="/hackathons" className="ml-auto text-[13px] font-medium text-dim hover:text-accent">full calendar →</Link>
+            {IC_FLAG} Deadlines ahead <Link to="/hackathons" className="ml-auto text-[13px] font-medium text-dim hover:text-accent">full calendar</Link>
           </h3>
           {due.length ? (
             <div className="grid grid-cols-2 gap-3 max-[700px]:grid-cols-1">
@@ -651,7 +715,7 @@ export default function Dashboard() {
 
         <section className="bg-card border border-line rounded-[22px] p-6 shadow-soft">
           <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">
-            {IC_BOOK} Reading picked for your stack <Link to="/resources" className="ml-auto text-[13px] font-medium text-dim hover:text-accent">all resources →</Link>
+            {IC_BOOK} Reading picked for your stack <Link to="/resources" className="ml-auto text-[13px] font-medium text-dim hover:text-accent">all resources</Link>
           </h3>
           <div className="grid grid-cols-3 gap-3 max-[800px]:grid-cols-1">
             {picks.map((r) => (

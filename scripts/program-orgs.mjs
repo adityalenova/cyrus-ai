@@ -46,25 +46,26 @@ try {
 const cache = existsSync(CACHE) ? JSON.parse(readFileSync(CACHE, "utf8")) : {};
 console.log(`orgs: ${names.size}, cached: ${Object.keys(cache).length}`);
 
-let done = 0, matched = 0, ghDead = 0;
+let done = 0, matched = 0, ghFail = 0;
 for (const name of [...names].sort()) {
   if (!(name in cache)) {
-    if (ghDead > 5) { cache[name] = { login: null }; continue; } // don't hammer a dead gh
+    if (ghFail > 10) { console.error("gh keeps failing consecutively - aborting partial run; cache so far preserved"); writeFileSync(CACHE, JSON.stringify(cache)); break; }
     const q = encodeURIComponent(`"${name}" type:user`);
     const s = gh([`search/users?q=${q}&per_page=1`]);
+    if (!s) ghFail++; else ghFail = 0;
     const top = s?.items?.[0];
-    let ok = false;
-    if (top && (top.public_repos || 0) > 5) {
-      const key = firstWord(name);
-      const nLogin = norm(top.login), nName = norm(top.name);
-      if (key && ((nName && (nName.includes(key) || key.includes(nName))) || nLogin.includes(key))) ok = true;
-    }
-    if (ok) {
+    let entry = { login: null };
+    if (top) {
+      // search items lack name/public_repos -> verify (and enrich) via the users endpoint (5000/hr)
       const v = gh([`users/${top.login}`]);
-      if (v && v.login) cache[name] = { login: v.login, name: v.name || top.name || v.login, url: v.html_url || `https://github.com/${v.login}`, avatar: v.avatar_url || "" };
-      else cache[name] = { login: null };
-    } else cache[name] = { login: null };
-    if (!s) ghDead++;
+      if (v && v.login && (v.public_repos || 0) > 5) {
+        const key = firstWord(name);
+        const nLogin = norm(v.login), nName = norm(v.name);
+        if (key && ((nName && (nName.includes(key) || key.includes(nName))) || nLogin.includes(key)))
+          entry = { login: v.login, name: v.name || v.login, url: v.html_url || `https://github.com/${v.login}`, avatar: v.avatar_url || "" };
+      }
+    }
+    cache[name] = entry;
     await sleep(2300); // search API: 30/min
   }
   if (cache[name].login) matched++;

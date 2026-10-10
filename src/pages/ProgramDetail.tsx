@@ -120,7 +120,7 @@ export default function ProgramDetail() {
             <div className="ml-auto flex gap-2.5 items-center flex-wrap">
               <span className={`font-mono text-[10px] font-bold uppercase tracking-[.1em] px-2.5 py-1 rounded-full border ${STATUS_CLS[p.status]}`}>{p.status}</span>
               <LevelChip level={d.level} />
-              <a href={p.url} target="_blank" rel="noopener" className={btn("dark", "md")}>Official website ↗</a>
+              <a href={p.url} target="_blank" rel="noopener" className={btn("dark", "md")}>Official website</a>
             </div>
           </div>
           <p className="text-cocoa mt-4 max-w-[760px] text-[15.5px] leading-[1.65]">{p.tag}</p>
@@ -212,7 +212,7 @@ export default function ProgramDetail() {
             <section>
               <div className="flex items-end justify-between gap-4 flex-wrap mb-4">
                 <h2 className="font-display font-extrabold text-[22px] tracking-[-.02em]">Flagship <Word>{p.name}</Word> projects</h2>
-                <Link to="/opensource" className={btn("ghost", "sm")}>Browse all program projects →</Link>
+                <Link to="/opensource" className={btn("ghost", "sm")}>Browse all program projects</Link>
               </div>
               <div className="grid grid-cols-3 gap-4 max-[980px]:grid-cols-2 max-[640px]:grid-cols-1">
                 {shelf.map((r) => (
@@ -244,9 +244,9 @@ export default function ProgramDetail() {
             <MetaRow k="Eligibility" v={d.eligibility} />
             <MetaRow k="Scale" v={`${p.orgs} · ${p.slots}`} />
             <div className="grid gap-2.5 mt-4">
-              {shelf.length > 0 && <Link to="/opensource" className={btn("primary", "md", "w-full")}>Browse {PROGRAM_META[shelfName as ProgramName].label} projects →</Link>}
-              <Link to="/organizations" className={btn("outline", "md", "w-full")}>View organizations →</Link>
-              <a href={p.url} target="_blank" rel="noopener" className={btn("dark", "md", "w-full")}>Official website ↗</a>
+              {shelf.length > 0 && <Link to="/opensource" className={btn("primary", "md", "w-full")}>Browse {PROGRAM_META[shelfName as ProgramName].label} projects</Link>}
+              <Link to="/organizations" className={btn("outline", "md", "w-full")}>View organizations</Link>
+              <a href={p.url} target="_blank" rel="noopener" className={btn("dark", "md", "w-full")}>Official website</a>
             </div>
           </div>
 
@@ -256,7 +256,7 @@ export default function ProgramDetail() {
               Programs run on staggered calendars. Pair this one with a winter or spring season so your
               contribution history never idles - check the full 12-month view from the home timeline.
             </p>
-            <Link to="/#timeline" className={btn("outline", "sm", "mt-3.5")}>12-month timeline →</Link>
+            <Link to="/#timeline" className={btn("outline", "sm", "mt-3.5")}>12-month timeline</Link>
           </div>
         </aside>
       </div>
@@ -274,7 +274,7 @@ export default function ProgramDetail() {
                 <b className="font-display text-[14px] block truncate">{x.name}</b>
                 <span className="font-mono text-[10px] text-dim block truncate">{x.pay} · {x.window}</span>
               </div>
-              <span className="ml-auto text-dim group-hover:text-accent transition-colors font-mono text-[13px]">→</span>
+              <span className="ml-auto text-dim group-hover:text-accent transition-colors font-mono text-[13px]"></span>
             </Link>
           ))}
         </div>

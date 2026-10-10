@@ -1,11 +1,16 @@
-/* ══ Resources.tsx — 58 top-company learning resources, list + in-site detail ═ */
+/* ══ Resources.tsx — 58 top-company learning resources, list + in-site detail
+   Listing page follows a best-in-class resources layout: dark hero band
+   with floating product cards, an overlapping search + type bar, then a
+   clean result grid. Detail pages stay in-site before any click-out.  ═══ */
 import { useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { RESOURCES, RESOURCE_CATS, RESOURCE_PROVIDERS, providerGroup } from "../data/resources";
 import type { Resource } from "../data/resources";
 import { REPOS } from "../data/repos";
 import { avatarOf, byStars } from "../lib/util";
-import { Word, SectionTag, btn, OrgImg, Chip, Tag } from "../components/ui";
+import { SectionTag, btn, OrgImg, Chip, Tag } from "../components/ui";
+
+const W = "max-w-[1240px] mx-auto px-6";
 
 const CAT_TONE: Record<string, string> = {
   Course: "green", "Docs & guides": "blue", Practice: "cat", Reading: "purple", "Tools & labs": "",
@@ -27,7 +32,7 @@ function ResCard({ r }: { r: Resource }) {
       <div className="flex items-center gap-1.5 flex-wrap mt-auto pt-1">
         <Chip tone={CAT_TONE[r.cat] as never}>{r.cat}</Chip>
         <Chip>{r.level}</Chip>
-        <span className="ml-auto font-mono text-[10.5px] text-dim">{r.time} · open breakdown <span className="inline-block group-hover:translate-x-0.5 transition-transform">→</span></span>
+        <span className="ml-auto font-mono text-[10.5px] text-dim">{r.time}</span>
       </div>
     </Link>
   );
@@ -60,72 +65,120 @@ export default function Resources() {
   const pill = (on: boolean) => `font-mono text-[11px] font-bold tracking-[.06em] uppercase rounded-full px-3.5 py-[7px] border transition-all cursor-pointer ${on ? "bg-coffee border-coffee text-foam" : "bg-card border-line text-cocoa hover:border-accent hover:text-rust"}`;
 
   return (
-    <div className="max-w-[1240px] mx-auto px-6 pt-14 pb-4">
-      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] text-[clamp(38px,4.8vw,58px)]">
-        Developer <Word>resources</Word>, ranked.
-      </h1>
-      <p className="text-ink font-medium mt-4 text-[16.5px] leading-[1.6] max-w-[620px]">
-        The courses, docs and labs engineers actually recommend - from Google, Meta, Microsoft, GitHub, NVIDIA and OpenAI. Each card opens a full breakdown on cyrus before you click out.
-      </p>
+    <div className="pb-4">
+      {/* ── dark hero band with floating product cards ── */}
+      <section className="relative overflow-hidden bg-coffee text-foam">
+        <span aria-hidden className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(244,238,227,.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(244,238,227,.05)_1px,transparent_1px)] [background-size:44px_44px] [mask-image:radial-gradient(900px_500px_at_50%_30%,#000_45%,transparent)]" />
+        <span aria-hidden className="absolute inset-0 pointer-events-none bg-[radial-gradient(680px_320px_at_50%_-14%,rgba(217,133,70,.20),transparent_70%),radial-gradient(520px_300px_at_92%_110%,rgba(122,90,168,.14),transparent_70%),radial-gradient(480px_260px_at_6%_106%,rgba(180,96,44,.16),transparent_70%)]" />
+        {/* left floating card: the shelf list */}
+        <div aria-hidden className="absolute left-[6%] top-[72px] w-[210px] -rotate-[7deg] rounded-[18px] border border-white/12 bg-white/[.06] backdrop-blur-[4px] p-4 shadow-[0_30px_60px_-30px_rgba(0,0,0,.7)] max-[1100px]:hidden">
+          <p className="font-display font-extrabold text-[13px] text-white mb-3">cyrus<span className="text-ember">.ai</span></p>
+          {["Courses", "Docs & guides", "Practice", "Reading"].map((x) => (
+            <span key={x} className="flex items-center gap-2.5 text-[12px] text-foam/85 bg-white/7 border border-white/10 rounded-[10px] px-3 py-2 mb-2 last:mb-0">
+              <span className="w-[7px] h-[7px] rounded-full bg-[#7ee2a8]" />{x}
+            </span>
+          ))}
+        </div>
+        {/* right floating card: free-count gauge */}
+        <div aria-hidden className="absolute right-[6%] top-[88px] w-[170px] rotate-[6deg] rounded-[18px] border border-white/12 bg-white/[.06] backdrop-blur-[4px] p-4 shadow-[0_30px_60px_-30px_rgba(0,0,0,.7)] max-[1100px]:hidden">
+          <p className="font-display font-extrabold text-[13px] text-white mb-3">cyrus<span className="text-ember">.ai</span></p>
+          <span className="relative grid place-items-center w-[92px] h-[92px] mx-auto">
+            <svg width="92" height="92" viewBox="0 0 92 92" className="absolute inset-0 -rotate-90" aria-hidden>
+              <circle cx="46" cy="46" r="38" fill="none" stroke="rgba(244,238,227,.14)" strokeWidth="9" />
+              <circle cx="46" cy="46" r="38" fill="none" stroke="#7ee2a8" strokeWidth="9" strokeLinecap="round"
+                strokeDasharray={2 * Math.PI * 38} strokeDashoffset={2 * Math.PI * 38 * (1 - freeCount / RESOURCES.length)} />
+            </svg>
+            <b className="font-mono text-[12.5px] font-bold text-white">{freeCount} free</b>
+          </span>
+        </div>
+        <div className={`${W} relative pt-[88px] pb-[104px] text-center`}>
+          <span className="inline-flex items-center gap-2.5 font-mono text-[10.5px] font-bold tracking-[.18em] uppercase text-foam/90 bg-white/8 border border-white/15 rounded-full px-4 py-2">
+            <span className="text-honey leading-none">✦</span> Cyrus resources
+          </span>
+          <h1 className="font-display font-extrabold tracking-[-.025em] leading-[1.08] text-white text-[clamp(34px,4.8vw,58px)] mt-6 max-w-[820px] mx-auto">
+            Learning resources for builders who <span className="text-ember">ship fast</span>
+          </h1>
+          <p className="text-steam mt-5 mx-auto max-w-[560px] text-[15.5px] leading-[1.7]">
+            Practical courses, docs and labs engineers actually recommend - from Google, Meta,
+            Microsoft, GitHub, NVIDIA and OpenAI. Each card opens a full breakdown on cyrus before
+            you click out.
+          </p>
+        </div>
+      </section>
 
-      <div className="flex items-center gap-2 flex-wrap mt-5 font-mono text-[11.5px] text-dim">
-        <span className="bg-peach border border-accent/20 text-rust rounded-full px-3 py-1 font-bold">{freeCount} free</span>
-        <span className="bg-card border border-line rounded-full px-3 py-1">{RESOURCES.length - freeCount} paid or mixed</span>
-        <span className="bg-card border border-line rounded-full px-3 py-1">{RESOURCE_PROVIDERS.length - 1} company shelves · {RESOURCE_CATS.length - 1} types</span>
-        <span className="bg-card border border-line rounded-full px-3 py-1">every card opens in-site first</span>
+      {/* ── overlapping search + type bar ── */}
+      <div className={`${W} relative z-[2] -mt-11`}>
+        <div className="bg-card border border-line rounded-[22px] shadow-lift px-4 py-3.5 flex items-center gap-3 flex-wrap">
+          <span className="relative flex-1 min-w-[220px] flex items-center">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden className="absolute left-4 text-dim pointer-events-none">
+              <circle cx="11" cy="11" r="7" /><path d="m20 20-3.2-3.2" />
+            </svg>
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search resources…"
+              className="w-full bg-sand border border-line rounded-full pl-10 pr-4 py-2.5 text-[14px] outline-none focus:border-accent placeholder:text-dim" />
+          </span>
+          {RESOURCE_CATS.map((c) => <button key={c} className={pill(cat === c)} onClick={() => setCat(c)}>{c}</button>)}
+        </div>
       </div>
 
-      {/* ── start-here band, visible only with no filters ── */}
-      {pristine && (
-        <section className="mt-10">
-          <div className="flex items-baseline gap-3 flex-wrap">
-            <SectionTag>Not sure where to begin?</SectionTag>
-            <span className="text-[12.5px] text-dim">Four picks that unblock the most people.</span>
-          </div>
-          <div className="pulse-grid grid grid-cols-4 gap-4 mt-4 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
-            {PICKS.map((p) => {
-              const r = RESOURCES.find((x) => x.id === p.id)!;
-              return (
-                <Link key={p.id} to={`/resources/${p.id}`}
-                  className="group flex flex-col gap-2 bg-coffee text-foam rounded-[18px] p-5 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all">
-                  <div className="flex items-center gap-2.5">
-                    <OrgImg src={avatarOf(r.provider, 64)} name={r.brand} className="w-[26px] h-[26px] rounded-[8px] object-cover bg-sand shrink-0" />
-                    <span className="font-mono text-[9.5px] font-bold tracking-[.12em] uppercase text-ember">{r.level}</span>
-                  </div>
-                  <b className="card-title text-[16.5px] leading-snug">{r.title}</b>
-                  <span className="text-[12.5px] text-foam/70 leading-[1.5]">{p.best}</span>
-                  <span className="mt-auto flex items-center gap-2 font-mono text-[10.5px] text-foam/50 pt-2">
-                    {r.brand} · {r.time}
-                    <span className="ml-auto text-ember group-hover:translate-x-1 transition-transform">→</span>
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-      )}
+      <div className={`${W} pt-12`}>
+        <div className="flex items-baseline justify-between gap-4 flex-wrap">
+          <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(24px,2.8vw,34px)]">
+            {cat === "All" ? "All resources" : cat}
+          </h2>
+          <span className="font-mono text-[11.5px] text-dim">{list.length} {list.length === 1 ? "result" : "results"}</span>
+        </div>
 
-      <div className="flex gap-2.5 flex-wrap items-center mt-10">
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Filter resources…"
-          className="w-[220px] bg-card border border-line rounded-full px-4 py-2 text-[13.5px] outline-none focus:border-accent placeholder:text-dim" />
-        <button onClick={() => setFreeOnly(!freeOnly)}
-          className={`font-mono text-[11px] font-bold tracking-[.06em] uppercase rounded-full px-3.5 py-[7px] border transition-all cursor-pointer ${freeOnly ? "bg-leaf border-leaf text-white" : "bg-card border-line text-cocoa hover:border-leaf hover:text-leaf"}`}>
-          Free only
-        </button>
-        <span className="w-px h-6 bg-liness mx-1 max-[700px]:hidden" />
-        {RESOURCE_PROVIDERS.map((p) => <button key={p} className={pill(prov === p)} onClick={() => setProv(p)}>{p}</button>)}
-      </div>
-      <div className="flex gap-2 flex-wrap items-center mt-3">
-        {RESOURCE_CATS.map((c) => <button key={c} className={pill(cat === c)} onClick={() => setCat(c)}>{c}</button>)}
-        <span className="ml-auto font-mono text-[11px] text-dim">{list.length} of {RESOURCES.length} shown</span>
-      </div>
+        <div className="flex items-center gap-2 flex-wrap mt-4 font-mono text-[11.5px] text-dim">
+          <span className="bg-peach border border-accent/20 text-rust rounded-full px-3 py-1 font-bold">{freeCount} free</span>
+          <span className="bg-card border border-line rounded-full px-3 py-1">{RESOURCES.length - freeCount} paid or mixed</span>
+          <span className="bg-card border border-line rounded-full px-3 py-1">{RESOURCE_PROVIDERS.length - 1} company shelves · {RESOURCE_CATS.length - 1} types</span>
+        </div>
 
-      <div className="pulse-grid grid grid-cols-3 gap-4 mt-8 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
-        {list.map((r) => <ResCard key={r.id} r={r} />)}
+        <div className="flex gap-2.5 flex-wrap items-center mt-6">
+          <button onClick={() => setFreeOnly(!freeOnly)}
+            className={`font-mono text-[11px] font-bold tracking-[.06em] uppercase rounded-full px-3.5 py-[7px] border transition-all cursor-pointer ${freeOnly ? "bg-leaf border-leaf text-white" : "bg-card border-line text-cocoa hover:border-leaf hover:text-leaf"}`}>
+            Free only
+          </button>
+          <span className="w-px h-6 bg-liness mx-1 max-[700px]:hidden" />
+          {RESOURCE_PROVIDERS.map((p) => <button key={p} className={pill(prov === p)} onClick={() => setProv(p)}>{p}</button>)}
+        </div>
+
+        {/* ── start-here band, visible only with no filters ── */}
+        {pristine && (
+          <section className="mt-12">
+            <div className="flex items-baseline gap-3 flex-wrap">
+              <SectionTag>Not sure where to begin?</SectionTag>
+              <span className="text-[12.5px] text-dim">Four picks that unblock the most people.</span>
+            </div>
+            <div className="grid grid-cols-4 gap-4 mt-4 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
+              {PICKS.map((p) => {
+                const r = RESOURCES.find((x) => x.id === p.id)!;
+                return (
+                  <Link key={p.id} to={`/resources/${p.id}`}
+                    className="group flex flex-col gap-2 bg-coffee text-foam rounded-[18px] p-5 shadow-soft hover:shadow-lift hover:-translate-y-1 transition-all">
+                    <div className="flex items-center gap-2.5">
+                      <OrgImg src={avatarOf(r.provider, 64)} name={r.brand} className="w-[26px] h-[26px] rounded-[8px] object-cover bg-sand shrink-0" />
+                      <span className="font-mono text-[9.5px] font-bold tracking-[.12em] uppercase text-ember">{r.level}</span>
+                    </div>
+                    <b className="card-title text-[16.5px] leading-snug">{r.title}</b>
+                    <span className="text-[12.5px] text-foam/70 leading-[1.5]">{p.best}</span>
+                    <span className="mt-auto flex items-center gap-2 font-mono text-[10.5px] text-foam/50 pt-2">
+                      {r.brand} · {r.time}
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        <div className="grid grid-cols-3 gap-4 mt-8 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
+          {list.map((r) => <ResCard key={r.id} r={r} />)}
+        </div>
+        {list.length === 0 && (
+          <p className="text-center text-cocoa py-16 text-[14.5px]">Nothing matches that combo - widen a filter, or <button className="text-accent font-semibold cursor-pointer" onClick={() => { setCat("All"); setProv("All"); setFreeOnly(false); setQ(""); }}>reset everything</button>.</p>
+        )}
       </div>
-      {list.length === 0 && (
-        <p className="text-center text-cocoa py-16 text-[14.5px]">Nothing matches that combo - widen a filter, or <button className="text-accent font-semibold cursor-pointer" onClick={() => { setCat("All"); setProv("All"); setFreeOnly(false); setQ(""); }}>reset everything</button>.</p>
-      )}
     </div>
   );
 }
@@ -148,14 +201,14 @@ export function ResourceDetail() {
       <div className="max-w-[720px] mx-auto px-6 py-24 text-center">
         <h1 className="font-display font-extrabold text-[30px]">Resource not found</h1>
         <p className="text-cocoa mt-3">That link drifted. The full shelf is one click away.</p>
-        <Link className={btn("primary", "md", "mt-6")} to="/resources">All resources →</Link>
+        <Link className={btn("primary", "md", "mt-6")} to="/resources">All resources</Link>
       </div>
     );
   }
 
   return (
     <div className="max-w-[1240px] mx-auto px-6 pt-10 pb-4">
-      <button onClick={() => nav("/resources")} className="font-mono text-[11px] tracking-[.1em] uppercase text-dim hover:text-rust cursor-pointer transition-colors">← All resources</button>
+      <button onClick={() => nav("/resources")} className="font-mono text-[11px] tracking-[.1em] uppercase text-dim hover:text-rust cursor-pointer transition-colors">All resources</button>
 
       <div className="grid grid-cols-[1fr_320px] gap-8 mt-5 items-start max-[1020px]:grid-cols-1">
         <div>
@@ -187,7 +240,7 @@ export function ResourceDetail() {
             <section className="rounded-[18px] p-6 border" style={{ borderColor: "color-mix(in srgb, var(--color-accent) 35%, transparent)", background: "color-mix(in srgb, var(--color-accent) 6%, var(--color-card))" }}>
               <SectionTag>How to use it with cyrus</SectionTag>
               <p className="text-[15px] leading-[1.7] text-cocoa mt-3">{r.use}</p>
-              <Link to="/hackathons" className={`${btn("outline", "sm")} mt-4`}>Pair it with a hackathon plan →</Link>
+              <Link to="/hackathons" className={`${btn("outline", "sm")} mt-4`}>Pair it with a hackathon plan</Link>
             </section>
           </div>
         </div>
@@ -195,7 +248,7 @@ export function ResourceDetail() {
         <aside className="sticky top-[90px] max-[1020px]:static grid gap-4">
           <div className="bg-coffee text-foam rounded-[20px] p-6 shadow-lift">
             <p className="font-mono text-[10.5px] tracking-[.12em] uppercase text-ember">Ready when you are</p>
-            <a href={r.url} target="_blank" rel="noopener" className={btn("primary", "lg", "w-full mt-3")}>Open {r.brand} ↗</a>
+            <a href={r.url} target="_blank" rel="noopener" className={btn("primary", "lg", "w-full mt-3")}>Open {r.brand}</a>
             <p className="text-[12px] text-foam/60 mt-3 leading-[1.55]">Leaves cyrus.ai in a new tab. Bookmark here to keep your prep plan in one place.</p>
           </div>
 

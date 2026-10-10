@@ -109,6 +109,20 @@ export const PROGRAMS: Program[] = [
     ],
   },
   {
+    id: "nsoc", name: "Nexus Spring of Code", owner: "Nexus-Spring-of-Code",
+    img: "assets/prog-gsoc.jpg", url: "https://nsoc.in",
+    tag: "A 45-day spring sprint where orgs hand you live repos and you ship the issues.",
+    pay: "Prizes + certs", payNote: "LEADERBOARD",
+    status: "upcoming", window: "Registrations open on nsoc.in",
+    orgs: "Partner repos on GitHub", slots: "Open to developers",
+    phases: [
+      { label: "Registrations", s: 1.5, e: 2.5, c: "#3b6ea5" },
+      { label: "Project selection", s: 2.5, e: 3.2, c: "#a97b1f" },
+      { label: "Contribution window", s: 3.2, e: 4.7, c: "#3e7d4f" },
+      { label: "Evaluation", s: 4.7, e: 5.2, c: "#7a5aa8" },
+    ],
+  },
+  {
     id: "oct", name: "Hacktoberfest", owner: "github",
     img: "/assets/hack/covers/hacktoberfest-2026.jpg", url: "https://hacktoberfest.com",
     tag: "One month of pull requests, first-timer friendly, the on-ramp for most contributors.",

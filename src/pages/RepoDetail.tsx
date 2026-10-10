@@ -22,7 +22,7 @@ function synthContribs(r: Repo): GhContrib[] {
   const n = 8;
   return Array.from({ length: n }, (_, i) => ({
     login: `${owner.slice(0, 5)}dev${i + 1}`,
-    avatar_url: "", // empty → rendered as initials avatar
+    avatar_url: "", // empty rendered as initials avatar
     contributions: Math.round(r.stars * (0.02 - i * 0.002) * (0.6 + rnd(r.repo, i) * 0.8)),
     html_url: `https://github.com/${owner}`,
   }));
@@ -163,7 +163,7 @@ export default function RepoDetail() {
                 <Chip>{repo.license}</Chip>
                 {(repo as ProgramRepo).programs?.map((p) => (
                   <Link key={p} to={programLink(p)} title={PROGRAM_META[p].full} className="hover:-translate-y-px transition-transform">
-                    <Chip tone={PROGRAM_META[p].tone}>{PROGRAM_META[p].label} page →</Chip>
+                    <Chip tone={PROGRAM_META[p].tone}>{PROGRAM_META[p].label} page</Chip>
                   </Link>
                 ))}
               </div>
@@ -176,7 +176,7 @@ export default function RepoDetail() {
                   onClick={() => { countDownload(repo.repo); toast(`Downloading ${repo.repo.split("/")[1]} .zip via cyrus.ai`); }}
                   className={btn("primary", "md")}>Download .zip</a>
               )}
-              <a href={repo.url} target="_blank" rel="noopener" className={btn(repo.cat === "tools" ? "primary" : "dark", "md")}>View on GitHub ↗</a>
+              <a href={repo.url} target="_blank" rel="noopener" className={btn(repo.cat === "tools" ? "primary" : "dark", "md")}>View on GitHub</a>
             </div>
           </div>
           <p className="text-cocoa mt-4 max-w-[720px] text-[15.5px] leading-[1.65]">{repo.desc}</p>

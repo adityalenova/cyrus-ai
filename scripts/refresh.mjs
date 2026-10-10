@@ -138,6 +138,8 @@ async function refreshGsoc() {
   const BASE = "https://summerofcode.withgoogle.com/api";
   const YEARS = [2022, 2023, 2024, 2025, 2026];
   const projects = [], orgs = {};
+  const seenUids = new Set(); // NOTE: the live API currently ignores year= and returns the same
+                               // mixed 2022-2026 archive page, so dedupe uids across passes.
   for (const year of YEARS) {
     const list = await get(`${BASE}/projects/?year=${year}`);
     if (!list?.result) { console.log("  no list for", year); continue; }
@@ -150,12 +152,16 @@ async function refreshGsoc() {
         done++;
         const p = j?.entities?.projects?.[0];
         if (!p || p.status !== "passed") continue;
+        const yr = +p.program_slug || year; // trust the entity's program year when present
+        if (!YEARS.includes(yr)) continue;
+        if (seenUids.has(p.uid)) continue;
+        seenUids.add(p.uid);
         const orgEnt = (j.entities.organizations || []).find((o) => o.uid === p.organization_id) || (j.entities.organizations || [])[0];
         const orgName = clean(orgEnt?.name || p.organization || "").slice(0, 80);
         if (orgEnt?.name) orgs[orgName] = { url: orgEnt.url || "", category: orgEnt.category || "" };
         kept++;
         projects.push({
-          y: year, u: p.uid,
+          y: yr, u: p.uid,
           t: clean(p.title).slice(0, 120), o: orgName, s: p.size || "medium",
           tt: (p.tech_tags || []).slice(0, 5).map((x) => clean(x).slice(0, 22)).filter(Boolean),
           tp: (p.topic_tags || []).slice(0, 3).map((x) => clean(x).slice(0, 26)).filter(Boolean),

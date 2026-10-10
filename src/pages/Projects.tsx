@@ -53,13 +53,13 @@ function PCard({ r }: { r: Repo }) {
         </button>
         {r.cat === "tools" ? (
           <a href={r.url} target="_blank" rel="noopener" title="Application-oriented project - opens its GitHub page"
-            className={btn("primary", "sm")}>GitHub ↗</a>
+            className={btn("primary", "sm")}>GitHub</a>
         ) : (
           <a href={`https://api.github.com/repos/${r.repo}/zipball`} title="Download the whole skill as a .zip - cyrus.ai resolves the default branch"
             onClick={() => { countDownload(r.repo); toast(`Downloading ${r.repo.split("/")[1]} .zip via cyrus.ai`); }}
             className={btn("primary", "sm")}>Download .zip{dl > 0 ? ` (${dl})` : ""}</a>
         )}
-        <Link to={`/repo/${encodeURIComponent(r.repo)}`} className={btn("dark", "sm")}>Open →</Link>
+        <Link to={`/repo/${encodeURIComponent(r.repo)}`} className={btn("dark", "sm")}>Open</Link>
       </div>
     </article>
   );
@@ -177,13 +177,13 @@ export default function Projects() {
 
           {list.length ? (
             <>
-              <div className="pulse-grid grid grid-cols-2 gap-4 max-[640px]:grid-cols-1">
+              <div className="grid grid-cols-2 gap-4 max-[640px]:grid-cols-1">
                 {list.slice(0, shown).map((r) => <PCard key={r.repo} r={r} />)}
               </div>
               {shown < list.length && (
                 <div className="flex justify-center mt-8">
                   <button className={btn("outline", "lg")} onClick={() => setShown((s) => s + 48)}>
-                    Show {Math.min(48, list.length - shown)} more ↓
+                    Show {Math.min(48, list.length - shown)} more
                   </button>
                 </div>
               )}

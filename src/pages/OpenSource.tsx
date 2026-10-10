@@ -116,13 +116,13 @@ function ProjCard({ p }: { p: Proj }) {
         </p>
       )}
       <div className="flex items-center gap-2 mt-auto pt-3.5 border-t border-liness mt-4">
-        <a href={p.url} target="_blank" rel="noreferrer" className="text-[12.5px] font-bold text-accent hover:text-rust transition-colors">More Details →</a>
+        <a href={p.url} target="_blank" rel="noreferrer" className="text-[12.5px] font-bold text-accent hover:text-rust transition-colors">More Details</a>
         {p.orgTo ? (
           <Link to={p.orgTo} title={`View ${p.org} on cyrus.ai`}
             className="font-mono text-[10px] font-bold tracking-[.08em] uppercase text-cocoa border border-line rounded-[9px] px-2.5 py-1.5 hover:border-accent hover:text-rust transition-colors">Org</Link>
         ) : p.orgUrl && (
           <a href={p.orgUrl} target="_blank" rel="noreferrer" title={`${p.org} on the web`}
-            className="font-mono text-[10px] font-bold tracking-[.08em] uppercase text-cocoa border border-line rounded-[9px] px-2.5 py-1.5 hover:border-accent hover:text-rust transition-colors">Org ↗</a>
+            className="font-mono text-[10px] font-bold tracking-[.08em] uppercase text-cocoa border border-line rounded-[9px] px-2.5 py-1.5 hover:border-accent hover:text-rust transition-colors">Org</a>
         )}
         <button aria-label={on ? "Stop tracking" : "Track project"} title={on ? "Stop tracking" : "Track on dashboard"} onClick={() => {
           const added = toggleSaved(p.url);
@@ -236,7 +236,7 @@ export default function OpenSource() {
             Use our Nova AI Matcher to find out! Get instant matching scores based on your developer skills, preferred frameworks, and contribution experience.
           </p>
         </div>
-        <Link to="/nova" className={btn("primary", "lg") + " shrink-0"}>Match with Nova AI →</Link>
+        <Link to="/nova" className={btn("primary", "lg") + " shrink-0"}>Match with Nova AI</Link>
       </div>
 
       {/* rail + results */}
@@ -311,7 +311,7 @@ export default function OpenSource() {
               {shown < list.length && (
                 <div className="flex justify-center mt-8">
                   <button onClick={() => setShown(shown + 60)} className={btn("outline", "lg") + " cursor-pointer"}>
-                    Show {Math.min(60, list.length - shown)} of {fmt(list.length - shown)} more ↓
+                    Show {Math.min(60, list.length - shown)} of {fmt(list.length - shown)} more
                   </button>
                 </div>
               )}
@@ -336,8 +336,8 @@ export default function OpenSource() {
           )}
 
           <div className="flex justify-center gap-3 mt-12 flex-wrap">
-            <Link to="/#timeline" className={btn("dark", "md")}>See the 12-month program timeline →</Link>
-            <Link to="/organizations" className={btn("outline", "md")}>Browse the {PROGRAMS.length} program orgs →</Link>
+            <Link to="/#timeline" className={btn("dark", "md")}>See the 12-month program timeline</Link>
+            <Link to="/organizations" className={btn("outline", "md")}>Browse the {PROGRAMS.length} program orgs</Link>
           </div>
         </section>
       </div>

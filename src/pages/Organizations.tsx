@@ -70,7 +70,7 @@ function OrgCard({ org }: { org: Org }) {
         }} className={`w-[34px] h-[34px] rounded-[10px] border grid place-items-center text-[13px] transition-all ${on ? "bg-accent border-accent text-white" : "bg-cream border-line text-dim hover:border-accent hover:text-accent"}`}>
           {on ? "★" : "☆"}
         </button>
-        <Link to={`/organizations/${org.login}`} className={btn("outline", "sm", "flex-1 justify-center")}>Explore →</Link>
+        <Link to={`/organizations/${org.login}`} className={btn("outline", "sm", "flex-1 justify-center")}>Explore</Link>
       </div>
     </article>
   );
@@ -106,8 +106,8 @@ function ProgramCard({ p }: { p: Program }) {
             <span className="font-mono text-[9.5px] tracking-[.12em] uppercase text-dim">{p.payNote}</span>
           </div>
           <span className="flex gap-2">
-            <Link to={`/programs/${p.id}`} className={btn("outline", "sm")}>Details →</Link>
-            <a href={p.url} target="_blank" rel="noopener" className={btn("primary", "sm")}>Official ↗</a>
+            <Link to={`/programs/${p.id}`} className={btn("outline", "sm")}>Details</Link>
+            <a href={p.url} target="_blank" rel="noopener" className={btn("primary", "sm")}>Official</a>
           </span>
         </div>
         <div className="border-t border-liness pt-3 flex items-center justify-between font-mono text-[10.5px] text-dim">
@@ -164,7 +164,7 @@ export default function Organizations() {
           <b className="text-accent">{list.length}</b> organization{list.length === 1 ? "" : "s"} found
         </p>
         {list.length ? (
-          <div className="pulse-grid grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
+          <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
             {list.map((o) => <OrgCard key={o.login} org={o} />)}
           </div>
         ) : (
@@ -178,11 +178,11 @@ export default function Organizations() {
         <SectionHead tag="// get mentored & paid" title={<>Open source <Word>programs</Word></>}
           sub="Contribution windows for the eight mentored open-source programs we track - stipends, dates and the orgs that join them."
           side={<span className={btn("ghost", "sm")}>Snapshot · Oct 2026</span>} />
-        <div className="pulse-grid grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
+        <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-3 max-[840px]:grid-cols-2 max-[540px]:grid-cols-1">
           {PROGRAMS.map((p) => <ProgramCard key={p.id} p={p} />)}
         </div>
         <div className="flex justify-center mt-10">
-          <Link to="/#timeline" className={btn("dark", "md")}>See the 12-month timeline →</Link>
+          <Link to="/#timeline" className={btn("dark", "md")}>See the 12-month timeline</Link>
         </div>
       </section>
     </>

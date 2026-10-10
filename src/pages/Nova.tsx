@@ -131,7 +131,7 @@ export default function Nova() {
               </div>
               <button onClick={run} disabled={!skills.length}
                 className={`${btn("primary", "lg")} disabled:opacity-40 disabled:cursor-not-allowed !bg-accent !border-accent`}>
-                {ran ? "Re-run nova" : "Find my matches"} →
+                {ran ? "Re-run nova" : "Find my matches"}
               </button>
               {prof.skills.length > 0 && (
                 <button onClick={() => { setProf(DEFAULT); setFree(""); setRan(false); }}
@@ -163,7 +163,7 @@ export default function Nova() {
               <section className="grid gap-3.5">
                 {hacks.length ? hacks.map(({ h, s }) => <HackRow key={h.id} h={h} s={s} />)
                   : <p className="text-dim">Nothing in the live shelf matches that stack - try adding a broader tag like "AI agents" or "Web".</p>}
-                <Link to="/hackathons" className={btn("outline", "md", "self-start")}>Browse all {ALL_HACKS.length} hackathons →</Link>
+                <Link to="/hackathons" className={btn("outline", "md", "self-start")}>Browse all {ALL_HACKS.length} hackathons</Link>
               </section>
             )}
             {prof.goal === "build" && (
@@ -180,22 +180,22 @@ export default function Nova() {
                       {r.tags.filter((t) => !needles.some((n) => t.toLowerCase().includes(n))).slice(0, 2).map((t) => <Chip key={t}>{t}</Chip>)}</div>
                     <div className="flex gap-2 mt-auto pt-1">
                       {r.cat === "tools" ? (
-                        <a href={r.url} target="_blank" rel="noopener" className={btn("primary", "sm")}>GitHub ↗</a>
+                        <a href={r.url} target="_blank" rel="noopener" className={btn("primary", "sm")}>GitHub</a>
                       ) : (
                         <a href={`https://api.github.com/repos/${r.repo}/zipball`} className={btn("primary", "sm")}>Download .zip</a>
                       )}
-                      <Link to={`/repo/${encodeURIComponent(r.repo)}`} className={btn("outline", "sm")}>Open →</Link>
+                      <Link to={`/repo/${encodeURIComponent(r.repo)}`} className={btn("outline", "sm")}>Open</Link>
                     </div>
                   </article>
                 )) : <p className="text-dim">No catalog repo scored above the line - try a different term.</p>}
-                <Link to="/projects" className={btn("dark", "md", "self-start col-span-full")}>Browse all {CATALOG.length} projects →</Link>
+                <Link to="/projects" className={btn("dark", "md", "self-start col-span-full")}>Browse all {CATALOG.length} projects</Link>
               </section>
             )}
             {prof.goal === "program" && (
               <section className="grid grid-cols-3 gap-4 max-[860px]:grid-cols-1">
                 {progs.map((p) => (
                   <Link key={p.id} to={`/programs/${p.id}`} className="group bg-card border border-line rounded-[18px] p-5 flex flex-col gap-2 shadow-soft hover:-translate-y-1 hover:border-accent/40 transition-all">
-                    <b className="font-display text-[16px]">{p.name} <span className="text-dim group-hover:text-accent transition-colors">→</span></b>
+                    <b className="font-display text-[16px]">{p.name} <span className="text-dim group-hover:text-accent transition-colors"></span></b>
                     <span className="text-cocoa text-[13px] leading-[1.6]">{p.tag}</span>
                     <span className="font-mono text-[10.5px] text-dim mt-auto">{p.pay} · {p.window} · {p.status}</span>
                     {PROGRAM_META[(Object.keys(PROGRAM_META) as (keyof typeof PROGRAM_META)[]).find((k) => PROGRAM_ID_BY_NAME[k] === p.id) ?? ("GSoC" as keyof typeof PROGRAM_META)] && (
@@ -203,7 +203,7 @@ export default function Nova() {
                     )}
                   </Link>
                 ))}
-                <Link to="/opensource" className={btn("outline", "md", "self-start col-span-full")}>Search the full program project archive →</Link>
+                <Link to="/opensource" className={btn("outline", "md", "self-start col-span-full")}>Search the full program project archive</Link>
               </section>
             )}
 
@@ -217,7 +217,7 @@ export default function Nova() {
             {prof.goal !== "build" && repos.length > 0 && (
               <section className="mt-8">
                 <p className="font-mono text-[10.5px] uppercase tracking-[.12em] text-dim">
-                  {repos.length} skills in the catalog match your stack · <Link to="/projects" className="text-accent font-bold hover:underline">browse them →</Link>
+                  {repos.length} skills in the catalog match your stack · <Link to="/projects" className="text-accent font-bold hover:underline">browse them</Link>
                 </p>
               </section>
             )}
@@ -238,7 +238,7 @@ function HackRow({ h, s, slim }: { h: Hack; s: number; slim?: boolean }) {
       </div>
       {!slim && s > 0 && <Chip tone="green">fit {Math.min(99, Math.round(55 + s * 3))}%</Chip>}
       <span className="font-mono text-[10px] uppercase tracking-[.1em] text-dim shrink-0 hidden max-[640px]:hidden md:block">{h.org} · {h.status}</span>
-      <span className="text-accent font-bold group-hover:translate-x-1 transition-transform">→</span>
+      <span className="text-accent font-bold group-hover:translate-x-1 transition-transform"></span>
     </Link>
   );
 }

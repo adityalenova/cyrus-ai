@@ -257,7 +257,7 @@ export default function Legal({ kind }: { kind: LegalKind }) {
             {(Object.keys(DOCS) as LegalKind[]).filter((k) => k !== kind).map((k) => (
               <Link key={k} to={`/${k}`}
                 className="inline-flex items-center gap-1.5 bg-paper border border-line rounded-full px-4 py-2 text-[13px] font-semibold text-ink hover:border-accent hover:-translate-y-px transition-all">
-                {DOCS[k].title}<span aria-hidden className="text-dim">→</span>
+                {DOCS[k].title}<span aria-hidden className="text-dim"></span>
               </Link>
             ))}
           </div>

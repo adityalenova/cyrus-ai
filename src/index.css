@@ -288,19 +288,33 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: non
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 
-/* ── footer color arc: warm-to-cool gradient that flows ───── */
+/* ── footer LED strip: hard-coded vivid colors (theme tokens are
+   too muddy in light mode), 4px core + soft bloom underneath ─── */
 @keyframes footFlow { to { background-position: 200% 0; } }
 .footer-arc {
-  height: 3px;
+  position: relative;
+  height: 4px;
   background: linear-gradient(90deg,
-    var(--color-accent), var(--color-ember), var(--color-honey),
-    var(--color-denim), var(--color-plum), var(--color-brick), var(--color-accent));
+    #ff6b35, #ffb02e, #ffd94a,
+    #46a5ff, #9b5cff, #ff4d6d, #ff6b35);
   background-size: 200% 100%;
   animation: footFlow 8s linear infinite;
 }
+.footer-arc::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: inherit;
+  background-size: inherit;
+  animation: inherit;
+  filter: blur(7px);
+  opacity: .55;
+}
+/* the home closing CTA is the same coffee as the footer - drop the
+   gap so the LED arc reads as the seam between them */
+.cta-close + footer { margin-top: 0; }
 
 @media (prefers-reduced-motion: reduce) {
-  .marq-track, .logocell, .caret, .pulse-bar, .grow-x, .reveal, .tg-star, .tg-cloud, .tg-rays, .footer-arc { animation: none !important; }
+  .marq-track, .logocell, .caret, .pulse-bar, .grow-x, .reveal, .tg-star, .tg-cloud, .tg-rays, .footer-arc, .footer-arc::after { animation: none !important; }
   .search-pulse::after, .pulse-grid > *::after { display: none; }
   *, *::before, *::after { transition-duration: 0.01ms !important; }
   html { scroll-behavior: auto; }

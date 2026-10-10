@@ -13,7 +13,7 @@ export default function NotFound() {
         The URL you followed isn't part of the catalog. The 528 repos that are, all live one click away.
       </p>
       <div className="flex gap-3 justify-center flex-wrap">
-        <Link to="/" className={btn("primary", "lg")}>Back to the home page →</Link>
+        <Link to="/" className={btn("primary", "lg")}>Back to the home page</Link>
         <Link to="/projects" className={btn("outline", "lg")}>Browse projects</Link>
       </div>
     </div>

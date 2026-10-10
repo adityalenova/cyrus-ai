@@ -117,7 +117,7 @@ export function HackCard({ h }: { h: Hack }) {
         <div className="flex items-center justify-between gap-2.5 mt-1.5">
           <span className="font-mono text-[13px] font-bold text-[#f0a35c]">{h.prize.split("+")[0]}
             <small className="block text-[9.5px] font-medium text-foam/55 tracking-[.08em] uppercase">{h.status === "open" || h.status === "rolling" ? (d > 0 ? `closes in ${d} days` : "closing") : `deadline ${h.deadline.slice(0, 7)}`}</small></span>
-          <span className="inline-flex items-center gap-2 text-[12.5px] font-bold text-white bg-white/10 border border-white/20 rounded-full px-3.5 py-[7px] group-hover:bg-accent group-hover:border-accent transition-colors">Prep plan →</span>
+          <span className="inline-flex items-center gap-2 text-[12.5px] font-bold text-white bg-white/10 border border-white/20 rounded-full px-3.5 py-[7px] group-hover:bg-accent group-hover:border-accent transition-colors">Prep plan</span>
         </div>
       </div>
       <div className="border-t border-white/10 px-5 py-3 flex items-center gap-3.5 font-mono text-[10.5px] text-foam/60">
@@ -135,7 +135,7 @@ export function HackCard({ h }: { h: Hack }) {
           <p className="font-mono text-[9.5px] font-bold uppercase tracking-[.12em] text-dim mb-1.5">Event credit</p>
           <p className="text-[12.5px] leading-[1.55]">
             {h.name} is organized by {h.org} - listing, artwork and marks belong to the organizer on {cr.label}.{" "}
-            <a href={cr.url} target="_blank" rel="noopener" className="text-accent font-semibold hover:underline">Official page ↗</a>
+            <a href={cr.url} target="_blank" rel="noopener" className="text-accent font-semibold hover:underline">Official page</a>
           </p>
           <button type="button" onClick={() => setShowCredit(false)} className="mt-2 font-mono text-[10px] font-bold uppercase tracking-[.1em] text-dim hover:text-rust cursor-pointer">Close</button>
         </div>
@@ -198,7 +198,7 @@ export default function Hackathons() {
         )}
       </p>
       {list.length ? (
-        <div className="pulse-grid grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
+        <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
           {list.map((h) => <HackCard key={h.id} h={h} />)}
         </div>
       ) : (
@@ -230,7 +230,7 @@ export function HackathonDetail() {
       <div className="max-w-[720px] mx-auto px-6 py-24 text-center">
         <h1 className="font-display font-extrabold text-[30px]">Hackathon not found</h1>
         <p className="text-cocoa mt-3">That edition drifted off the calendar. The current shelf is one click away.</p>
-        <Link className={btn("primary", "md", "mt-6")} to="/hackathons">All hackathons →</Link>
+        <Link className={btn("primary", "md", "mt-6")} to="/hackathons">All hackathons</Link>
       </div>
     );
   }
@@ -292,7 +292,7 @@ export function HackathonDetail() {
           {(() => { const cr = creditFor(h); return (
             <p className="font-mono text-[9.5px] text-foam/55 mt-auto pt-4">
               {h.name} by {h.org} - listing and marks belong to the organizer on {cr.label} ·{" "}
-              <a href={cr.url} target="_blank" rel="noopener" className="text-foam/90 underline decoration-white/30 hover:text-white">Official page ↗</a>
+              <a href={cr.url} target="_blank" rel="noopener" className="text-foam/90 underline decoration-white/30 hover:text-white">Official page</a>
             </p>
           ); })()}
         </div>
@@ -363,7 +363,7 @@ export function HackathonDetail() {
         <aside className="sticky top-[90px] max-[1020px]:static grid gap-4">
           <div className="bg-coffee text-foam rounded-[20px] p-6 shadow-lift">
             <p className="font-mono text-[10.5px] tracking-[.12em] uppercase text-ember">Register at the source</p>
-            <a href={hackLink(h)} target="_blank" rel="noopener" className={btn("primary", "lg", "w-full mt-3")}>Open {h.orgLogo === "unstop" ? "Unstop" : h.orgLogo === "mlh" ? "MLH" : h.orgLogo === "kaggle" ? "Kaggle" : (h as HackLive).url ? "Devpost" : "official page"} ↗</a>
+            <a href={hackLink(h)} target="_blank" rel="noopener" className={btn("primary", "lg", "w-full mt-3")}>Open {h.orgLogo === "unstop" ? "Unstop" : h.orgLogo === "mlh" ? "MLH" : h.orgLogo === "kaggle" ? "Kaggle" : (h as HackLive).url ? "Devpost" : "official page"}</a>
             <p className="text-[12px] text-foam/60 mt-3 leading-[1.55]">{h.perks}</p>
           </div>
 
@@ -381,15 +381,15 @@ export function HackathonDetail() {
                 </li>
               ))}
             </ul>
-            <Link to={`/projects?q=${h.tags[0]}`} className="font-mono text-[10.5px] font-bold tracking-[.08em] uppercase text-accent hover:text-rust mt-3 inline-block">Browse all #{h.tags[0]} skills →</Link>
+            <Link to={`/projects?q=${h.tags[0]}`} className="font-mono text-[10.5px] font-bold tracking-[.08em] uppercase text-accent hover:text-rust mt-3 inline-block">Browse all #{h.tags[0]} skills</Link>
           </div>
 
           <div className="bg-card border border-line rounded-[20px] p-5">
             <h3 className="panel-h mb-1.5">Prep with the shelf</h3>
             <ul className="grid gap-2 list-none text-[13px]">
-              <li><Link className="text-cocoa hover:text-rust font-semibold" to="/resources">Learning resources by company →</Link></li>
-              <li><Link className="text-cocoa hover:text-rust font-semibold" to="/#roadmap">The 6-step contributor blueprint →</Link></li>
-              <li><Link className="text-cocoa hover:text-rust font-semibold" to="/organizations">Study the organizer's repos →</Link></li>
+              <li><Link className="text-cocoa hover:text-rust font-semibold" to="/resources">Learning resources by company</Link></li>
+              <li><Link className="text-cocoa hover:text-rust font-semibold" to="/#roadmap">The 6-step contributor blueprint</Link></li>
+              <li><Link className="text-cocoa hover:text-rust font-semibold" to="/organizations">Study the organizer's repos</Link></li>
             </ul>
           </div>
         </aside>

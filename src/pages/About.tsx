@@ -1,12 +1,154 @@
-/* ══ About.tsx — mission, methodology, FAQ ══════════════════ */
+/* ══ About.tsx — mission, capabilities, methodology, FAQ ══════
+   Structure borrowed from a best-in-class about page:
+   manifesto hero with an orbit of the orgs we index, expandable
+   capability grid, why-we-exist editorial, numbered principles,
+   then the honest data & methodology + FAQ.                    ═ */
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { REPOS } from "../data/repos";
+import { REPOS, CATEGORIES } from "../data/repos";
 import { ORGS, PROGRAMS } from "../data/orgs";
 import { HACKS } from "../data/hackathons";
-import { CATEGORIES } from "../data/repos";
-import { btn, Word } from "../components/ui";
+import { RESOURCES } from "../data/resources";
+import { avatarOf, fmt } from "../lib/util";
+import { btn, Word, SectionTag, OrgImg, Logo } from "../components/ui";
 
 const W = "max-w-[1240px] mx-auto px-6";
+
+/* ── shared bits ──────────────────────────────────────────── */
+const Pill = ({ children }: { children: ReactNode }) => (
+  <span className="inline-flex items-center gap-2.5 font-mono text-[10.5px] font-bold tracking-[.18em] uppercase text-ink bg-card border border-line rounded-full px-4 py-2 shadow-soft">
+    <span className="text-accent leading-none">✦</span>{children}
+  </span>
+);
+const Check = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3e7d4f" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden className="shrink-0">
+    <path d="M4 12.5 10 18.5 20 6" />
+  </svg>
+);
+const Chev = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+);
+
+/* ── orbit of the organizations we index (image-1 signature) ─ */
+const ORBIT: [string, number, number][] = [
+  /* login, angle°, radius% (0 = center) */
+  ["google", 250, 21], ["github", 322, 21], ["openai", 34, 21], ["anthropics", 106, 21], ["huggingface", 178, 21],
+  ["microsoft", 200, 37], ["pytorch", 235, 37], ["tensorflow", 270, 37], ["kubernetes", 305, 37], ["vercel", 340, 37],
+  ["cloudflare", 15, 37], ["flutter", 50, 37], ["rust-lang", 85, 37], ["docker", 120, 37], ["supabase", 155, 37],
+];
+function Orbit() {
+  return (
+    <div className="relative w-full max-w-[560px] aspect-square mx-auto select-none" aria-label="Organizations indexed by cyrus.ai">
+      {/* dashed orbit rings */}
+      {[42, 74, 100].map((s) => (
+        <span key={s} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-clay/80" style={{ width: `${s}%`, height: `${s}%` }} />
+      ))}
+      {/* soft warm core */}
+      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[46%] h-[46%] rounded-full" style={{ background: "radial-gradient(circle, color-mix(in srgb, var(--color-accent) 14%, transparent), transparent 68%)" }} />
+      {/* center identity card */}
+      <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[2] flex items-center gap-2.5 bg-card border border-line rounded-[18px] px-5 py-3.5 shadow-lift">
+        <Logo size={26} />
+        <b className="font-display font-extrabold text-[19px] tracking-[-.02em]">cyrus<span className="text-accent">.ai</span></b>
+      </span>
+      {/* org tiles */}
+      {ORBIT.map(([login, deg, r], i) => {
+        const a = (deg * Math.PI) / 180;
+        const size = r < 30 ? 56 : i % 3 === 0 ? 62 : 50;
+        return (
+          <span key={login} className="absolute z-[1] grid place-items-center bg-card border border-line rounded-[16px] shadow-soft"
+            style={{ width: size, height: size, left: `calc(50% + ${Math.cos(a) * r}%)`, top: `calc(50% + ${Math.sin(a) * r}%)`, transform: "translate(-50%,-50%)" }}>
+            <OrgImg src={avatarOf(login, 96)} name={login} className="object-contain" style={{ width: size * 0.56, height: size * 0.56 }} />
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ── capabilities: expandable cards (image-3 signature) ───── */
+const CAP_IC = { fill: "none", stroke: "currentColor", strokeWidth: 1.9, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+const capIcon = (d: string) => <svg width="19" height="19" viewBox="0 0 24 24" aria-hidden {...CAP_IC}><path d={d} /></svg>;
+const CAPS: [string, string, string, string, ReactNode, string][] = [
+  ["Skill catalog", `/projects`, "text-rust bg-peach border-accent/20",
+    `${REPOS.length} agent skills, Cursor rules, AGENTS.md configs and MCP servers across ${CATEGORIES.length} shelves - ranked by live GitHub stats, never by hype.`,
+    capIcon("M4 5h7v7H4zM13 5h7v4h-7zM13 12h7v7h-7zM4 15h7v4H4z"),
+    "Every shelf is filtered by what the repo itself declares - SKILL.md, rules files, MCP manifests - and each card carries stars, forks, last-push and license from the public API."],
+  ["Hackathon plans", "/hackathons", "text-denim bg-denim/10 border-denim/25",
+    `All ${HACKS.length} tracked hackathons with timeline, prize, eligibility, idea list and a step-by-step prep plan - on one page.`,
+    capIcon("M8 2v4M16 2v4M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"),
+    "Dates are checked against the organizer's official page or Devpost before shipping. Unconfirmed dates carry a clearly-labelled estimate and refresh every fortnight."],
+  ["Organization profiles", "/organizations", "text-leaf bg-leaf/10 border-leaf/25",
+    "Contributor pulse before you commit: language mix, open issues, review latency, past accepted projects and who actually mentors there.",
+    capIcon("M4 21V6l8-3v18M12 21h8V10l-8-2.4M7 10h1M7 14h1M7 18h1M16 13h1M16 17h1M2 21h20"),
+    "Profiles join our live GitHub directory with the accepted-project archive, so a page shows both the code signal and the program history for the same organization."],
+  ["Program calendar", "/organizations", "text-plum bg-plum/10 border-plum/25",
+    `GSoC, Outreachy, LFX, ESOC, MLH, GSSoC, KDE, Summer of Bitcoin, Nexus Spring of Code and Hacktoberfest - windows and phases on one timeline.`,
+    capIcon("M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 4v5l3.5 2"),
+    "Each program page shows the phase you are actually in today - org applications, student applications, community bonding, coding period - with stipend bands and slot counts."],
+  ["Project archive", "/opensource", "text-honey bg-honey/12 border-honey/40",
+    "6,600+ accepted program projects from 2022 to 2026, filterable by year, organization, stack and difficulty.",
+    capIcon("M3 7l9-4 9 4v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7ZM3 7l9 4 9-4M12 11v10"),
+    "Pulled from each program's public API by our refresh pipeline - titles, orgs, mentors, tech tags and descriptions, never hand-typed."],
+  ["Learning resources", "/resources", "text-brick bg-brick/10 border-brick/25",
+    `${RESOURCES.length} courses, docs and labs engineers actually recommend - from Google, Meta, Microsoft, GitHub, NVIDIA and OpenAI.`,
+    capIcon("M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 5h12M9 21V8"),
+    "Every card opens an in-site breakdown first - what it is, why it earns a spot, how to use it with cyrus - before you click out to the provider."],
+  ["Personal dashboard", "/dashboard", "text-rust bg-peach border-accent/20",
+    "Saved repos, followed orgs, a watchlist with statuses, live deadlines and a reading list tuned to the stack you actually saved.",
+    capIcon("M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-8.5 3.5A9.9 9.9 0 0 1 2 12C2 6.5 6.5 2 12 2s10 4.5 10 10a9.9 9.9 0 0 1-1.5 5.5"),
+    "Sign-in is demo-grade on purpose: everything lives in your browser's localStorage. No email, no tracking pixel, no spam."],
+  ["Org matcher", "/dashboard#matcher", "text-denim bg-denim/10 border-denim/25",
+    "Drop your GitHub username or resume; the matcher scores every archived org against the stack you actually know.",
+    capIcon("M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm3.5 5.5-2 5-5 2 2-5 5-2Z"),
+    "Parsing happens offline in your browser - the resume text never leaves the page, and scores come from archived project tech tags, not guesses."],
+  ["Mentor finder", "/dashboard#mentors", "text-leaf bg-leaf/10 border-leaf/25",
+    "Mentor names and contact channels distilled from accepted-project records, cached so the browser never scrapes.",
+    capIcon("M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm13 10v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"),
+    "GSoC selection is complete for the season, so this data updates on the archive cadence - the page says exactly when it was last refreshed."],
+];
+function Capabilities() {
+  return (
+    <section className={`${W} mt-[92px] scroll-mt-24`} id="capabilities">
+      <div className="text-center max-w-[640px] mx-auto">
+        <Pill>One contributor platform</Pill>
+        <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(30px,3.8vw,44px)] mt-5 leading-[1.12]">
+          Everything you need. <Word>One index.</Word>
+        </h2>
+        <p className="text-cocoa text-[15.5px] leading-[1.65] mt-4">Click any capability to see what's inside.</p>
+      </div>
+      <div className="grid grid-cols-3 gap-5 mt-10 max-[1020px]:grid-cols-2 max-[660px]:grid-cols-1">
+        {CAPS.map(([t, to, tone, d, ic, more]) => (
+          <details key={t} className="group bg-card border border-line rounded-[20px] p-6 shadow-soft open:shadow-lift transition-shadow">
+            <summary className="list-none cursor-pointer grid grid-cols-[44px_1fr_34px] gap-3.5 items-start [&::-webkit-details-marker]:hidden">
+              <span className={`w-[44px] h-[44px] rounded-[13px] grid place-items-center border ${tone}`}>{ic}</span>
+              <span className="min-w-0">
+                <b className="block card-title text-[16.5px] leading-snug group-hover:text-rust transition-colors">{t}</b>
+                <span className="block card-desc line-clamp-2 mt-1.5">{d}</span>
+              </span>
+              <span className="w-[34px] h-[34px] rounded-full border border-accent/35 text-accent grid place-items-center justify-self-end self-center group-open:rotate-180 transition-transform">
+                <Chev />
+              </span>
+            </summary>
+            <div className="mt-4 pt-4 border-t border-liness">
+              <p className="text-cocoa text-[13.5px] leading-[1.65]">{more}</p>
+              <Link to={to} className={`${btn("outline", "sm")} mt-4`}>Open it</Link>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ── principles ───────────────────────────────────────────── */
+const PRINCIPLES: [string, string][] = [
+  ["Verify, don't vibe.", "Every number starts from a public API snapshot regenerated by a script - stars, forks, open issues, license, last push. Nothing is typed by hand, and estimates are labelled as estimates."],
+  ["One keystroke over twelve feeds.", "A hackathon's timeline, ideas and stack prep sit on one page. An org's contributors, review latency and accepted projects sit on another. The search bar knows both."],
+  ["Credit where it's due.", "Official org logos come from GitHub itself, hackathon cards link straight to the organizer's registration page, and every resource card breaks down before it clicks out."],
+  ["Free, and visibly so.", "No account to browse, no email to save, no dark patterns. Demo sign-in keeps everything in your browser's localStorage, and the whole index stays open."],
+];
 
 const FAQS: [string, string][] = [
   ["Where does the data come from?",
@@ -26,42 +168,103 @@ const FAQS: [string, string][] = [
 export default function About() {
   return (
     <>
-      <header className={`${W} pt-14 pb-2`}>
-        <p className="font-mono text-[10.5px] tracking-[.14em] uppercase text-dim">
-          <Link to="/" className="hover:text-accent">Home</Link> / <span className="text-cocoa">About us</span>
-        </p>
-        <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(33px,4.2vw,52px)]">
-          An honest index for the <Word>agent era.</Word>
-        </h1>
-        <p className="text-ink font-medium max-w-[640px] text-[16.5px] leading-[1.6]">
-          cyrus.ai exists because finding a good skill, rule pack, MCP server, hackathon or mentored program takes
-          longer than shipping one. We cut that search to one keystroke.
-        </p>
+      {/* ── manifesto hero + orbit ── */}
+      <header className="relative overflow-hidden">
+        <span aria-hidden className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(180,96,44,.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(180,96,44,.055)_1px,transparent_1px)] [background-size:36px_36px] [mask-image:radial-gradient(760px_480px_at_68%_38%,#000_50%,transparent)]" />
+        <div className={`${W} relative pt-[72px] pb-4 grid grid-cols-[1.05fr_.95fr] gap-10 items-center max-[1020px]:grid-cols-1`}>
+          <div>
+            <Pill>About cyrus.ai</Pill>
+            <h1 className="font-display font-extrabold tracking-[-.025em] leading-[1.04] mt-6 text-[clamp(38px,4.9vw,62px)]">
+              Building the<br />
+              <Word>honest</Word> index for<br />
+              the agent era.
+            </h1>
+            <p className="text-cocoa text-[16.5px] leading-[1.7] max-w-[520px] mt-6">
+              Builders today juggle a dozen feeds to find one good skill, hackathon or mentored
+              program. We exist to make finding your next contribution simpler - and every
+              number behind that decision verifiable.
+            </p>
+            <div className="flex flex-wrap gap-2.5 mt-8 max-w-[520px]">
+              {["Verified stats", "Official sources", "Live deadlines", "Accepted-project archive", "Free forever"].map((c) => (
+                <span key={c} className="inline-flex items-center gap-2 bg-card border border-line rounded-full px-4 py-2 text-[13px] font-semibold text-ink shadow-soft">
+                  <Check />{c}
+                </span>
+              ))}
+            </div>
+            <div className="flex gap-3 flex-wrap mt-9">
+              <a href="#why" className={btn("dark", "lg")}>Our mission</a>
+              <Link to="/organizations" className={btn("outline", "lg")}>Start exploring</Link>
+            </div>
+          </div>
+          <Orbit />
+        </div>
       </header>
 
-      <div className={`${W} pt-8 pb-6 grid grid-cols-[1fr_320px] gap-10 items-start max-[980px]:grid-cols-1`}>
-        <article className="max-w-[720px]">
-          <h2 className="font-display font-extrabold text-[24px] tracking-[-.02em] mt-2 mb-3">What we track</h2>
-          <p className="text-cocoa text-[15px] leading-[1.75] mb-4">
-            {REPOS.length} repositories across {CATEGORIES.length} shelves - {CATEGORIES.map((c) => c.label).join(", ")} -
-            published by {ORGS.length} curated organizations, plus the {PROGRAMS.length} mentored open-source programs
-            those orgs join every year and the {HACKS.length} company hackathons with full prep plans. For each entry
-            we keep the boring-but-decisive facts: stars, forks, open issues, language, license and last push.
-          </p>
-          <p className="text-cocoa text-[15px] leading-[1.75] mb-4">
-            The directory is opinionated on purpose. A 67-skill pack by a solo builder sits next to Anthropic's
-            official registry; an Outreachy internship is listed beside Google Summer of Code, and an NVIDIA
-            hackathon beside both. If developers
-            star it and it behaves like a skill, it's on a shelf.
-          </p>
+      <Capabilities />
 
-          <h2 id="data" className="font-display font-extrabold text-[24px] tracking-[-.02em] mt-9 mb-3 scroll-mt-24">Data &amp; methodology</h2>
+      {/* ── why we exist: editorial band ── */}
+      <section id="why" className={`${W} mt-[92px] scroll-mt-24`}>
+        <div className="grid grid-cols-[.9fr_1.1fr] gap-12 items-start max-[1020px]:grid-cols-1 max-[1020px]:gap-6">
+          <div>
+            <SectionTag>Why we exist</SectionTag>
+            <h2 className="font-display font-extrabold tracking-[-.02em] leading-[1.12] text-[clamp(28px,3.4vw,40px)] mt-3.5">
+              Discovery took longer than <Word>shipping.</Word>
+            </h2>
+          </div>
+          <div className="grid gap-4 text-cocoa text-[15.5px] leading-[1.75]">
+            <p>
+              The tools moved: agents, skills, MCP servers, hackathon tracks that expect a working
+              demo by Sunday. The discovery layer didn't. Finding a trustworthy skill pack, an org
+              that reviews PRs in under three days, or a program window you can still hit means
+              twelve tabs, three Discords and a gut feeling.
+            </p>
+            <p>
+              So we built the index we kept wishing for: {REPOS.length} repositories across{" "}
+              {CATEGORIES.length} shelves published by {ORGS.length} curated organizations, the{" "}
+              {PROGRAMS.length} mentored programs those orgs join every year, {fmt(6600)}+ accepted
+              program projects from 2022 to 2026, {RESOURCES.length} vetted learning resources and{" "}
+              {HACKS.length} hackathons with full prep plans - each with the boring-but-decisive
+              facts: stars, forks, open issues, language, license and last push.
+            </p>
+            <p>
+              The directory is opinionated on purpose. A 67-skill pack by a solo builder sits next
+              to Anthropic's official registry; an Outreachy internship is listed beside Google
+              Summer of Code. If developers star it and it behaves like a skill, it's on a shelf.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── principles ─ */}
+      <section className={`${W} mt-[92px]`}>
+        <SectionTag>Our principles</SectionTag>
+        <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(28px,3.4vw,40px)] mt-3.5 mb-9">
+          Guided by <Word>four rules.</Word>
+        </h2>
+        <div className="grid grid-cols-2 gap-5 max-[860px]:grid-cols-1">
+          {PRINCIPLES.map(([b, p], i) => (
+            <div key={b} className="bg-card border border-line rounded-[20px] p-7 shadow-soft flex gap-5 items-start">
+              <span className="font-mono text-[12px] font-bold text-accent bg-peach border border-accent/20 rounded-full w-8 h-8 grid place-items-center shrink-0">{i + 1}</span>
+              <span>
+                <b className="block panel-h text-[16.5px] mb-1.5">{b}</b>
+                <p className="text-cocoa text-[14px] leading-[1.7]">{p}</p>
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── data & methodology + FAQ ── */}
+      <section className={`${W} mt-[92px] grid grid-cols-[1fr_320px] gap-10 items-start max-[980px]:grid-cols-1`}>
+        <article className="max-w-[720px]">
+          <h2 id="data" className="font-display font-extrabold text-[24px] tracking-[-.02em] mb-3 scroll-mt-24">Data &amp; methodology</h2>
           <p className="text-cocoa text-[15px] leading-[1.75] mb-4">
             Static stats come from a GitHub API snapshot dated <b className="text-ink">2026-10-02</b>, regenerated by a
             script that walks the seed list, refetches each repo and rewrites the dataset - nothing is typed by hand.
             Repo and organization pages then re-fetch contributors and language mixtures live, and fall back to
             clearly-labelled deterministic estimates when the API is rate-limited. Hackathon entries are rebuilt from
-            official event pages and Devpost listings on the same cadence.
+            official event pages and Devpost listings on the same cadence, and the accepted-project archive refreshes
+            from each program's public API.
           </p>
           <ul className="text-cocoa text-[15px] leading-[1.75] grid gap-2 list-disc pl-6 mb-4">
             <li><b className="text-ink">Ranking</b> - stars first; forks and last-push always shown so ranking context survives.</li>
@@ -91,6 +294,7 @@ export default function About() {
               [String(ORGS.length), "organizations hand-picked"],
               [String(PROGRAMS.length), "mentorship programs tracked"],
               [String(HACKS.length), "hackathons with prep plans"],
+              [String(RESOURCES.length), "learning resources vetted"],
               ["2026-10-02", "current snapshot date"],
             ].map(([v, l]) => (
               <div key={l} className="flex items-baseline justify-between gap-3 py-2.5 border-b border-liness last:border-0">
@@ -104,10 +308,25 @@ export default function About() {
               cyrus.ai is a solo project: a scraper, a design system and a grudge against “awesome lists”.
               Feedback, corrections and sponsorship suggestions all land in the same inbox.
             </p>
-            <Link to="/organizations" className={btn("primary", "md", "w-full")}>Start with the orgs →</Link>
+            <Link to="/organizations" className={btn("primary", "md", "w-full")}>Start with the orgs</Link>
           </div>
         </aside>
-      </div>
+      </section>
+
+      {/* ── closing line ── */}
+      <section className={`${W} mt-[92px] text-center max-w-[760px]`}>
+        <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(26px,3.2vw,38px)] leading-[1.15]">
+          A good index is earned <Word>one commit at a time.</Word>
+        </h2>
+        <p className="text-cocoa text-[15.5px] leading-[1.7] mt-4">
+          Snapshots refresh every fortnight, dates get re-checked against organizers, and corrections from
+          orgs and builders ship the same week. That's the whole trick - and the whole promise.
+        </p>
+        <div className="flex gap-3 justify-center flex-wrap mt-8">
+          <Link to="/projects" className={btn("dark", "md")}>Browse the catalog</Link>
+          <Link to="/dashboard" className={btn("outline", "md")}>Open your dashboard</Link>
+        </div>
+      </section>
     </>
   );
 }
