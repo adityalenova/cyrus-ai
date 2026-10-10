@@ -50,7 +50,7 @@ export default function Footer() {
           <span className="flex items-center gap-1.5">Made with <HeartIcon /> by <b className="text-steam font-semibold">Aditya</b> · © 2026 cyrus.ai</span>
           <div className="flex items-center gap-4">
             <a className="text-steam hover:text-white flex items-center gap-1.5" href="https://github.com/adityalenova" target="_blank" rel="noopener"><GhIcon /> GitHub ↗</a>
-            <a className="text-steam hover:text-white flex items-center gap-1.5" href="https://www.linkedin.com" target="_blank" rel="noopener"><InIcon /> LinkedIn ↗</a>
+            <a className="text-steam hover:text-white flex items-center gap-1.5" href="https://www.linkedin.com/in/iadityaoffl" target="_blank" rel="noopener"><InIcon /> LinkedIn ↗</a>
             <a className="text-steam hover:text-white" href="https://github.com" target="_blank" rel="noopener">Powered by open source ↗</a>
           </div>
         </div>
