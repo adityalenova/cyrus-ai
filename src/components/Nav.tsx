@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Logo, Brand, Avatar, btn } from "./ui";
+import { TONES } from "./plat";
 import { useStore } from "../lib/store";
 
 const LINKS = [
@@ -12,6 +13,14 @@ const LINKS = [
   { to: "/hackathons", label: "Hackathons" },
   { to: "/resources", label: "Resources" },
   { to: "/about", label: "About us" },
+];
+
+/* Platform menu entries: slug, label, blurb, icon path, tone class from the plat kit */
+const PLAT: [string, string, string, string, string][] = [
+  ["features", "Features", "The whole contributor workflow.", "M12 3 3 8l9 5 9-5-9-5ZM3 16l9 5 9-5M3 12l9 5 9-5", "rust"],
+  ["nova", "Nova AI", "Answers from your stack and the archive.", "M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z", "plum"],
+  ["trust", "Trust centre", "Data sources, snapshots, verification.", "M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3Z", "leaf"],
+  ["how", "How it works", "Three steps from empty tabs to merged PR.", "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 4v5l3.5 2", "honey"],
 ];
 
 export default function Nav() {
@@ -36,19 +45,23 @@ export default function Nav() {
       <div className="max-w-[1340px] mx-auto bg-paper/92 backdrop-blur-[16px] saturate-[1.35] border border-liness rounded-full shadow-soft">
         <div className="flex items-center gap-5 h-[62px] pl-4 pr-4">
           <Link to="/" className="flex items-center gap-2.5 shrink-0"><Logo size={34} /><Brand /></Link>
-          <button className="hidden max-[700px]:grid place-items-center w-9 h-9 rounded-[10px] border border-line bg-card ml-1 text-ink"
+          <button className="hidden max-[767px]:grid place-items-center w-9 h-9 rounded-[10px] border border-line bg-card ml-1 text-ink"
             aria-label="Menu" onClick={() => setOpen(!open)}>
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
           </button>
 
           {/* our pill-link style, laid out on the reference bar's rhythm */}
-          <div className={`gap-1.5 overflow-x-auto no-scrollbar flex-col ${open ? "flex absolute left-4 right-4 top-[76px] bg-card border border-line rounded-[22px] shadow-lift z-50 px-5 py-4" : "hidden"} md:!flex md:static md:bg-transparent md:border-0 md:shadow-none md:p-0 md:flex-row md:rounded-full`}>
-            {LINKS.map((l) => (
+          <div className={`gap-1.5 overflow-x-auto md:overflow-visible no-scrollbar flex-col ${open ? "flex absolute left-4 right-4 top-[76px] bg-card border border-line rounded-[22px] shadow-lift z-50 px-5 py-4" : "hidden"} md:!flex md:static md:bg-transparent md:border-0 md:shadow-none md:p-0 md:flex-row md:rounded-full`}>
+            {LINKS.slice(0, -1).map((l) => (
               <NavLink key={l.to} to={l.to} end={l.to === "/"}
                 className={`px-3.5 py-2 rounded-full text-[13.5px] font-semibold whitespace-nowrap transition-colors ${active(l.to) ? "bg-coffee text-foam" : "text-cocoa hover:bg-card hover:text-ink"}`}>
                 {l.label}
               </NavLink>
             ))}
+            <PlatformMenu drawer={open} />
+            <NavLink to="/about" className={`px-3.5 py-2 rounded-full text-[13.5px] font-semibold whitespace-nowrap transition-colors ${active("/about") ? "bg-coffee text-foam" : "text-cocoa hover:bg-card hover:text-ink"}`}>
+              About us
+            </NavLink>
           </div>
 
           <div className="ml-auto flex items-center gap-3.5 max-[700px]:gap-2">
@@ -85,6 +98,54 @@ export default function Nav() {
 export function SignInButton({ label = "Sign in", size = "md" as const, variant = "dark" as const, onClick }: { label?: string; size?: "sm" | "md" | "lg"; variant?: "dark" | "primary" | "outline"; onClick?: () => void }) {
   const { setAuthOpen } = useStore();
   return <button className={btn(variant, size)} onClick={onClick ?? (() => setAuthOpen(true))}>{label}</button>;
+}
+
+/* ── Platform dropdown: caret pill + card panel on desktop, inline list in the mobile drawer ── */
+function PlatformMenu({ drawer }: { drawer: boolean }) {
+  const [pop, setPop] = useState(false);
+  const loc = useLocation();
+  useEffect(() => setPop(false), [loc.pathname]);
+  useEffect(() => {
+    const close = () => setPop(false);
+    document.addEventListener("click", close);
+    return () => document.removeEventListener("click", close);
+  }, []);
+  const on = loc.pathname.startsWith("/platform");
+  return (
+    <div className="relative">
+      <button onClick={(e) => { e.stopPropagation(); setPop(!pop); }} aria-expanded={pop}
+        className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[13.5px] font-semibold whitespace-nowrap transition-colors cursor-pointer ${on ? "bg-coffee text-foam" : "text-cocoa hover:bg-card hover:text-ink"}`}>
+        Platform
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden
+          className={`transition-transform duration-200 ${pop ? "rotate-180" : ""}`}><path d="m5 9 7 7 7-7" /></svg>
+      </button>
+      {pop && (
+        <div className="hidden md:block absolute left-0 top-[50px] w-[340px] bg-card border border-line rounded-[18px] shadow-lift p-2 z-[70]">
+          {PLAT.map(([slug, label, desc, d, tone]) => (
+            <Link key={slug} to={`/platform/${slug}`}
+              onClick={() => setPop(false)}
+              className="flex items-center gap-3 px-3 py-2.5 rounded-[12px] hover:bg-peach transition-colors">
+              <span className={`w-[36px] h-[36px] rounded-[11px] border grid place-items-center shrink-0 ${TONES[tone]}`}><MenuIcon d={d} /></span>
+              <span className="min-w-0">
+                <b className="block text-[13.5px] font-bold text-ink leading-tight">{label}</b>
+                <span className="block text-[11.5px] text-dim mt-0.5 truncate">{desc}</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      )}
+      {drawer && (
+        <div className="md:hidden grid gap-1 pl-1.5 pb-1">
+          {PLAT.map(([slug, label, , d]) => (
+            <Link key={slug} to={`/platform/${slug}`}
+              className="flex items-center gap-2.5 px-3 py-2 rounded-[10px] text-[13px] font-semibold text-cocoa hover:bg-peach hover:text-rust transition-colors">
+              <MenuIcon d={d} />{label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export const SearchIcon = ({ size = 14 }: { size?: number }) => (

@@ -4,6 +4,7 @@ import { Logo, Brand } from "./ui";
 
 const COLS: [string, [string, string][]][] = [
   ["Explore", [["Organizations", "/organizations"], ["Agent skills", "/projects"], ["Hackathons", "/hackathons"], ["Resources", "/resources"]]],
+  ["Platform", [["Features", "/platform/features"], ["Nova AI", "/platform/nova"], ["Trust centre", "/platform/trust"], ["How it works", "/platform/how"]]],
   ["Your space", [["Dashboard", "/dashboard"], ["Saved projects", "/dashboard"], ["Activity", "/dashboard"]]],
   ["About", [["About us", "/about"], ["Data & methodology", "/about#data"], ["FAQ", "/about#faq"]]],
   ["Legal", [["Privacy policy", "/privacy"], ["Terms of service", "/terms"], ["Cookie policy", "/cookies"], ["Affiliations", "/affiliations"]]],
@@ -30,7 +31,7 @@ export default function Footer() {
     <footer className="mt-[110px] bg-coffee text-steam">
       <div className="footer-arc" aria-hidden="true" />
       <div className="max-w-[1240px] mx-auto px-6">
-        <div className="grid grid-cols-[1.4fr_repeat(4,1fr)] max-[1020px]:grid-cols-2 gap-10 pt-16 pb-11">
+        <div className="grid grid-cols-[1.4fr_repeat(5,1fr)] max-[1020px]:grid-cols-2 gap-10 pt-16 pb-11">
           <div>
             <Link to="/" className="flex items-center gap-2.5 text-foam"><Logo /><Brand /></Link>
             <p className="text-[13.5px] leading-[1.7] mt-3.5 max-w-[300px]">
@@ -49,9 +50,9 @@ export default function Footer() {
         <div className="border-t border-bean py-5.5 flex justify-between items-center gap-3 flex-wrap text-dimdk text-[12.5px]">
           <span className="flex items-center gap-1.5">Made with <HeartIcon /> by <b className="text-steam font-semibold">Aditya</b> · © 2026 cyrus.ai</span>
           <div className="flex items-center gap-4">
-            <a className="text-steam hover:text-white flex items-center gap-1.5" href="https://github.com/adityalenova" target="_blank" rel="noopener"><GhIcon /> GitHub ↗</a>
-            <a className="text-steam hover:text-white flex items-center gap-1.5" href="https://www.linkedin.com/in/iadityaoffl" target="_blank" rel="noopener"><InIcon /> LinkedIn ↗</a>
-            <a className="text-steam hover:text-white" href="https://github.com" target="_blank" rel="noopener">Powered by open source ↗</a>
+            <a className="text-steam hover:text-white flex items-center gap-1.5" href="https://github.com/adityalenova" target="_blank" rel="noopener"><GhIcon /> GitHub</a>
+            <a className="text-steam hover:text-white flex items-center gap-1.5" href="https://www.linkedin.com/in/iadityaoffl" target="_blank" rel="noopener"><InIcon /> LinkedIn</a>
+            <a className="text-steam hover:text-white" href="https://github.com" target="_blank" rel="noopener">Powered by open source</a>
           </div>
         </div>
       </div>

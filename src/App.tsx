@@ -18,6 +18,10 @@ import Resources, { ResourceDetail } from "./pages/Resources";
 import RepoDetail from "./pages/RepoDetail";
 import Dashboard from "./pages/Dashboard";
 import Nova from "./pages/Nova";
+import Features from "./pages/Features";
+import NovaAI from "./pages/NovaAI";
+import Trust from "./pages/Trust";
+import How from "./pages/How";
 import About from "./pages/About";
 import Legal from "./pages/Legal";
 import NotFound from "./pages/NotFound";
@@ -48,7 +52,7 @@ function Splash() {
   return (
     <div className="splash" aria-hidden="true">
       <div className="flex flex-col items-center gap-5">
-        <div className="splash-mark search-pulse rounded-[24px]"><Logo size={88} /></div>
+        <div className="splash-mark rounded-[24px]"><Logo size={88} /></div>
         <div className="splash-word font-display font-extrabold tracking-[-.02em] text-[34px]">
           cyrus<span className="text-accent">.ai</span>
         </div>
@@ -82,6 +86,10 @@ export default function App() {
             <Route path="/repo/:id" element={<RepoDetail />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/nova" element={<Nova />} />
+            <Route path="/platform/features" element={<Features />} />
+            <Route path="/platform/nova" element={<NovaAI />} />
+            <Route path="/platform/trust" element={<Trust />} />
+            <Route path="/platform/how" element={<How />} />
             <Route path="/about" element={<About />} />
             <Route path="/privacy" element={<Legal kind="privacy" />} />
             <Route path="/terms" element={<Legal kind="terms" />} />
