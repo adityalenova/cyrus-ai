@@ -50,7 +50,7 @@ interface RawGsoc { y: number; u: string; t: string; o: string; s: string; tt: s
 interface RawFile { projects: RawGsoc[]; orgs: Record<string, { url?: string; category?: string }> }
 
 /* stipend + hours bands per project size, deterministic per uid so a
-   card always shows the same numbers. GSoC 2021-2025 ranges. */
+   card always shows the same numbers. GSoC 2022-2026 ranges. */
 const BAND: Record<Proj["size"], { stipend: [number, number]; hours: [number, number] }> = {
   small: { stipend: [3.0, 3.6], hours: [150, 175] },
   medium: { stipend: [4.0, 4.9], hours: [300, 350] },
@@ -138,6 +138,7 @@ function ProjCard({ p }: { p: Proj }) {
 /* ── page ─────────────────────────────────────────────────── */
 export default function OpenSource() {
   const [raw, setRaw] = useState<RawFile | null>(null);
+  const [other, setOther] = useState<RawFile | null>(null);
   const [loadErr, setLoadErr] = useState(false);
 
   const [q, setQ] = useState("");
@@ -154,11 +155,16 @@ export default function OpenSource() {
       .then((r) => (r.ok ? r.json() : Promise.reject(new Error("missing"))))
       .then((d: RawFile) => { if (go && Array.isArray(d?.projects)) setRaw(d); else if (go) setLoadErr(true); })
       .catch(() => { if (go) setLoadErr(true); });
+    /* LFX · Outreachy · Summer of Bitcoin rows - absent until npm run refresh adds them */
+    fetch("/data/otherProjects.json")
+      .then((r) => (r.ok ? r.json() : Promise.reject(new Error("missing"))))
+      .then((d: RawFile) => { if (go && Array.isArray(d?.projects)) setOther(d); })
+      .catch(() => { /* optional shelf */ });
     return () => { go = false; };
   }, []);
 
   const all = useMemo<Proj[]>(() => {
-    const orgs = raw?.orgs ?? {};
+    const orgs = { ...(raw?.orgs ?? {}), ...(other?.orgs ?? {}) };
     const gsoc: Proj[] = (raw?.projects ?? []).map((p) => ({
       key: `g${p.u}`, title: p.t, org: p.o,
       orgUrl: orgs[p.o]?.url || `${GSOC_URL}/programs/${p.y}/organizations/${slugOf(p.o)}`,
@@ -166,12 +172,20 @@ export default function OpenSource() {
       tags: [...p.tt, ...p.tp].slice(0, 4), body: p.b, mentor: p.m,
       url: `${GSOC_URL}/programs/${p.y}/projects/${p.u}`, stars: 0,
     }));
-    return [...gsoc, ...flagships];
-  }, [raw]);
+    const extra: Proj[] = (other?.projects ?? []).map((p) => ({
+      key: `${(p as { program?: string }).program ?? "x"}${p.u}`, title: p.t, org: p.o,
+      orgUrl: orgs[p.o]?.url || `https://github.com/search?q=${encodeURIComponent(p.o)}&type=organizations`,
+      program: (p as { program?: string }).program ?? "LFX",
+      year: p.y, size: (["small", "medium", "large"].includes(p.s) ? p.s : "medium") as Proj["size"],
+      tags: [...p.tt, ...p.tp].slice(0, 4), body: p.b, mentor: p.m,
+      url: (p as { url?: string }).url || `https://mentorship.lfx.linuxfoundation.org/#all_all_all`, stars: 0,
+    }));
+    return [...gsoc, ...extra, ...flagships];
+  }, [raw, other]);
 
   /* filter option lists derived from what actually loaded */
   const years = useMemo(() => [...new Set(all.map((p) => p.year))].sort((a, b) => b - a), [all]);
-  const progs = useMemo(() => [...new Set(["GSoC", ...flagships.map((f) => f.program)])], []);
+  const progs = useMemo(() => [...new Set(["GSoC", ...flagships.map((f) => f.program), ...(other?.projects ?? []).map((p) => (p as { program?: string }).program ?? "LFX")])], [other]);
 
   const stacks = useMemo(() => {
     const c = new Map<string, number>();
