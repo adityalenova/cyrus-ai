@@ -136,7 +136,7 @@ ${body},
 /* ── 2. GSoC archive → public/data/gsoc-projects.json ────────────────── */
 async function refreshGsoc() {
   const BASE = "https://summerofcode.withgoogle.com/api";
-  const YEARS = [2021, 2022, 2023, 2024, 2025];
+  const YEARS = [2022, 2023, 2024, 2025, 2026];
   const projects = [], orgs = {};
   for (const year of YEARS) {
     const list = await get(`${BASE}/projects/?year=${year}`);

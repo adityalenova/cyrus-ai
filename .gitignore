@@ -5,3 +5,4 @@ dist/
 
 # local GitHub token-exchange relay secret - never commit
 .github-secret
+scripts/org-login-cache.json
