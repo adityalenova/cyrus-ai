@@ -631,9 +631,9 @@ function Band() {
   );
 }
 
-/* ── organizations marquee ────────────────────────────────── */
+/* ── organizations: two counter-drifting rows ─────────────── */
 function OrgMarquee() {
-  const slides = ORGS.map((o) => (
+  const card = (o: (typeof ORGS)[number]) => (
     <Link key={o.login} to={`/organizations/${o.login}`}
       className="shrink-0 w-[250px] flex items-center gap-3 bg-card border border-line rounded-[18px] px-[17px] py-[15px] shadow-soft hover:-translate-y-1 hover:border-ember hover:shadow-lift transition-all">
       <OrgImg src={avatarOf(o.login, 88)} name={o.login} className="w-[42px] h-[42px] rounded-[12px] object-cover bg-sand shrink-0" />
@@ -643,7 +643,10 @@ function OrgMarquee() {
         <span className="font-mono text-[10.5px] text-honey font-bold">★ {fmt(o.stars)} · {o.repos} repos</span>
       </span>
     </Link>
-  ));
+  );
+  const half = Math.ceil(ORGS.length / 2);
+  const rowA = ORGS.slice(0, half).map(card);
+  const rowB = ORGS.slice(half).map(card);
   return (
     <section id="orgs" className="max-w-[1240px] mx-auto px-6 pt-[92px]">
       <div className="flex items-end justify-between gap-5 flex-wrap mb-10">
@@ -655,13 +658,16 @@ function OrgMarquee() {
         <Link className={btn("dark", "md")} to="/organizations">Browse all</Link>
       </div>
       <div className="marq-mask overflow-hidden">
-        <div className="marq-track animate-marq">{slides}{slides}</div>
+        <div className="marq-track animate-marq">{rowA}{rowA}</div>
+      </div>
+      <div className="marq-mask overflow-hidden mt-3.5">
+        <div className="marq-track animate-marq [animation-direction:reverse]">{rowB}{rowB}</div>
       </div>
     </section>
   );
 }
 
-/* ── testimonials: two counter-drifting rows on brown, every card
+/* ── testimonials: one drifting row on brown, every card
    links to the page behind the story ──────────────────────── */
 const QUOTES: [string, string, string, string, string, string][] = [
   ["Priya N.", "ML engineer, Bengaluru",
@@ -725,8 +731,7 @@ function Testimonials() {
       </figcaption>
     </Link>
   );
-  const rowA = QUOTES.slice(0, 4).map(card);
-  const rowB = QUOTES.slice(4).map(card);
+  const row = QUOTES.map(card);
   return (
     <section id="stories" className="mt-[92px] bg-coffee border-y border-bean text-foam overflow-hidden">
       <div className="max-w-[1240px] mx-auto px-6 pt-14 pb-2">
@@ -738,11 +743,8 @@ function Testimonials() {
           <p className="text-steam text-[14px] max-w-[400px] leading-[1.6]">Eight builders, two seasons of hackathons and mentored programs. The wall drifts - hover to pause, and every card opens the page behind that story.</p>
         </div>
       </div>
-      <div className="marq-mask overflow-hidden pt-8">
-        <div className="marq-track animate-marq gap-4 px-4">{rowA}{rowA}</div>
-      </div>
       <div className="marq-mask overflow-hidden py-8">
-        <div className="marq-track animate-marq gap-4 px-4 [animation-direction:reverse]">{rowB}{rowB}</div>
+        <div className="marq-track animate-marq gap-4 px-4">{row}{row}</div>
       </div>
     </section>
   );

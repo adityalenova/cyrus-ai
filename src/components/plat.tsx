@@ -138,11 +138,9 @@ export const PageHero = ({ pill, h1, sub, cta }: { pill: string; h1: ReactNode; 
 export const GridBG = ({ pos = "50% 30%" }: { pos?: string }) => (  <span aria-hidden className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(180,96,44,.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(180,96,44,.05)_1px,transparent_1px)] [background-size:38px_38px]" style={{ maskImage: `radial-gradient(820px 480px at ${pos}, #000 45%, transparent)`, WebkitMaskImage: `radial-gradient(820px 480px at ${pos}, #000 45%, transparent)` }} />
 );
 
-/* light hairline that separates one section from the next */
+/* full-bleed seam that divides one section from the next */
 export const Rule = () => (
-  <div className={`${W} mt-[54px]`} aria-hidden>
-    <div className="plat-rule" />
-  </div>
+  <div className="mt-[64px] h-px w-full bg-rule" aria-hidden />
 );
 
 /* shared closing CTA row */

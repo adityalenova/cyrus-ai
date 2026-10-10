@@ -89,12 +89,6 @@
   --color-honey: #e0b64a;
 }
 .dark body { background: var(--color-paper); }
-
-/* section divider on the platform pages: visible mid-span, faded edges */
-.plat-rule {
-  height: 1px;
-  background: linear-gradient(90deg, transparent 0, var(--color-rule) 14%, var(--color-rule) 86%, transparent 100%);
-}
 .dark ::selection { background: rgba(221, 138, 78, 0.3); }
 .dark .hero-glow {
   background:
