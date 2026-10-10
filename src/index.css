@@ -13,6 +13,7 @@
   --color-clay: #f1e9dd;
   --color-line: #e7dccd;
   --color-liness: #efe7da;
+  --color-rule: #c9b494;
   --color-ink: #241b13;
   --color-cocoa: #6e6153;
   --color-dim: #a09282;
@@ -72,6 +73,7 @@
   --color-clay: #2a2218;
   --color-line: #2e2619;
   --color-liness: #241d14;
+  --color-rule: #57472f;
   --color-ink: #f5eee3;
   --color-cocoa: #bdae99;
   --color-dim: #857461;
@@ -87,6 +89,12 @@
   --color-honey: #e0b64a;
 }
 .dark body { background: var(--color-paper); }
+
+/* section divider on the platform pages: visible mid-span, faded edges */
+.plat-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0, var(--color-rule) 14%, var(--color-rule) 86%, transparent 100%);
+}
 .dark ::selection { background: rgba(221, 138, 78, 0.3); }
 .dark .hero-glow {
   background:

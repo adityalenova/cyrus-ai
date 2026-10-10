@@ -141,7 +141,7 @@ export const GridBG = ({ pos = "50% 30%" }: { pos?: string }) => (  <span aria-h
 /* light hairline that separates one section from the next */
 export const Rule = () => (
   <div className={`${W} mt-[54px]`} aria-hidden>
-    <div className="h-px bg-liness" />
+    <div className="plat-rule" />
   </div>
 );
 
