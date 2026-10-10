@@ -9,7 +9,7 @@ import { REPOS } from "../data/repos";
 import { ORGS } from "../data/orgs";
 import { HACKS } from "../data/hackathons";
 import { RESOURCES } from "../data/resources";
-import { W, Pill, Ico, Check, CenterHead, GridBG, PlatCTA } from "../components/plat";
+import { W, Pill, Ico, Check, CenterHead, GridBG, PlatCTA, Rule } from "../components/plat";
 
 const D: Record<string, string> = {
   shield: "M12 3l7 3v5c0 5-3 8.5-7 10-4-1.5-7-5-7-10V6l7-3Z",
@@ -69,8 +69,9 @@ export default function Trust() {
           </div>
         </section>
 
+        <Rule />
         {/* ── active verifications ── */}
-        <section className={`${W} mt-[92px]`}>
+        <section className={`${W} mt-[54px]`}>
           <div className="flex items-baseline gap-3 flex-wrap mb-7">
             <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(24px,3vw,34px)]">Active snapshot verifications</h2>
             <span className="font-mono text-[11px] tracking-[.12em] uppercase text-dim">running now · 6,682 records under review each cycle</span>
@@ -91,8 +92,9 @@ export default function Trust() {
           </div>
         </section>
 
+        <Rule />
         {/* ── foundations ── */}
-        <section className={`${W} mt-[92px]`}>
+        <section className={`${W} mt-[54px]`}>
           <CenterHead pill="Platform audit foundations" h2={<>Six rules the index <Word>polices itself</Word> with.</>} />
           <div className="grid grid-cols-3 gap-5 mt-11 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
             {FOUNDATIONS.map(([d, b, p]) => (
@@ -105,8 +107,9 @@ export default function Trust() {
           </div>
         </section>
 
+        <Rule />
         {/* ── source cadence ledger ── */}
-        <section className={`${W} mt-[92px]`}>
+        <section className={`${W} mt-[54px]`}>
           <div className="flex items-baseline gap-3 flex-wrap mb-7">
             <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(24px,3vw,34px)]">Sources &amp; cadence</h2>
             <Pill>4 live feeds</Pill>
@@ -125,8 +128,9 @@ export default function Trust() {
           </div>
         </section>
 
+        <Rule />
         {/* ── snapshot ledger stats ── */}
-        <section className={`${W} mt-[92px]`}>
+        <section className={`${W} mt-[54px]`}>
           <div className="rounded-[26px] bg-coffee text-foam border border-bean shadow-lift px-8 py-10">
             <p className="text-center font-mono text-[10.5px] font-bold tracking-[.18em] uppercase text-ember mb-8">The current snapshot, in plain numbers</p>
             <div className="grid grid-cols-5 gap-6 text-center max-[900px]:grid-cols-2 max-[520px]:grid-cols-1">
@@ -146,7 +150,8 @@ export default function Trust() {
           </div>
         </section>
 
-        <section className={`${W} mt-[80px] pb-6`}>
+        <Rule />
+        <section className={`${W} mt-[54px] pb-6`}>
           <p className="text-center text-cocoa text-[14.5px] leading-[1.7] max-w-[640px] mx-auto">
             Spot something the snapshot got wrong? The About page explains exactly how data is gathered and
             how to tell us - corrections land in the next regeneration, not in a ticket queue.

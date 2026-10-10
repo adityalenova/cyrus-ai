@@ -4,7 +4,7 @@
    split panel - rebuilt in the Contriho coffee/honey theme.     ═ */
 import { Link } from "react-router-dom";
 import { btn, Word } from "../components/ui";
-import { W, Pill, Ico, Check, Cross, Tile, CenterHead, GridBG } from "../components/plat";
+import { W, Pill, Ico, Check, Cross, Tile, CenterHead, GridBG, Rule } from "../components/plat";
 
 const D: Record<string, string> = {
   spark: "M12 3l1.9 5.6L19.5 10l-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.4z",
@@ -60,7 +60,7 @@ const DOERS: [string, string, string, string][] = [
 ];
 function Hub() {
   return (
-    <section className={`${W} mt-[100px]`}>
+    <section className={`${W} mt-[54px]`}>
       <CenterHead pill="What Nova answers" h2={<>Turn months of digging into <Word>minutes.</Word></>}
         sub="Tell Nova your stack once. Every question you would have spread across READMEs, event pages and Discord history comes back ranked, sourced and honest about what it can't know." />
       <div className="relative mt-12">
@@ -116,7 +116,7 @@ const NOVA_SIDE = [
 ];
 function Versus() {
   return (
-    <section className={`${W} mt-[100px]`}>
+    <section className={`${W} mt-[54px]`}>
       <CenterHead pill="Why it isn't a chatbot" h2={<>Not a generic <Word>chatbot.</Word></>}
         sub="A model guessing at open source will confidently name repos that don't exist. Nova takes the opposite bet: no generation, only ranking - against data you can open, click and verify." />
       <div className="relative grid grid-cols-2 gap-6 mt-12 max-[860px]:grid-cols-1">
@@ -183,10 +183,13 @@ export default function NovaAI() {
           </div>
         </section>
 
+        <Rule />
         <Hub />
+        <Rule />
         <Versus />
+        <Rule />
 
-        <section className={`${W} mt-[100px] pb-6`}>
+        <section className={`${W} mt-[54px] pb-6`}>
           <div className="max-w-[760px] mx-auto text-center">
             <p className="font-mono text-[10.5px] font-bold tracking-[.16em] uppercase text-dim mb-3">Straight answer</p>
             <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(24px,3vw,34px)] leading-[1.2]">

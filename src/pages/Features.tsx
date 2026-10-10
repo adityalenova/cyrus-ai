@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { fmt } from "../lib/util";
 import { btn, Word } from "../components/ui";
 import { REPOS } from "../data/repos";
-import { W, Pill, Ico, Check, Tile, CenterHead, GridBG, PlatCTA } from "../components/plat";
+import { W, Pill, Ico, Check, Tile, CenterHead, GridBG, PlatCTA, Rule } from "../components/plat";
 
 /* ── icon paths ── */
 const D: Record<string, string> = {
@@ -36,7 +36,7 @@ const FLOW: [string, string, string, string][] = [
 ];
 function Workflow() {
   return (
-    <section className={`${W} mt-[92px] grid grid-cols-[.9fr_1.1fr] gap-14 items-center max-[1020px]:grid-cols-1 max-[1020px]:gap-10`}>
+    <section className={`${W} mt-[54px] grid grid-cols-[.9fr_1.1fr] gap-14 items-center max-[1020px]:grid-cols-1 max-[1020px]:gap-10`}>
       <div>
         <Pill>Contributor workflow</Pill>
         <h2 className="font-display font-extrabold tracking-[-.025em] leading-[1.08] text-[clamp(30px,3.8vw,46px)] mt-6">
@@ -103,7 +103,7 @@ const STAND: [string, string, string, string][] = [
 ];
 function Stand() {
   return (
-    <section className={`${W} mt-[100px] grid grid-cols-[.85fr_1.15fr] gap-14 items-center max-[1020px]:grid-cols-1 max-[1020px]:gap-10`}>
+    <section className={`${W} mt-[54px] grid grid-cols-[.85fr_1.15fr] gap-14 items-center max-[1020px]:grid-cols-1 max-[1020px]:gap-10`}>
       <div className="relative">
         <Pill>Dashboard &amp; controls</Pill>
         <h2 className="font-display font-extrabold tracking-[-.025em] leading-[1.1] text-[clamp(28px,3.4vw,42px)] mt-6">
@@ -157,7 +157,7 @@ const TABLE: [string, boolean, boolean, boolean][] = [
 ];
 function Collect() {
   return (
-    <section className={`${W} mt-[100px]`}>
+    <section className={`${W} mt-[54px]`}>
       <CenterHead pill="Program intelligence" h2={<>Collect once. <Word>Satisfy all three.</Word></>}
         sub="GSoC, LFX and GSSoC reward the same underlying work: a credible profile, a visible PR history and a stack that matches the org. cyrus builds that evidence once and maps it to every program you're targeting." />
       <div className="grid grid-cols-3 gap-5 mt-12 max-[900px]:grid-cols-1">
@@ -207,7 +207,7 @@ const TL: [string, string, string][] = [
 ];
 function Timeline() {
   return (
-    <section className={`${W} mt-[100px] max-w-[860px]`}>
+    <section className={`${W} mt-[54px] max-w-[860px]`}>
       <CenterHead pill="The cyrus method" h2={<>From zero to <Word>accepted</Word> in ten weeks. Here's exactly how.</>}
         sub="cyrus walks you through every step. You never have to figure out what to do next." />
       <div className="relative mt-12 ml-2">
@@ -240,7 +240,7 @@ const SHELVES: [string, string, string, string, string][] = [
 ];
 function Shelves() {
   return (
-    <section className={`${W} mt-[100px]`}>
+    <section className={`${W} mt-[54px]`}>
       <CenterHead pill="What's on the platform" h2={<>Six shelves. <Word>One keystroke.</Word></>} />
       <div className="grid grid-cols-3 gap-5 mt-11 max-[1020px]:grid-cols-2 max-[640px]:grid-cols-1">
         {SHELVES.map(([b, to, d, tone, p]) => (
@@ -274,12 +274,18 @@ export default function Features() {
             <Link to="/platform/how" className={btn("outline", "lg")}>See the method</Link>
           </div>
         </header>
+        <Rule />
         <Workflow />
+        <Rule />
         <Stand />
+        <Rule />
         <Collect />
+        <Rule />
         <Timeline />
+        <Rule />
         <Shelves />
-        <section className={`${W} mt-[100px] mb-6 text-center`}>
+        <Rule />
+        <section className={`${W} mt-[54px] mb-6 text-center`}>
           <h2 className="font-display font-extrabold tracking-[-.02em] text-[clamp(26px,3.2vw,38px)]">
             Ready to see it on <Word>your</Word> stack?
           </h2>

@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { btn, Word, OrgImg } from "../components/ui";
 import { avatarOf } from "../lib/util";
-import { W, Pill, StepHead, Behind, YourAction, MockPanel, MockRow, GridBG, PlatCTA } from "../components/plat";
+import { W, Pill, StepHead, Behind, YourAction, MockPanel, MockRow, GridBG, PlatCTA, Rule } from "../components/plat";
 
 const D = {
   gauge: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-8.5 3.5A9.9 9.9 0 0 1 2 12C2 6.5 6.5 2 12 2s10 4.5 10 10a9.9 9.9 0 0 1-1.5 5.5",
@@ -54,7 +54,7 @@ function Step({ step, label, d, tone, h2, sub, behind, action, panel, flip }: {
   behind: string[]; action: string; panel: ReactNode; flip?: boolean;
 }) {
   return (
-    <section className={`${W} mt-[88px] grid grid-cols-[1fr_1.05fr] gap-14 items-start max-[1020px]:grid-cols-1 max-[1020px]:gap-9`}>
+    <section className={`${W} mt-[54px] grid grid-cols-[1fr_1.05fr] gap-14 items-start max-[1020px]:grid-cols-1 max-[1020px]:gap-9`}>
       <div className={flip ? "lg:order-2" : ""}>
         <StepHead step={step} label={label} d={d} tone={tone} />
         <h2 className="font-display font-extrabold tracking-[-.025em] leading-[1.1] text-[clamp(26px,3.2vw,38px)]">{h2}</h2>
@@ -87,6 +87,8 @@ export default function How() {
           </div>
         </header>
 
+        <Rule />
+
         {/* STEP 01 */}
         <Step step="01" label="Assess & configure" d={D.gauge} tone="rust"
           h2="Start with your stack."
@@ -105,6 +107,8 @@ export default function How() {
             </MockPanel>
           }
         />
+
+        <Rule />
 
         {/* STEP 02 - mirrored */}
         <Step step="02" label="Connect your world" d={D.plug} tone="leaf" flip
@@ -133,6 +137,8 @@ export default function How() {
           }
         />
 
+        <Rule />
+
         {/* STEP 03 */}
         <Step step="03" label="Turn a shortlist into a merged PR" d={D.check} tone="honey"
           h2="Work the board, not the tabs."
@@ -151,7 +157,9 @@ export default function How() {
           }
         />
 
-        <section className={`${W} mt-[92px] pb-6 text-center`}>
+        <Rule />
+
+        <section className={`${W} mt-[54px] pb-6 text-center`}>
           <p className="text-cocoa text-[14.5px] leading-[1.7] max-w-[560px] mx-auto">
             That's the whole method - assess, connect, ship. The platform behind each step is
             documented on the features and trust pages.
