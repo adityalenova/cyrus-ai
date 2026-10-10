@@ -96,6 +96,19 @@ export const PROGRAMS: Program[] = [
     ],
   },
   {
+    id: "sob", name: "Summer of Bitcoin", owner: "summerofbitcoin",
+    img: "assets/prog-lfx.jpg", url: "https://www.summerofbitcoin.org",
+    tag: "Eight mentored weeks building real Bitcoin and Lightning tech, with a stipend.",
+    pay: "~$2,500 USD", payNote: "PER PROJECT",
+    status: "upcoming", window: "Applications open December",
+    orgs: "Bitcoin ecosystem", slots: "~50 contributors",
+    phases: [
+      { label: "Applications", s: 11, e: 12, c: "#3b6ea5" },
+      { label: "Learning period", s: 0.5, e: 2.5, c: "#a97b1f" },
+      { label: "Development", s: 4.5, e: 7.5, c: "#3e7d4f" },
+    ],
+  },
+  {
     id: "oct", name: "Hacktoberfest", owner: "github",
     img: "/assets/hack/covers/hacktoberfest-2026.jpg", url: "https://hacktoberfest.com",
     tag: "One month of pull requests, first-timer friendly, the on-ramp for most contributors.",

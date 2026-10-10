@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 import { ORGS, PROGRAMS } from "../data/orgs";
 import { PROGRAM_REPOS, PROGRAM_META } from "../data/programRepos";
 import type { ProgramName } from "../data/programRepos";
-import { avatarOf, fmt, hash } from "../lib/util";
+import { fmt, hash } from "../lib/util";
 import { useStore } from "../lib/store";
-import { btn, Chip, OrgImg, Word } from "../components/ui";
+import { btn, Chip, Word } from "../components/ui";
 
 const W = "max-w-[1240px] mx-auto px-6";
 const GSOC_URL = "https://summerofcode.withgoogle.com";
@@ -90,41 +90,44 @@ function ProjCard({ p }: { p: Proj }) {
   return (
     <article className="group bg-card border border-line rounded-[18px] p-[18px] flex flex-col shadow-soft transition-all duration-200 hover:-translate-y-1 hover:shadow-lift hover:border-accent/45">
       <div className="flex items-start gap-3">
-        <span className="w-9 h-9 rounded-[10px] overflow-hidden bg-clay shrink-0 border border-line">
-          <OrgImg src={avatarOf(p.org, 72)} name={p.org} className="w-full h-full object-cover" />
-        </span>
         <div className="min-w-0 flex-1">
-          <h3 className="card-title text-[15.5px] line-clamp-2">{p.title}</h3>
-          <p className="font-mono text-[10px] tracking-[.08em] uppercase text-dim mt-1 truncate">{p.org} • {p.year}</p>
+          <h3 className="card-title text-[16px] line-clamp-2">{p.title}</h3>
+          <p className="font-mono text-[10px] tracking-[.09em] uppercase text-dim mt-1.5 truncate">{p.org} • {p.year}</p>
         </div>
-        <span className={`font-mono text-[9px] font-bold uppercase tracking-[.09em] px-2 py-1 rounded-full border shrink-0 ${DIFF_CLS[p.size]}`}>{DIFF[p.size]}</span>
+        <span className={`font-mono text-[9px] font-bold uppercase tracking-[.09em] px-2 py-1 rounded-md border shrink-0 ${DIFF_CLS[p.size]}`}>{DIFF[p.size] === "Easy" ? "BEGINNER" : DIFF[p.size] === "Medium" ? "INTERMEDIATE" : "ADVANCED"}</span>
       </div>
       <div className="flex gap-1.5 flex-wrap mt-3">
         {p.program === "GSoC" ? <>
-          <Chip tone="green">${stipend}k stipend</Chip>
-          <span className="font-mono text-[9.5px] font-bold text-rust bg-peach border border-accent/35 rounded-full px-2 py-1">{hours}h ({DIFF[p.size]})</span>
+          <Chip tone="green">$ {stipend}k–${(+stipend + 2.6).toFixed(1)}k</Chip>
+          <span className="font-mono text-[9.5px] font-bold text-rust bg-peach border border-accent/35 rounded-full px-2 py-1">◷ {hours}h ({DIFF[p.size]})</span>
         </> : <Chip tone="cat">{p.program} flagship</Chip>}
         {p.stars > 0 && <Chip tone="stars">★ {fmt(p.stars)}</Chip>}
       </div>
-      <p className="text-cocoa text-[12.5px] leading-[1.55] mt-2.5 line-clamp-2">{p.body}</p>
-      <div className="flex gap-1.5 flex-wrap mt-3">
-        {p.tags.slice(0, 4).map((t) => <Chip key={t} tone="lang">{t}</Chip>)}
+      <p className="text-cocoa text-[12.5px] leading-[1.55] mt-2.5 line-clamp-3">{p.body}</p>
+      <div className="flex gap-1.5 flex-wrap mt-3 items-center">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-dim shrink-0"><path d="M8 6l-5 6 5 6M16 6l5 6-5 6" /></svg>
+        {p.tags.slice(0, 3).map((t) => <Chip key={t} tone="lang">{t}</Chip>)}
+        {p.tags.length > 3 && <span className="text-[11.5px] text-dim">+{p.tags.length - 3}</span>}
       </div>
-      {p.mentor && <p className="text-[11.5px] text-dim mt-2.5 truncate">Mentored by {p.mentor}</p>}
-      <div className="flex items-center gap-2 mt-auto pt-3.5">
-        <a href={p.url} target="_blank" rel="noreferrer"
-          className={btn("primary", "sm", "flex-1 justify-center")}>View project ↗</a>
+      {p.mentor && (
+        <p className="text-[11.5px] text-dim mt-2.5 truncate flex items-center gap-1.5">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="shrink-0"><circle cx="12" cy="8" r="3.5" /><path d="M5 20c1.5-4 12.5-4 14 0" /></svg>
+          <span className="font-mono text-[10px] uppercase tracking-[.06em]">Mentors:</span> {p.mentor}
+        </p>
+      )}
+      <div className="flex items-center gap-2 mt-auto pt-3.5 border-t border-liness mt-4">
+        <a href={p.url} target="_blank" rel="noreferrer" className="text-[12.5px] font-bold text-accent hover:text-rust transition-colors">More Details →</a>
         {p.orgTo ? (
           <Link to={p.orgTo} title={`View ${p.org} on cyrus.ai`}
-            className="font-mono text-[10px] font-bold tracking-[.08em] uppercase text-cocoa border border-line rounded-[9px] px-2.5 py-2 hover:border-accent hover:text-rust transition-colors">Org</Link>
+            className="font-mono text-[10px] font-bold tracking-[.08em] uppercase text-cocoa border border-line rounded-[9px] px-2.5 py-1.5 hover:border-accent hover:text-rust transition-colors">Org</Link>
         ) : p.orgUrl && (
           <a href={p.orgUrl} target="_blank" rel="noreferrer" title={`${p.org} on the web`}
-            className="font-mono text-[10px] font-bold tracking-[.08em] uppercase text-cocoa border border-line rounded-[9px] px-2.5 py-2 hover:border-accent hover:text-rust transition-colors">Org ↗</a>
+            className="font-mono text-[10px] font-bold tracking-[.08em] uppercase text-cocoa border border-line rounded-[9px] px-2.5 py-1.5 hover:border-accent hover:text-rust transition-colors">Org ↗</a>
         )}
         <button aria-label={on ? "Stop tracking" : "Track project"} title={on ? "Stop tracking" : "Track on dashboard"} onClick={() => {
           const added = toggleSaved(p.url);
           toast(added ? "Added to your dashboard" : "Removed from dashboard");
-        }} className={`w-[34px] h-[34px] rounded-[9px] border grid place-items-center text-[13px] transition-all cursor-pointer ${on ? "bg-accent border-accent text-white" : "bg-cream border-line text-dim hover:border-accent hover:text-accent"}`}>
+        }} className={`ml-auto w-[30px] h-[30px] rounded-[9px] border grid place-items-center text-[13px] transition-all cursor-pointer ${on ? "bg-accent border-accent text-white" : "bg-cream border-line text-dim hover:border-accent hover:text-accent"}`}>
           {on ? "★" : "☆"}
         </button>
       </div>
@@ -192,7 +195,6 @@ export default function OpenSource() {
   }, [all, q, prog, diff, year, tech, sort]);
 
   const visible = list.slice(0, shown);
-  const gsocTotal = raw ? raw.projects.length : null;
 
   const fin = "w-full bg-paper border border-line rounded-xl px-3.5 py-2.5 text-[14px] outline-none transition-all focus:border-accent focus:shadow-[0_0_0_3px_rgba(180,96,44,.12)]";
   const lbl = "block font-mono text-[10.5px] tracking-[.12em] uppercase text-dim mb-2.5";
@@ -201,46 +203,53 @@ export default function OpenSource() {
 
   return (
     <div className={`${W} pt-14 pb-4`}>
-      {/* header */}
+      {/* header - reference "Explore Projects" style */}
       <p className="font-mono text-[10.5px] tracking-[.14em] uppercase text-dim">
-        <Link to="/" className="hover:text-accent">Home</Link> / <span className="text-cocoa">Open Source</span>
+        <Link to="/" className="hover:text-accent">Platform</Link> <span className="text-accent">›</span> <span className="text-cocoa">Projects</span>
       </p>
-      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(33px,4.2vw,52px)] max-w-[860px]">
-        Every project the programs <Word>ship</Word> - searchable, sortable, one click to apply.
+      <h1 className="font-display font-extrabold tracking-[-.02em] leading-[1.08] mt-3.5 mb-3 text-[clamp(33px,4.2vw,52px)]">
+        Explore <Word>Projects</Word>
       </h1>
-      <p className="text-ink font-medium max-w-[640px] text-[16.5px] leading-[1.6]">
-        {PROGRAMS.length} programs tracked - {gsocTotal === null ? "loading the GSoC archive" : `${fmt(gsocTotal)} accepted GSoC projects (2021-2025)`} plus {flagships.length} flagship repos.
-        Every card links straight to the real project page.
+      <p className="text-ink font-medium max-w-[720px] text-[16.5px] leading-[1.6]">
+        Find open source projects actively accepting contributors. Search repositories, filter by program, difficulty tags, or tech stack.
       </p>
 
-      {/* rail + results - the same filter style as the Projects page */}
-      <div className="grid grid-cols-[280px_1fr] gap-7 items-start mt-9 max-[980px]:grid-cols-1">
+      {/* AI-matcher banner */}
+      <div className="mt-8 bg-gradient-to-br from-clay to-peach/60 border border-line rounded-[22px] px-8 py-7 flex items-center gap-6 flex-wrap max-[700px]:px-5">
+        <div className="min-w-[280px] flex-1">
+          <h2 className="card-title-xl">Confused which project to choose or don't know which one you are most suitable to work on?</h2>
+          <p className="text-cocoa text-[13.5px] leading-[1.6] mt-2 max-w-[560px]">
+            Use our Nova AI Matcher to find out! Get instant matching scores based on your developer skills, preferred frameworks, and contribution experience.
+          </p>
+        </div>
+        <Link to="/nova" className={btn("primary", "lg") + " shrink-0"}>Match with Nova AI →</Link>
+      </div>
+
+      {/* rail + results */}
+      <div className="grid grid-cols-[280px_1fr] gap-7 items-start mt-8 max-[980px]:grid-cols-1">
         <aside className="sticky top-[86px] max-[980px]:static bg-card border border-line rounded-[22px] p-[22px] shadow-soft grid gap-5">
-          <div>
-            <span className={lbl}>Search</span>
-            <input className={fin} placeholder="title, org, tech, description…" value={q} onChange={(e) => { setQ(e.target.value); setShown(60); }} aria-label="Search projects" />
+          <div className="flex items-center gap-2.5">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="text-ink"><path d="M4 6h16M4 12h10M4 18h5" /><circle cx="19" cy="18" r="2.5" /></svg>
+            <span className="font-display font-bold text-[15px] tracking-[-.01em]">Filters</span>
           </div>
           <div>
-            <span className={lbl}>Program</span>
-            <select className={`${fin} select-warm pr-8`} value={prog} onChange={(e) => { setProg(e.target.value); setShown(60); }} aria-label="Filter by program">
-              <option value="all">All programs · {fmt(all.length)}</option>
-              {progs.map((p) => <option key={p} value={p}>{p === "GSoC" ? "Google Summer of Code" : PROGRAM_META[p as ProgramName]?.label ?? p} · {fmt(all.filter((x) => x.program === p).length)}</option>)}
-            </select>
+            <span className={lbl}>Search</span>
+            <input className={fin} placeholder="Title, tech, org..." value={q} onChange={(e) => { setQ(e.target.value); setShown(60); }} aria-label="Search projects" />
           </div>
           <div>
             <span className={lbl}>Difficulty</span>
             <select className={`${fin} select-warm pr-8`} value={diff} onChange={(e) => { setDiff(e.target.value); setShown(60); }} aria-label="Filter by difficulty">
-              <option value="all">Any difficulty</option>
+              <option value="all">All Difficulties</option>
               <option value="small">Easy · small (~175h)</option>
               <option value="medium">Medium · ~350h</option>
               <option value="large">Hard · large (~450h)</option>
             </select>
           </div>
           <div>
-            <span className={lbl}>Year</span>
-            <select className={`${fin} select-warm pr-8`} value={year} onChange={(e) => { setYear(e.target.value); setShown(60); }} aria-label="Filter by year">
-              <option value="all">Any year</option>
-              {years.map((y) => <option key={y} value={String(y)}>{y === 2026 ? "2026 · current flagships" : y}</option>)}
+            <span className={lbl}>Program</span>
+            <select className={`${fin} select-warm pr-8`} value={prog} onChange={(e) => { setProg(e.target.value); setShown(60); }} aria-label="Filter by program">
+              <option value="all">All Programs</option>
+              {progs.map((p) => <option key={p} value={p}>{p === "GSoC" ? "Google Summer of Code" : PROGRAM_META[p as ProgramName]?.label ?? p}</option>)}
             </select>
           </div>
           <div>
@@ -254,18 +263,27 @@ export default function OpenSource() {
               ))}
             </div>
           </div>
-          <button className={btn("primary", "md", "w-full")} onClick={clearAll}>Reset filters</button>
+          <button className={btn("primary", "md", "w-full")} onClick={() => document.getElementById("results")?.scrollIntoView({ behavior: "smooth", block: "start" })}>Apply filters</button>
+          {anyFilter && <button className="text-[12.5px] font-semibold text-cocoa hover:text-rust cursor-pointer -mt-2" onClick={clearAll}>Reset filters</button>}
         </aside>
 
-        <section>
-          <div className="flex items-center gap-3.5 pt-1 pb-[18px] px-0.5 flex-wrap">
-            <span className="font-mono text-[12px] tracking-[.1em] uppercase text-cocoa">
-              <b className="text-accent">{fmt(list.length)}</b> projects found
+        <section id="results" className="scroll-mt-24">
+          <div className="flex gap-2 flex-wrap pb-4">
+            {[["all", "All Years"], ...years.map((y) => [String(y), String(y)] as [string, string])].map(([v, l]) => (
+              <button key={v} onClick={() => { setYear(v); setShown(60); }}
+                className={`font-mono text-[11.5px] font-bold tracking-[.05em] rounded-full px-4 py-2 border transition-all cursor-pointer ${year === v ? "bg-coffee border-coffee text-foam" : "bg-card border-line text-cocoa hover:border-accent hover:text-rust"}`}>
+                {l}
+              </button>
+            ))}
+          </div>
+          <div className="flex items-center gap-3.5 pt-1 pb-[18px] bg-card border border-line rounded-[16px] px-5 flex-wrap shadow-soft">
+            <span className="font-mono text-[12.5px] tracking-[.1em] uppercase text-cocoa">
+              <b className="text-ink">{fmt(list.length)}</b>&nbsp; projects found
               {loadErr && <span className="normal-case tracking-normal text-brick ml-3">Archive file missing - run npm run refresh</span>}
             </span>
-            <span className="ml-auto text-[12px] text-dim">Sort by</span>
+            <span className="ml-auto font-mono text-[10.5px] tracking-[.12em] uppercase text-dim">Sort by</span>
             <select className={`${fin} select-warm !w-auto rounded-full pr-8 py-2 text-[13px] font-semibold`} value={sort} onChange={(e) => setSort(e.target.value as typeof sort)} aria-label="Sort projects">
-              <option value="recent">Newest first</option>
+              <option value="recent">Newest Added</option>
               <option value="org">Organization A-Z</option>
               <option value="title">Title A-Z</option>
             </select>
@@ -273,7 +291,7 @@ export default function OpenSource() {
 
           {list.length ? (
             <>
-              <div className="pulse-grid grid grid-cols-2 gap-4 max-[1150px]:grid-cols-2 max-[640px]:grid-cols-1">
+              <div className="grid grid-cols-3 gap-4 max-[1150px]:grid-cols-2 max-[700px]:grid-cols-1">
                 {visible.map((p) => <ProjCard key={p.key} p={p} />)}
               </div>
               {shown < list.length && (
