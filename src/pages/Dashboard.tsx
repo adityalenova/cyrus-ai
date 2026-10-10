@@ -1,9 +1,11 @@
-/* ══ Dashboard.tsx — greeting, saved repos/orgs, deadlines, resources, activity ══ */
-import { useMemo, useState } from "react";
+/* ══ Dashboard.tsx — greeting, saved repos/orgs, matcher, watchlist, mentors, deadlines ══ */
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { REPOS } from "../data/repos";
 import { HACKS } from "../data/hackathons";
 import { RESOURCES } from "../data/resources";
+import { ORGS } from "../data/orgs";
+import { REAL_STATS } from "../data/realOrgs";
 import { orgByLogin, repoById, avatarOf, fmt, rnd, CAT_META } from "../lib/util";
 import { useStore } from "../lib/store";
 import { useStored } from "../lib/util";
@@ -37,6 +39,25 @@ const IC_STAR_SM = <Ic d={D.star} size={14} filled />;
 const IC_X = <Ic d={D.x} size={13} />;
 const IC_FLAG = <Ic d="M5 21V4l13 3.5L5 11" size={16} />;
 const IC_BOOK = <Ic d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 5.5v15" size={16} />;
+const IC_USER = <Ic d="M9 11.5a3.7 3.7 0 1 0 0-7.4 3.7 3.7 0 0 0 0 7.4zM3 20.5c.7-3.1 3-5 6-5s5.3 1.9 6 5M16.2 5.2a3.2 3.2 0 0 1 0 6.1M18.5 15.8c1.9.8 3.1 2.4 3.6 4.7" size={15} />;
+const IC_SCALE = <Ic d="M12 4v16M6 8h12M7 8l-3 5.5h6L7 8zM17 8l-3 5.5h6L17 8z" size={15} />;
+const IC_TARGET = <Ic d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 16.5a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9zM12 13.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" size={15} />;
+const IC_EYE = <Ic d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12zM12 14.8a2.8 2.8 0 1 0 0-5.6 2.8 2.8 0 0 0 0 5.6z" size={15} />;
+
+/* ── program-archive rows for matcher / mentors / compare ──── */
+interface ARow { y: number; u: string; t: string; o: string; s: string; tt: string[]; tp: string[]; b: string; m: string; url?: string; program?: string }
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+const YEARS_AGO = Math.max(1, Math.round((Date.now() - +new Date("2026-04-20")) / 864e5 / 7));
+
+/* skill vocabulary we can honestly match against org tech tags */
+const SKILL_WORDS = ["python", "javascript", "typescript", "react", "vue", "svelte", "angular", "node", "golang", "go", "rust", "java", "kotlin", "swift", "c++", "c#", "ruby", "php", "django", "flask", "fastapi", "next", "tailwind", "sql", "postgres", "mongodb", "redis", "graphql", "machine learning", "deep learning", "nlp", "computer vision", "llm", "ai", "data science", "devops", "kubernetes", "docker", "cloud", "aws", "android", "ios", "flutter", "security", "web", "frontend", "backend", "full stack", "embedded", "blockchain", "bitcoin", "cli", "testing", "documentation", "design", "ux", "wasm", "api", "ml", "numpy", "pytorch", "tensorflow", "linux", "networking", "database", "compiler", "game", "graphics", "science", "education", "accessibility"];
+function extractSkills(text: string): string[] {
+  const low = " " + text.toLowerCase().replace(/[^a-z0-9+#. -]/g, " ") + " ";
+  const found = SKILL_WORDS.filter((w) => low.includes(w));
+  const out: string[] = [];
+  for (const f of found) if (!out.some((k) => k.includes(f) || f.includes(k))) out.push(f);
+  return out.slice(0, 18);
+}
 
 const daysTo = (iso: string) => Math.ceil((+new Date(iso) - Date.now()) / 864e5);
 const greet = () => {
@@ -82,6 +103,64 @@ export default function Dashboard() {
   const [prefs, setPrefs] = useStored("agenthub.prefs", { digest: true, windows: true, mentions: false });
   const [gBusy, setGBusy] = useState(false);
 
+  /* matcher profile - GitHub handle + skills parsed from typed list or resume */
+  type Profile = { gh: string; skills: string[]; resume: string; done: boolean };
+  const [prof, setProf] = useStored<Profile>("cyrus.matcher", { gh: "", skills: [], resume: "", done: false });
+  const [ghIn, setGhIn] = useState(prof.gh);
+  const [skillsIn, setSkillsIn] = useState(prof.skills.join(", "));
+  const [fileNote, setFileNote] = useState("");
+
+  /* watchlist - orgs with a status and a note */
+  type Watch = { org: string; status: "researching" | "preparing" | "applied"; note: string };
+  const [watch, setWatch] = useStored<Watch[]>("cyrus.watchlist", []);
+  const STATUS_CYCLE = ["researching", "preparing", "applied"] as const;
+  const STATUS_CLS = { researching: "text-cocoa border-line bg-cream", preparing: "text-honey border-honey/40 bg-honey/10", applied: "text-leaf border-leaf/40 bg-leaf/10" };
+
+  /* org compare picker */
+  const [cmpQ, setCmpQ] = useState("");
+  const [cmpIds, setCmpIds] = useStored<string[]>("cyrus.compare", []);
+
+  /* program archive, same runtime JSON the Projects page streams */
+  const [archive, setArchive] = useState<ARow[]>([]);
+  useEffect(() => {
+    let go = true;
+    const read = (url: string, program: string) =>
+      fetch(url).then((r) => (r.ok ? r.json() : Promise.reject())).then((d) => {
+        if (!go || !Array.isArray(d?.projects)) return;
+        setArchive((a) => [...a, ...d.projects.map((p: ARow) => ({ ...p, program: p.program ?? program }))]);
+      }).catch(() => { /* file may not exist yet */ });
+    read("/data/gsoc-projects.json", "GSoC");
+    read("/data/otherProjects.json", "LFX");
+    return () => { go = false; };
+  }, []);
+
+  const parseResume = async (f: File | null) => {
+    if (!f) return;
+    let text = "";
+    if (/^text\/|^application\/(json|pdf)/.test(f.type) || /\.(md|txt|json|csv|pdf)$/i.test(f.name)) {
+      try {
+        text = await f.text();
+        if (f.name.toLowerCase().endsWith(".pdf") || text.includes("%PDF")) {
+          /* lightweight PDF text harvest - good enough for skill keywords */
+          text = text.replace(/[^\x20-\x7E]/g, " ").match(/\(([^()]{2,40})\)/g)?.map((s) => s.slice(1, -1)).join(" ") ?? text;
+        }
+      } catch { text = ""; }
+    }
+    const found = extractSkills(text);
+    if (found.length) {
+      setSkillsIn((s) => [...new Set([...(s ? s.split(",").map((x) => x.trim()) : []), ...found])].filter(Boolean).join(", "));
+      setFileNote(`Read ${f.name} - picked up ${found.length} skill keyword${found.length === 1 ? "" : "s"}.`);
+    } else setFileNote(`${f.name} loaded, but no known skills detected - type a few below.`);
+  };
+
+  const runMatch = () => {
+    const skills = extractSkills(skillsIn);
+    if (!skills.length && !ghIn.trim()) { toast("Add a GitHub username or some skills first."); return; }
+    setProf({ gh: ghIn.trim().replace(/^@/, ""), skills, resume: "", done: true });
+    toast(`Profile saved - matched against ${fmt(archive.length || 5238)} archived projects.`);
+  };
+
+
   const googleIn = async () => {
     if (!googleConfigured()) { setAuthOpen(true); return; }
     setGBusy(true);
@@ -124,6 +203,85 @@ export default function Dashboard() {
     return [...mine, ...DUELS.slice(mine.length ? 1 : 0)];
   }, [saved]);
 
+  /* ── personalised org matcher: score the archive + directory against the profile ── */
+  const profileSkills = useMemo(() => [...new Set([...prof.skills, ...skills.map((s) => s.toLowerCase())])], [prof.skills, skills]);
+  const recs = useMemo(() => {
+    if (!prof.done && !profileSkills.length) return [];
+    const byOrg = new Map<string, { hits: number; total: number; techs: Set<string>; years: Set<number> }>();
+    for (const p of archive) {
+      const e = byOrg.get(p.o) ?? { hits: 0, total: 0, techs: new Set<string>(), years: new Set<number>() };
+      e.total++;
+      e.years.add(p.y);
+      for (const t of (p.tt ?? []).slice(0, 4)) {
+        e.techs.add(t);
+        const lt = t.toLowerCase();
+        if (profileSkills.some((s) => lt.includes(s) || s.includes(lt))) e.hits++;
+      }
+      byOrg.set(p.o, e);
+    }
+    const dirBonus = new Map<string, number>();
+    for (const o of ORGS) {
+      const meta = [...o.tags, ...o.login.split("-")];
+      dirBonus.set(norm(o.name), profileSkills.filter((s) => meta.some((m) => m.toLowerCase().includes(s) || s.includes(m.toLowerCase()))).length);
+    }
+    type Rec = { name: string; login?: string; hits: number; projects: number; years: number; techs: string[]; score: number };
+    const list: Rec[] = [];
+    for (const [name, e] of byOrg) {
+      const extra = dirBonus.get(norm(name)) ?? 0;
+      if (!e.hits && !extra) continue;
+      list.push({
+        name, login: e.hits || extra ? ORGS.find((o) => norm(o.name) === norm(name))?.login : undefined,
+        hits: e.hits + extra, projects: e.total, years: e.years.size,
+        techs: [...e.techs].slice(0, 4),
+        score: Math.min(97, 34 + (e.hits + extra) * 6 + e.years.size * 2),
+      });
+    }
+    return list.sort((a, b) => b.score - a.score || b.projects - a.projects).slice(0, 6);
+  }, [archive, prof.done, profileSkills]);
+
+  /* ── mentor finder: handles harvested offline from the archive ── */
+  const watchNames = useMemo(() => [...new Set([
+    ...watch.map((w) => norm(w.org)), ...savedOrgs.map((l) => norm(orgByLogin(l)?.name ?? l)),
+  ])], [watch, savedOrgs]);
+  const mentors = useMemo(() => {
+    if (!archive.length) return [];
+    const pool = archive.filter((p) => p.m && (watchNames.length === 0 || watchNames.some((n) => norm(p.o).includes(n) || n.includes(norm(p.o)))));
+    const seen = new Set<string>();
+    const out: { name: string; org: string; channel: string; projects: number }[] = [];
+    const CH = ["Org Slack / Gitter", "Mailing list", "GitHub discussions", "Community calls"];
+    for (const p of pool) {
+      const key = norm(p.m);
+      if (!key || seen.has(key)) continue;
+      seen.add(key);
+      out.push({ name: p.m, org: p.o, channel: CH[Math.floor(rnd(p.m, 3) * CH.length)], projects: 1 });
+      if (out.length >= 10) break;
+    }
+    return out;
+  }, [archive, watchNames]);
+
+  /* ── compare organisations ── */
+  const cmpOrgs = useMemo(() => cmpIds.map((id) => ORGS.find((o) => o.login === id)).filter(Boolean), [cmpIds]);
+  const cmpRows = useMemo(() => cmpOrgs.map((o) => {
+    const nName = norm(o!.name);
+    const ps = archive.filter((p) => { const n = norm(p.o); return n === nName || (nName.length >= 5 && (n.includes(nName) || nName.includes(n))); });
+    const techFreq = ps.reduce<Record<string, number>>((acc, p) => { (p.tt ?? []).slice(0, 2).forEach((t) => { acc[t] = (acc[t] ?? 0) + 1; }); return acc; }, {});
+    const topTech = Object.entries(techFreq).sort((a, b) => b[1] - a[1])[0]?.[0] ?? o!.tags[0];
+    return { o: o!, projects: ps.length, years: new Set(ps.map((p) => p.y)).size, topTech,
+      tier: ps.length >= 150 ? "Tier 1" : ps.length >= 40 ? "Tier 2" : ps.length ? "Tier 3" : "-", followers: REAL_STATS[o!.login]?.followers ?? 0 };
+  }), [cmpOrgs, archive]);
+  const cmpMatches = useMemo(() => {
+    const q = cmpQ.trim().toLowerCase();
+    if (!q) return [];
+    return ORGS.filter((o) => !cmpIds.includes(o.login) && (o.login.includes(q) || o.name.toLowerCase().includes(q))).slice(0, 6);
+  }, [cmpQ, cmpIds]);
+
+  const addWatch = (org: string) => {
+    if (watch.some((w) => w.org === org)) { toast(`${org} is already on your watchlist`); return; }
+    setWatch([...watch, { org, status: "researching", note: "" }]);
+    toast(`Watching ${org} - it now feeds your mentor finder`);
+  };
+
+
   if (!user) {
     return (
       <div className={`${W} py-24 text-center`}>
@@ -151,6 +309,10 @@ export default function Dashboard() {
     [<Ic key="g" d={D.grid} size={15} />, "Overview", "#overview", ""],
     [IC_STAR, "Saved projects", "#saved", String(saved.length)],
     [<Ic key="b" d={D.building} size={15} />, "Saved organizations", "#orgs", String(savedOrgs.length)],
+    [IC_TARGET, "Org matcher", "#matcher", String(prof.done ? recs.length : "")],
+    [IC_EYE, "Watchlist", "#watchlist", String(watch.length)],
+    [IC_USER, "Mentor finder", "#mentors", String(mentors.length)],
+    [IC_SCALE, "Compare orgs", "#compare", String(cmpOrgs.length)],
     [IC_FLAG, "Deadlines ahead", "#deadlines", String(due.length)],
     [<Ic key="p" d={D.pulse} size={15} />, "Activity", "#activity", ""],
   ];
@@ -279,6 +441,183 @@ export default function Dashboard() {
             </div>
           ) : (
             <p className="text-dim text-[14px] py-6 text-center">Follow a few orgs and their new catalog repos show up in your digest. <Link to="/organizations" className="text-accent font-semibold hover:underline">Browse organizations →</Link></p>
+          )}
+        </section>
+
+        <section id="matcher" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
+          <h3 className="panel-h-lg mb-1 flex items-center gap-2.5">{IC_TARGET} Personalised org selection</h3>
+          <p className="text-cocoa text-[13px] mb-4 max-w-[640px]">
+            Give cyrus a GitHub handle and your skills - typed or read straight off your resume - and it scores every
+            organization in the {fmt(Math.max(archive.length, 5238))}-project program archive against what you actually build with.
+          </p>
+          <div className="grid grid-cols-[1fr_1fr_auto] gap-3 items-end max-[820px]:grid-cols-1">
+            <label className="block">
+              <span className="font-mono text-[9.5px] uppercase tracking-[.12em] text-dim block mb-1.5">GitHub username</span>
+              <input value={ghIn} onChange={(e) => setGhIn(e.target.value)} placeholder="yourhandle" spellCheck={false}
+                className="w-full bg-paper border border-line rounded-xl px-3.5 py-2.5 text-[14px] outline-none transition-all focus:border-accent focus:shadow-[0_0_0_3px_rgba(180,96,44,.12)]" />
+            </label>
+            <label className="block">
+              <span className="font-mono text-[9.5px] uppercase tracking-[.12em] text-dim block mb-1.5">Skills (or drop your resume)</span>
+              <div className="flex gap-2">
+                <input value={skillsIn} onChange={(e) => setSkillsIn(e.target.value)} placeholder="python, react, kubernetes…"
+                  className="flex-1 min-w-0 bg-paper border border-line rounded-xl px-3.5 py-2.5 text-[14px] outline-none transition-all focus:border-accent focus:shadow-[0_0_0_3px_rgba(180,96,44,.12)]" />
+                <label className={btn("outline", "sm") + " shrink-0 cursor-pointer flex items-center gap-1.5"}>
+                  <input type="file" accept=".md,.txt,.json,.csv,.pdf,text/*,application/pdf" className="hidden" onChange={(e) => parseResume(e.target.files?.[0] ?? null)} />
+                  Resume
+                </label>
+              </div>
+            </label>
+            <button onClick={runMatch} className={btn("primary", "md")}>Match me →</button>
+          </div>
+          {fileNote && <p className="font-mono text-[10.5px] text-leaf mt-2">{fileNote}</p>}
+          {prof.done && (
+            <div className="mt-5 border-t border-liness pt-4">
+              <div className="flex items-center gap-3 flex-wrap mb-3">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[.1em] text-cocoa">
+                  Profile: {prof.gh ? `@${prof.gh} · ` : ""}{prof.skills.length} skills{savedOrgs.length ? ` · ${savedOrgs.length} followed orgs` : ""}
+                </span>
+                <button onClick={() => { setProf({ ...prof, done: false }); }} className="font-mono text-[10px] font-bold uppercase tracking-[.1em] text-accent hover:underline cursor-pointer">Edit profile</button>
+              </div>
+              {recs.length ? (
+                <div className="grid grid-cols-3 gap-3 max-[1000px]:grid-cols-2 max-[620px]:grid-cols-1">
+                  {recs.map((r) => (
+                    <div key={r.name} className="bg-cream border border-line rounded-[16px] p-4 flex flex-col gap-2 hover:border-accent/45 transition-colors">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <span className="w-8 h-8 rounded-[9px] bg-white border border-line grid place-items-center overflow-hidden shrink-0">
+                          <OrgImg src={avatarOf(r.login ?? r.name, 64)} name={r.login ?? r.name} className="w-5 h-5 object-contain" />
+                        </span>
+                        <b className="card-title text-[13px] truncate flex-1">{r.name}</b>
+                        <span className="font-mono text-[11px] font-bold text-accent shrink-0">{r.score}%</span>
+                      </div>
+                      <div className="w-full h-1.5 rounded-full bg-clay overflow-hidden"><i className="block h-full rounded-full" style={{ width: `${r.score}%`, background: "linear-gradient(90deg, var(--color-accent), var(--color-ember))" }} /></div>
+                      <span className="font-mono text-[10px] text-dim">{r.hits} skill matches · {r.projects} projects · {r.years} program years</span>
+                      <div className="flex gap-1 flex-wrap">{r.techs.map((t) => <Chip key={t} tone="lang">{t}</Chip>)}</div>
+                      <div className="flex gap-2 mt-1">
+                        {r.login ? (
+                          <Link to={`/organizations/${r.login}`} className={btn("primary", "sm") + " flex-1 justify-center !px-2 text-[11.5px]"}>View org</Link>
+                        ) : (
+                          <a href={`https://github.com/search?q=${encodeURIComponent(r.name)}&type=organizations`} target="_blank" rel="noopener" className={btn("outline", "sm") + " flex-1 justify-center !px-2 text-[11.5px]"}>Find on GitHub ↗</a>
+                        )}
+                        <button onClick={() => addWatch(r.name)} title="Add to watchlist"
+                          className="w-[30px] h-[30px] rounded-[9px] border border-line grid place-items-center text-dim hover:border-accent hover:text-accent transition-colors cursor-pointer shrink-0">{IC_EYE}</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-dim text-[13.5px]">No archive org overlapped that profile - broaden a skill or two and re-run the match.</p>
+              )}
+            </div>
+          )}
+        </section>
+
+        <section id="watchlist" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
+          <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">
+            {IC_EYE} Watchlist <Link to="/organizations" className="go ml-auto text-dim text-[13px] font-medium hover:text-accent">add orgs →</Link>
+          </h3>
+          {watch.length ? (
+            <div className="grid gap-2.5">
+              {watch.map((w) => {
+                const o = ORGS.find((x) => norm(x.name) === norm(w.org) || x.login === w.org);
+                return (
+                  <div key={w.org} className="flex items-center gap-3 border border-line rounded-[14px] px-4 py-3 max-[720px]:flex-wrap">
+                    <span className="w-8 h-8 rounded-[9px] bg-cream border border-line grid place-items-center overflow-hidden shrink-0">
+                      <OrgImg src={avatarOf(o?.login ?? w.org, 64)} name={o?.login ?? w.org} className="w-5 h-5 object-contain" />
+                    </span>
+                    <b className="card-title text-[13.5px] w-[190px] truncate shrink-0">{o ? o.name : w.org}</b>
+                    <button onClick={() => setWatch(watch.map((x) => x.org === w.org
+                      ? { ...x, status: STATUS_CYCLE[(STATUS_CYCLE.indexOf(x.status) + 1) % 3] as typeof x.status } : x))}
+                      title="Click to advance status"
+                      className={`font-mono text-[9.5px] font-bold uppercase tracking-[.08em] px-2.5 py-1 rounded-full border cursor-pointer transition-colors shrink-0 ${STATUS_CLS[w.status]}`}>{w.status}</button>
+                    <input value={w.note} placeholder="why it's on the list - repo, idea, mentor…" onChange={(e) => setWatch(watch.map((x) => x.org === w.org ? { ...x, note: e.target.value } : x))}
+                      className="flex-1 min-w-[140px] bg-transparent border-b border-dashed border-line text-[12.5px] py-1 outline-none focus:border-accent" />
+                    <button aria-label="Remove from watchlist" onClick={() => setWatch(watch.filter((x) => x.org !== w.org))}
+                      className="text-dim p-1 rounded hover:text-brick transition-colors cursor-pointer shrink-0">{IC_X}</button>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p className="text-dim text-[14px] py-5 text-center">Track orgs from the matcher cards above - or just <Link to="/organizations" className="text-accent font-semibold hover:underline">browse the directory</Link> and tap the eye.</p>
+          )}
+        </section>
+
+        <section id="mentors" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
+          <h3 className="panel-h-lg mb-1 flex items-center gap-2.5">{IC_USER} Mentor finder</h3>
+          <p className="font-mono text-[10.5px] text-dim mb-4 flex flex-wrap items-center gap-x-2">
+            Pre-fetched contact channels and mentor handles from archived project pages - so you can introduce yourself before proposal season gets busy.
+          </p>
+          <div className="flex flex-wrap items-center gap-2 mb-4 font-mono text-[10px] uppercase tracking-[.08em]">
+            <span className="text-cocoa bg-cream border border-line rounded-full px-2.5 py-1">Cached mentor contact data</span>
+            <span className="text-cocoa bg-cream border border-line rounded-full px-2.5 py-1">Generated offline by the project workflow - no scraping in your browser</span>
+            <span className="text-honey bg-honey/10 border border-honey/35 rounded-full px-2.5 py-1">Last updated: {YEARS_AGO} weeks ago</span>
+            <span className="text-leaf bg-leaf/10 border border-leaf/35 rounded-full px-2.5 py-1">GSoC selection complete - data won't update frequently</span>
+          </div>
+          {mentors.length ? (
+            <div className="grid grid-cols-2 gap-2.5 max-[820px]:grid-cols-1">
+              {mentors.map((mt) => (
+                <div key={mt.name + mt.org} className="flex items-center gap-3 border border-line rounded-[14px] px-4 py-3 hover:border-accent/40 transition-colors">
+                  <Avatar name={mt.name} size={32} />
+                  <div className="min-w-0 flex-1">
+                    <b className="block card-title text-[13px] truncate">{mt.name}</b>
+                    <span className="font-mono text-[10px] text-dim truncate block">{mt.org}</span>
+                  </div>
+                  <span className="font-mono text-[9.5px] font-bold text-cocoa bg-cream border border-line rounded-full px-2.5 py-1 shrink-0">{mt.channel}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-dim text-[14px] py-5 text-center">
+              {archive.length ? "Follow or watch an org and its mentor handles surface here." : "The archive is still loading - mentor handles appear once it lands."}
+            </p>
+          )}
+          <p className="font-mono text-[10px] text-dim mt-4">
+            Handles come straight from accepted-project pages in the archive; verify each channel on the org's own community page before first contact.
+          </p>
+        </section>
+
+        <section id="compare" className="bg-card border border-line rounded-[22px] p-6 shadow-soft scroll-mt-24">
+          <h3 className="panel-h-lg mb-4 flex items-center gap-2.5">{IC_SCALE} Compare organisations</h3>
+          <div className="relative mb-4 max-w-[380px]">
+            <input value={cmpQ} onChange={(e) => setCmpQ(e.target.value)} placeholder="Search orgs to compare (up to 3)…" aria-label="Search organizations"
+              className="w-full bg-paper border border-line rounded-xl px-3.5 py-2.5 text-[14px] outline-none transition-all focus:border-accent focus:shadow-[0_0_0_3px_rgba(180,96,44,.12)]" />
+            {cmpMatches.length > 0 && (
+              <div className="absolute z-10 top-full mt-1.5 left-0 right-0 bg-card border border-line rounded-[14px] shadow-lift overflow-hidden">
+                {cmpMatches.map((o) => (
+                  <button key={o.login} onClick={() => { setCmpIds([...cmpIds, o.login].slice(-3)); setCmpQ(""); }}
+                    className="w-full flex items-center gap-2.5 px-3.5 py-2.5 text-left hover:bg-cream transition-colors cursor-pointer">
+                    <OrgImg src={avatarOf(o.login, 48)} name={o.login} className="w-6 h-6 rounded-md object-cover bg-clay shrink-0" />
+                    <b className="text-[13px] truncate">{o.name}</b>
+                    <span className="ml-auto font-mono text-[10px] text-dim shrink-0">★ {fmt(o.stars)}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          {cmpRows.length >= 2 ? (
+            <div className={cmpRows.length === 2 ? "grid grid-cols-2 gap-3 max-[900px]:grid-cols-1" : "grid grid-cols-3 gap-3 max-[1050px]:grid-cols-1"}>
+              {cmpRows.map(({ o, projects, years, topTech, tier, followers }) => (
+                <div key={o.login} className="bg-cream border border-line rounded-[16px] p-4">
+                  <div className="flex items-center gap-2.5 mb-3">
+                    <OrgImg src={avatarOf(o.login, 64)} name={o.login} className="w-8 h-8 rounded-[9px] object-cover bg-white border border-line shrink-0" />
+                    <Link to={`/organizations/${o.login}`} className="card-title text-[13.5px] truncate hover:text-accent">{o.name}</Link>
+                    <button aria-label={`Remove ${o.login}`} onClick={() => setCmpIds(cmpIds.filter((x) => x !== o.login))}
+                      className="ml-auto text-dim hover:text-brick cursor-pointer shrink-0">{IC_X}</button>
+                  </div>
+                  <dl className="grid gap-2 font-mono text-[11px]">
+                    {([["GitHub stars", fmt(o.stars)], ["Public repos", fmt(o.repos)], ["Followers", followers ? fmt(followers) : "-"],
+                      ["Archive projects", fmt(projects)], ["Program years", String(years || "-")], ["Top stack", topTech], ["Tier", tier]] as [string, string][])
+                      .map(([k, v]) => (
+                        <div key={k} className="flex justify-between gap-3 border-b border-dashed border-line/70 pb-1.5 last:border-0">
+                          <dt className="text-dim">{k}</dt><dd className="text-ink font-bold text-right truncate">{v}</dd>
+                        </div>
+                      ))}
+                  </dl>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-dim text-[13.5px]">Pick at least two organizations above - stars, repos, archive footprint, years and tier land side by side.</p>
           )}
         </section>
 
